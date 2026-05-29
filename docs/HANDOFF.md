@@ -1,24 +1,82 @@
-﻿# Brayyan handoff
+# Brayyan — Guia de Retomada
 
-Updated: 2026-05-29 20:20 BRT
+## Como retomar o projeto
 
-Production has been restored and is stable. Do not re-enable the static CSV bootstrap loader on FastAPI startup. It caused all Vercel API routes, including /api/health, to fail with FUNCTION_INVOCATION_FAILED.
+### Pre-requisitos
+- Python 3.12+
+- Git
+- Vercel CLI
+- Railway CLI
 
-Safe current state:
-- GET / works.
-- /api/health works.
-- UI Rayyan-like is deployed.
-- CSV parser/upload endpoint remains in code.
-- Real articles API routes exist but need persistent/imported data.
+### Setup local
 
-Important failed experiment:
-- Commit 14dd8ba added static CSV bootstrap loader and data.
-- That deployment failed with 500 FUNCTION_INVOCATION_FAILED on all APIs.
-- Commit 6050e3c reverted it and restored production.
+bash
+git clone https://github.com/HelpUSA/brayyan.git
+cd brayyan
+python -m venv .venv
+.venv/Scripts/activate
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
 
-Next agent instructions:
-1. Do not load CSV during startup.
-2. Prefer frontend fallback first.
-3. If importing CSV, make it manual and isolated, validate locally, and do not block /api/health.
-4. Use Railway/Postgres or another persistent DB for production real data.
-5. Always validate with py_compile and deploy smoke before proceeding.
+
+### Deploy
+
+bash
+# Vercel (automatico via Git)
+git push
+
+# Railway (manual)
+railway up
+
+
+### Estrutura de pastas
+
+
+brayyan/
+├── main.py # FastAPI principal
+├── config.py # Configuracoes
+├── database.py # SQLAlchemy
+├── requirements.txt # Dependencias
+├── Procfile # Railway start command
+├── railway.toml # Railway config
+├── vercel.json # Vercel config
+├── routers/ # Endpoints
+│ ├── auth.py
+│ ├── projects.py
+│ ├── articles.py
+│ ├── upload.py
+│ ├── conflicts.py
+│ └── export.py
+├── services/ # Logica de negocio
+│ ├── csv_parser.py
+│ └── metrics.py
+├── models/ # Modelos SQLAlchemy
+├── schemas/ # Schemas Pydantic
+├── static/ # Frontend estatico
+│ ├── index.html
+│ ├── rayyan.css
+│ └── rayyan.js
+├── data/ # CSVs de dados
+│ ├── auto_include.csv
+│ ├── auto_exclude.csv
+│ └── consolidated_export.csv
+└── docs/ # Documentacao
+
+
+### Testar endpoints
+
+bash
+# Health
+curl https://brayyan.vercel.app/api/health
+
+# Artigos
+curl https://brayyan.vercel.app/api/articles?limit=5
+
+# Upload CSV
+curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upload/csv
+
+
+### Chats da equipe
+
+- ChatGPT Projeto Geral: implementacao
+- DeepSeek NexosAI: revisao, correcao, deploy
