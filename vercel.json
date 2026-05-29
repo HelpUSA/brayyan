@@ -1,6 +1,7 @@
 {
   "buildCommand": "echo static",
   "outputDirectory": "static",
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/api/:path*",
@@ -13,10 +14,6 @@
     {
       "source": "/docs/:path*",
       "destination": "https://brayyan-production.up.railway.app/docs/:path*"
-    },
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
     }
   ]
 }
