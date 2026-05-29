@@ -1,0 +1,20 @@
+document.addEventListener('DOMContentLoaded', function() {
+ console.log('Brayyan v0.1.0 loaded');
+ var root = document.getElementById('root');
+ if (!root) return;
+ root.innerHTML = '';
+ var h1 = document.createElement('h1');
+ h1.textContent = 'Brayyan';
+ root.appendChild(h1);
+ var p1 = document.createElement('p');
+ p1.textContent = 'AI-powered systematic review screening assistant.';
+ root.appendChild(p1);
+ var p2 = document.createElement('p');
+ p2.style.cssText = 'margin-top:2rem;color:#6366f1';
+ p2.textContent = 'Upload your AI-processed CSV files to get started.';
+ root.appendChild(p2);
+ var p3 = document.createElement('p');
+ p3.style.cssText = 'margin-top:0.5rem;font-size:0.9rem;color:#64748b';
+ p3.textContent = 'v0.1.0';
+ root.appendChild(p3);
+});
