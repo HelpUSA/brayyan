@@ -1,0 +1,13 @@
+﻿.py
+routers/
+models/
+schemas/
+services/
+database.py
+config.py
+requirements.txt
+.venv/
+venv/
+pycache/
+.pyc
+brayyan.db
