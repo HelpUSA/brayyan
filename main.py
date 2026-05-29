@@ -1,4 +1,3 @@
-import sys; sys.path.insert(0,'D:/dev/brayyan/backend')
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
