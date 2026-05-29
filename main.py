@@ -1,19 +1,10 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
 
 app = FastAPI(title='Brayyan', version='0.1.0')
 
-from services.bootstrap_loader import bootstrap_static_csv_data
-
-@app.on_event ('startup')
-def startup_bootstrap_static_csv_data():
- bootstrap_static_csv_data()
-
-@app.get ('/api/bootstrap')
-async def bootstrap_status():
- return bootstrap_static_csv_data()
 from routers import auth, projects, articles, upload, conflicts, export
 
 app.include_router(auth.router, prefix='/api/auth', tags=['auth'])
@@ -40,4 +31,3 @@ async def spa(path: str):
     if os.path.isfile(fp):
         return FileResponse(fp)
     return FileResponse(os.path.join(STATIC, 'index.html'))
-
