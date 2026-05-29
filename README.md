@@ -2,4 +2,9 @@
 
 AI-assisted systematic review screening workspace with a Rayyan-like interface.
 
-See docs/CURRENT_STATUS.md and docs/HANDOFF.md.
+Current production is stable after reverting the failed static CSV startup loader.
+
+See:
+- docs/CURRENT_STATUS.md
+- docs/HANDOFF.md
+- docs/DATABASE_STATE.md
