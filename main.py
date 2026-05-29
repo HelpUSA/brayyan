@@ -19,8 +19,9 @@ async def health():
     return {'status': 'ok', 'version': '0.1.0'}
 
 STATIC = os.path.join(os.path.dirname(__file__), 'static')
-if os.path.exists(STATIC):
-    app.mount('/assets', StaticFiles(directory=os.path.join(STATIC, 'assets')), name='assets')
+ASSETS = os.path.join(STATIC, 'assets')
+if os.path.isdir(ASSETS):
+    app.mount('/assets', StaticFiles(directory=ASSETS), name='assets')
 
 @app.get('/{path:path}')
 async def spa(path: str):
