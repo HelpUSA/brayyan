@@ -38,7 +38,7 @@ async def article_summary(project_id: str = "1", db: Session = Depends(get_db)):
     total = db.execute(text("SELECT COUNT(*) FROM ai_screening_records")).scalar() or 0
     screened = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE coalesce(a_decision, '') <> '' OR coalesce(b_decision, '') <> ''")).scalar() or 0
     included = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(provisional_decision, '')) LIKE '%include%'")).scalar() or 0
-    conflicts = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(comparison_status, '')) LIKE '%conflict%")).scalar() or 0
+    conflicts = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(comparison_status, '')) LIKE '%conflict%'")).scalar() or 0
     human = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE human_review_needed = 1")).scalar() or 0
     return {"project_id": project_id, "total": total, "screened": screened, "included": included, "conflicts": conflicts, "human_review_needed": human}
 
