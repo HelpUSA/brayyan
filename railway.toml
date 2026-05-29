@@ -1,8 +1,6 @@
-[build]
- builder = 'nixpacks'
+﻿[build]
+  builder = 'nixpacks'
+  build_command = 'pip install -r requirements.txt'
 
 [deploy]
- start_command = 'uvicorn backend.main:app --host 0.0.0.0 --port 8000'
-
-[service]
- port = 8000
+  start_command = 'uvicorn main:app --host 0.0.0.0 --port 8000'
