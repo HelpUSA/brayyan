@@ -18,7 +18,7 @@ app.include_router(export.router, prefix='/api/export', tags=['export'])
 async def health():
     return {'status': 'ok', 'version': '0.1.0'}
 
-STATIC = os.path.join(os.path.dirname(__file__), '..', 'static')
+STATIC = os.path.join(os.path.dirname(__file__), 'static')
 if os.path.exists(STATIC):
     app.mount('/assets', StaticFiles(directory=os.path.join(STATIC, 'assets')), name='assets')
 
