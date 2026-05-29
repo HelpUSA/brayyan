@@ -1,22 +1,22 @@
 {
-    "buildCommand":  "echo static",
-    "outputDirectory":  "static",
-    "rewrites":  [
-                     {
-                         "source":  "/api/:path*",
-                         "destination":  "https://brayyan-production.up.railway.app/api/:path* "
-                     },
-                     {
-                         "source":  "/docs",
-                         "destination":  "https://brayyan-production.up.railway.app/docs "
-                     },
-                     {
-                         "source":  "/docs/:path*",
-                         "destination":  "https://brayyan-production.up.railway.app/docs/:path* "
-                     },
-                     {
-                         "source":  "/:path*",
-                         "destination":  "/index.html"
-                     }
-                 ]
+  "buildCommand": "echo static",
+  "outputDirectory": "static",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://brayyan-production.up.railway.app/api/:path*"
+    },
+    {
+      "source": "/docs",
+      "destination": "https://brayyan-production.up.railway.app/docs"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://brayyan-production.up.railway.app/docs/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
 }
