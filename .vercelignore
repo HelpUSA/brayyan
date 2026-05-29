@@ -1,13 +1,1 @@
-﻿.py
-.pyc
-pycache/
-routers/
-models/
-schemas/
-services/
-database.py
-config.py
-requirements.txt
-.venv/
-venv/
-brayyan.db
+*.py *.pyc __pycache__/ routers/ models/ schemas/ services/ database.py config.py requirements.txt .venv/ venv/ brayyan.db
