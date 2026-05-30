@@ -22,3 +22,11 @@ Updated: 2026-05-30
 
 ## Architecture decision
 Use Vercel for static frontend and Railway/FastAPI/Postgres for practical API/data. Avoid persistent SQLite expectations inside Vercel.
+
+## Checklist before backend/data sprint
+1. Restore Railway/FastAPI/Postgres in an isolated environment.
+2. Smoke /api/health on Railway before connecting frontend.
+3. Import CardioReview CSV manually, never during app startup.
+4. Validate 3,539 expected consolidated records or document any count difference.
+5. Smoke articles, summary, prisma, metrics, conflicts and export endpoints against persistent DB.
+6. Only then consider frontend API integration. Do not route FastAPI through Vercel api/index.py.

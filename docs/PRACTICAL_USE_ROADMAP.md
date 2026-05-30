@@ -36,3 +36,9 @@ Updated: 2026-05-30
 - User can see PRISMA counts and Kappa.
 - User can export CSV with final decisions.
 - Admin login protects import/export/conflict resolution.
+
+## Static UI progress added on safe/practical-use-roadmap
+- Added Practical MVP tab to expose practical-use readiness directly in the UI.
+- Added Operational tab with cards for Upload CSV, Conflicts A vs B, PRISMA flow, Kappa metrics, Export CSV, and Auth readiness.
+- These panels are static-only and do not change production API routing, startup behavior, or persistence.
+- Current safe branch commits: be2197f, daf88b5, fa235e0.

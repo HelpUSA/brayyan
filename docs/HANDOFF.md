@@ -85,3 +85,8 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 - Frontend fallback is now deployed in static/rayyan.js.
 - Do not reintroduce CSV import in startup. Any real data import must be manual/isolated.
 - Next safe blocks: UI panels for conflicts, PRISMA, metrics, export, and then basic auth.
+
+## Safe branch UI additions
+- Branch safe/practical-use-roadmap includes static Practical MVP and Operational tabs.
+- Operational tab documents Upload CSV, Conflicts A vs B, PRISMA, Kappa, Export CSV and Auth readiness.
+- No production deploy from this branch has been performed.
