@@ -27,6 +27,7 @@
 <button class='tab' data-tab='fulltext'>Full text screening</button>
 <button class='tab' data-tab='extraction'>Data extraction</button>
 <button class='tab' data-tab='risk'>Risk of bias</button>
+<button class='tab' data-tab='practical'>Practical MVP</button>
 </nav>
 </header>
 <div class='updateBar'><span>Stay caught up with review updates</span><span class='spacer'></span><button class='btn'>Edit info</button><button class='btn'>Invite members</button><button class='btn'>PRISMA</button></div>
@@ -75,6 +76,19 @@
 <section id='fulltext' class='view'><div class='card emptyState'><div><div class='emptyIcon'>+</div><h2>Full Text Screening</h2><p>Add articles after title and abstract screening to begin full text review.</p><button class='btn primary'>Add articles</button></div></div></section>
 <section id='extraction' class='view'><div class='card emptyState'><div><div class='emptyIcon'>↧</div><h2>Data Extraction</h2><p>Create extraction fields for population, ECG modality, AI model, reference standard and diagnostic accuracy.</p><button class='btn primary'>Add articles</button></div></div></section>
 <section id='risk' class='view'><div class='card emptyState'><div><div class='emptyIcon'>!</div><h2>Risk of Bias</h2><p>Prepare QUADAS-2 or custom bias domains for diagnostic test accuracy studies.</p><button class='btn primary'>Add articles</button></div></div></section>
+
+<section id='practical' class='view'>
+<div class='card'><div class='cardHead'><h2>Practical MVP readiness</h2></div><div class='cardBody'>
+<div class='workflowGrid'>
+<div class='workflowStep'><b>1. Import</b><span>CSV parser exists. Production import must use a persistent database, not startup loading.</span></div>
+<div class='workflowStep'><b>2. Screening</b><span>Article-by-article review is the next operational step after data persistence.</span></div>
+<div class='workflowStep'><b>3. Conflicts A vs B</b><span>Conflict metadata exists and needs a live resolution workflow.</span></div>
+<div class='workflowStep'><b>4. PRISMA</b><span>Flow counts will come from imported records and final decisions.</span></div>
+<div class='workflowStep'><b>5. Kappa</b><span>Agreement metrics require persisted A/B decisions.</span></div>
+<div class='workflowStep'><b>6. Export</b><span>Export should include metadata, decisions, conflicts and final labels.</span></div>
+</div></div></div>
+</section>
+
 </main>
 <div class='quick'>Quick guide</div>
 <script src='/rayyan.js'></script>

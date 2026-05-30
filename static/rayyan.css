@@ -18,3 +18,8 @@
 .statusItem:last-child.statusItem b{margin-left:auto;color:#111827;font-size:18px}
 
 
+
+.workflowGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.workflowStep{border:1px solid #e5e7eb;border-radius:16px;padding:14px;background:#fff}
+.workflowStep b{display:block;margin-bottom:8px;color:#111827}
+.workflowStep span{color:#6b7280;line-height:1.45}
