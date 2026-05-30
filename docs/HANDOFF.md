@@ -97,3 +97,8 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 
 ## Backend planning note
 - Added docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md as planning only. No backend deploy and no Vercel routing changes were made.
+
+
+## Frontend-backend contract note
+- Added docs/FRONTEND_BACKEND_API_CONTRACT.md as planning only.
+- No deploy, no Vercel routing changes, no api/index.py and no startup loader changes were made.

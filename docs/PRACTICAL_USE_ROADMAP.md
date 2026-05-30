@@ -48,3 +48,7 @@ Updated: 2026-05-30
 
 ## Backend planning document
 - See docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md for the planned Railway/FastAPI/Postgres backend, manual CardioReview CSV import, auth, rollback and future execution checklist.
+
+
+## Frontend-backend contract
+- See docs/FRONTEND_BACKEND_API_CONTRACT.md for API_BASE_URL, environments, endpoint request/response contracts, error handling, auth/token, CORS, acceptance criteria and future smoke checklist.
