@@ -1,121 +1,54 @@
-# Brayyan — Guia de Retomada
+﻿# Brayyan handoff
 
-## Como retomar o projeto
+Updated: 2026-05-30
 
-### Pre-requisitos
-- Python 3.12+
-- Git
-- Vercel CLI
-- Railway CLI
+Branch: safe/practical-use-roadmap
 
-### Setup local
+## Current safe state
+- Production master is stable on the static baseline and must remain protected.
+- Safe branch safe/practical-use-roadmap contains static UI readiness panels and planning docs only.
+- No production deploy has been performed from this branch.
+- No Vercel API routing, api/index.py, startup CSV loader, SQLite persistence assumption or credentials were added.
 
-bash
-git clone https://github.com/HelpUSA/brayyan.git
-cd brayyan
-python -m venv .venv
-.venv/Scripts/activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+## What changed on the safe branch
+- Added static Practical MVP tab.
+- Added static Operational tab.
+- Added planning docs for production guardrails, UI acceptance, Railway/FastAPI/Postgres, frontend-backend contract, CardioReview import mapping, Postgres migrations/import scripts, readiness matrix, planning index and operator summary.
 
+## Read first when resuming
+1. docs/SAFE_BRANCH_PLANNING_INDEX.md
+2. docs/OPERATOR_EXECUTIVE_SUMMARY.md
+3. docs/MVP_READINESS_MATRIX.md
+4. docs/PRODUCTION_GUARDRAILS.md
+5. docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md
 
-### Deploy
+## Required local smoke
+Run before committing any future change on this branch:
 
-bash
-# Vercel (automatico via Git)
-git push
-
-# Railway (manual)
-railway up
-
-
-### Estrutura de pastas
-
-
-brayyan/
-├── main.py # FastAPI principal
-├── config.py # Configuracoes
-├── database.py # SQLAlchemy
-├── requirements.txt # Dependencias
-├── Procfile # Railway start command
-├── railway.toml # Railway config
-├── vercel.json # Vercel config
-├── routers/ # Endpoints
-│ ├── auth.py
-│ ├── projects.py
-│ ├── articles.py
-│ ├── upload.py
-│ ├── conflicts.py
-│ └── export.py
-├── services/ # Logica de negocio
-│ ├── csv_parser.py
-│ └── metrics.py
-├── models/ # Modelos SQLAlchemy
-├── schemas/ # Schemas Pydantic
-├── static/ # Frontend estatico
-│ ├── index.html
-│ ├── rayyan.css
-│ └── rayyan.js
-├── data/ # CSVs de dados
-│ ├── auto_include.csv
-│ ├── auto_exclude.csv
-│ └── consolidated_export.csv
-└── docs/ # Documentacao
+powershell
+python -m py_compile main.py config.py database.py routers/auth.py routers/projects.py routers/articles.py routers/upload.py routers/conflicts.py routers/export.py services/csv_parser.py
+node --check static/rayyan.js
+git status -sb
 
 
-### Testar endpoints
+## Critical restrictions
+- Do not modify master or production without explicit approval.
+- Do not reintroduce Vercel api/index.py.
+- Do not add Vercel /api rewrites.
+- Do not import CSV during FastAPI startup.
+- Do not rely on SQLite persistence inside Vercel.
+- Do not commit credentials, DATABASE_URL, tokens or auth secrets.
 
-bash
-# Health
-curl https://brayyan.vercel.app/api/health
+## Backend readiness
+Practical use is blocked until Railway/FastAPI/Postgres is restored in an isolated environment. Once restored, follow:
 
-# Artigos
-curl https://brayyan.vercel.app/api/articles?limit=5
+- docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md
+- docs/FRONTEND_BACKEND_API_CONTRACT.md
+- docs/CARDIOREVIEW_IMPORT_MAPPING.md
+- docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md
 
-# Upload CSV
-curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upload/csv
+## Next recommended step
+Await operator decision to restore Railway/Postgres. If backend remains unavailable, continue only docs/static UI work on safe/practical-use-roadmap.
 
-
-### Chats da equipe
-
-- ChatGPT Projeto Geral: implementacao
-- DeepSeek NexosAI: revisao, correcao, deploy
-
-## Fallback handoff note
-- Frontend fallback is now deployed in static/rayyan.js.
-- Do not reintroduce CSV import in startup. Any real data import must be manual/isolated.
-- Next safe blocks: UI panels for conflicts, PRISMA, metrics, export, and then basic auth.
-
-## Safe branch UI additions
-- Branch safe/practical-use-roadmap includes static Practical MVP and Operational tabs.
-- Operational tab documents Upload CSV, Conflicts A vs B, PRISMA, Kappa, Export CSV and Auth readiness.
-- No production deploy from this branch has been performed.
-
-## Latest safe checklist update
-- Added docs/UI_ACCEPTANCE_CHECKLIST.md on safe/practical-use-roadmap.
-- The checklist covers visual acceptance, local smoke gates, production safety gates and backend readiness gates.
-
-## Backend planning note
-- Added docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md as planning only. No backend deploy and no Vercel routing changes were made.
-
-
-## Frontend-backend contract note
-- Added docs/FRONTEND_BACKEND_API_CONTRACT.md as planning only.
-- No deploy, no Vercel routing changes, no api/index.py and no startup loader changes were made.
-
-## CardioReview import mapping note
-- Added docs/CARDIOREVIEW_IMPORT_MAPPING.md as planning only. No backend execution, no deployment and no Vercel changes were made.
-
-## Postgres migrations/import checklist note
-- Added docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md as planning only. No backend execution, no deployment and no Vercel changes were made.
-
-## MVP readiness matrix note
-- Added docs/MVP_READINESS_MATRIX.md as planning only. No backend execution, no deployment and no Vercel changes were made.
-
-## Safe branch planning index note
-- Added docs/SAFE_BRANCH_PLANNING_INDEX.md as the master index for the branch planning documents.
-- This is documentation only; no backend execution, no deployment and no Vercel changes were made.
-
-## Operator executive summary note
-- Added docs/OPERATOR_EXECUTIVE_SUMMARY.md for operator decision-making.
-- This is documentation only; no backend execution, no deployment and no Vercel changes were made.
+## Recovery note
+If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing changes, restore the latest verified static baseline immediately and avoid Vercel serverless API routing.
