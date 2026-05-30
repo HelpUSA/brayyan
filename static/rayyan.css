@@ -23,3 +23,10 @@
 .workflowStep{border:1px solid #e5e7eb;border-radius:16px;padding:14px;background:#fff}
 .workflowStep b{display:block;margin-bottom:8px;color:#111827}
 .workflowStep span{color:#6b7280;line-height:1.45}
+
+.opsGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.opsCard{border:1px solid #e5e7eb;border-radius:16px;padding:16px;background:#fff;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+.opsCard h3{margin:0 0 8px;font-size:16px}
+.opsCard p{margin:0 0 12px;color:#6b7280;line-height:1.45}
+.prismaLine{display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid #f3f4f6}
+.metricBig{font-size:28px;font-weight:800;color:#111827}
