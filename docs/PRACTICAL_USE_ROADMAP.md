@@ -55,3 +55,6 @@ Updated: 2026-05-30
 
 ## CardioReview import mapping
 - See docs/CARDIOREVIEW_IMPORT_MAPPING.md for expected CSV sources, column mapping, destination tables, normalization, duplicate handling, dry-run, rollback, acceptance criteria and future smoke checklist.
+
+## Postgres migrations and import scripts checklist
+- See docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md for future migrations, constraints, scripts, dry-run/import/rollback, env vars, audit/logs, tests, risks and acceptance gates.

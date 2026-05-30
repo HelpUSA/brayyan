@@ -105,3 +105,6 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 
 ## CardioReview import mapping note
 - Added docs/CARDIOREVIEW_IMPORT_MAPPING.md as planning only. No backend execution, no deployment and no Vercel changes were made.
+
+## Postgres migrations/import checklist note
+- Added docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md as planning only. No backend execution, no deployment and no Vercel changes were made.
