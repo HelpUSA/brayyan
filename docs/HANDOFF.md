@@ -108,3 +108,6 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 
 ## Postgres migrations/import checklist note
 - Added docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md as planning only. No backend execution, no deployment and no Vercel changes were made.
+
+## MVP readiness matrix note
+- Added docs/MVP_READINESS_MATRIX.md as planning only. No backend execution, no deployment and no Vercel changes were made.

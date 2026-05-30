@@ -58,3 +58,6 @@ Updated: 2026-05-30
 
 ## Postgres migrations and import scripts checklist
 - See docs/POSTGRES_MIGRATIONS_IMPORT_CHECKLIST.md for future migrations, constraints, scripts, dry-run/import/rollback, env vars, audit/logs, tests, risks and acceptance gates.
+
+## MVP readiness matrix
+- See docs/MVP_READINESS_MATRIX.md for final practical MVP readiness, blockers, go/no-go criteria, execution order and recommendation for Railway/Postgres restoration.
