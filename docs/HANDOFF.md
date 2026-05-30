@@ -94,3 +94,6 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 ## Latest safe checklist update
 - Added docs/UI_ACCEPTANCE_CHECKLIST.md on safe/practical-use-roadmap.
 - The checklist covers visual acceptance, local smoke gates, production safety gates and backend readiness gates.
+
+## Backend planning note
+- Added docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md as planning only. No backend deploy and no Vercel routing changes were made.

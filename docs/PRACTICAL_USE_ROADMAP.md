@@ -45,3 +45,6 @@ Updated: 2026-05-30
 
 ## UI acceptance checklist
 - See docs/UI_ACCEPTANCE_CHECKLIST.md for visual acceptance and smoke gates for the Practical MVP and Operational tabs.
+
+## Backend planning document
+- See docs/RAILWAY_FASTAPI_POSTGRES_PLAN.md for the planned Railway/FastAPI/Postgres backend, manual CardioReview CSV import, auth, rollback and future execution checklist.
