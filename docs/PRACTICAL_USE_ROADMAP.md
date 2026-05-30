@@ -52,3 +52,6 @@ Updated: 2026-05-30
 
 ## Frontend-backend contract
 - See docs/FRONTEND_BACKEND_API_CONTRACT.md for API_BASE_URL, environments, endpoint request/response contracts, error handling, auth/token, CORS, acceptance criteria and future smoke checklist.
+
+## CardioReview import mapping
+- See docs/CARDIOREVIEW_IMPORT_MAPPING.md for expected CSV sources, column mapping, destination tables, normalization, duplicate handling, dry-run, rollback, acceptance criteria and future smoke checklist.

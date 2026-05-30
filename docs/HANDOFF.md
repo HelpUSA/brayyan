@@ -102,3 +102,6 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 ## Frontend-backend contract note
 - Added docs/FRONTEND_BACKEND_API_CONTRACT.md as planning only.
 - No deploy, no Vercel routing changes, no api/index.py and no startup loader changes were made.
+
+## CardioReview import mapping note
+- Added docs/CARDIOREVIEW_IMPORT_MAPPING.md as planning only. No backend execution, no deployment and no Vercel changes were made.
