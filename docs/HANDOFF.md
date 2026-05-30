@@ -90,3 +90,7 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 - Branch safe/practical-use-roadmap includes static Practical MVP and Operational tabs.
 - Operational tab documents Upload CSV, Conflicts A vs B, PRISMA, Kappa, Export CSV and Auth readiness.
 - No production deploy from this branch has been performed.
+
+## Latest safe checklist update
+- Added docs/UI_ACCEPTANCE_CHECKLIST.md on safe/practical-use-roadmap.
+- The checklist covers visual acceptance, local smoke gates, production safety gates and backend readiness gates.

@@ -42,3 +42,6 @@ Updated: 2026-05-30
 - Added Operational tab with cards for Upload CSV, Conflicts A vs B, PRISMA flow, Kappa metrics, Export CSV, and Auth readiness.
 - These panels are static-only and do not change production API routing, startup behavior, or persistence.
 - Current safe branch commits: be2197f, daf88b5, fa235e0.
+
+## UI acceptance checklist
+- See docs/UI_ACCEPTANCE_CHECKLIST.md for visual acceptance and smoke gates for the Practical MVP and Operational tabs.
