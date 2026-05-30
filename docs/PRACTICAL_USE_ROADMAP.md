@@ -64,3 +64,6 @@ Updated: 2026-05-30
 
 ## Safe branch planning index
 - See docs/SAFE_BRANCH_PLANNING_INDEX.md for the master index of all planning documents, reading order, readiness status, restrictions, go/no-go rules and resume checklist.
+
+## Operator executive summary
+- See docs/OPERATOR_EXECUTIVE_SUMMARY.md for the final operator-facing decision summary, go/no-go criteria and recommended backend restoration path.

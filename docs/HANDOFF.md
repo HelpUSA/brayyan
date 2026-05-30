@@ -115,3 +115,7 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 ## Safe branch planning index note
 - Added docs/SAFE_BRANCH_PLANNING_INDEX.md as the master index for the branch planning documents.
 - This is documentation only; no backend execution, no deployment and no Vercel changes were made.
+
+## Operator executive summary note
+- Added docs/OPERATOR_EXECUTIVE_SUMMARY.md for operator decision-making.
+- This is documentation only; no backend execution, no deployment and no Vercel changes were made.
