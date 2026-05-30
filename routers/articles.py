@@ -43,7 +43,7 @@ async def list_articles(project_id: str = '1', page: int = 1, limit: int = 50, d
 @router.get('/summary')
 async def article_summary(project_id: str = '1', db: Session = Depends(get_db)):
     if not ok(db): return {'project_id': project_id, 'total':0,'screened':0,'included':0,'conflicts':0,'human_review_needed':0,'source':'empty_or_unavailable_db'}
-    return {'project_id': project_id, 'total': val(db,'SELECT COUNT(*) FROM ai_screening_records'), 'screened': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE coalesce(a_decision, '') <> '' OR coalesce(b_decision, '') <> ''"), 'included': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(provisional_decision, '')) LIKE '%include%'"), 'conflicts': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(comparison_status, '')) LIKE '%conflict%'"), 'human_review_needed': val(db,'SELECT COUNT(*) FROM ai_screening_records WHERE human_review_needed = 1'), 'source':'batabase'}
+    return {'project_id': project_id, 'total': val(db,'SELECT COUNT(*) FROM ai_screening_records'), 'screened': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE coalesce(a_decision, '') <> '' OR coalesce(b_decision, '') <> ''"), 'included': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(provisional_decision, '')) LIKE '%include%'"), 'conflicts': val(db,"SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(comparison_status, '')) LIKE '%conflict%'"), 'human_review_needed': val(db,'SELECT COUNT(*) FROM ai_screening_records WHERE human_review_needed = 1'), 'source':'database'}
 
 @router.get('/prisma')
 async def prisma(project_id: str = '1', db: Session = Depends(get_db)):
@@ -61,9 +61,10 @@ async def metrics(project_id: str = '1', db: Session = Depends(get_db)):
         labels=sorted({r._mapping['a'] for r in rows}|{r._mapping['b'] for r in rows})
         pe=sum((sum(1 for r in rows if r._mapping['a']==lab)/n)*(sum(1 for r in rows if r._mapping['b']==lab)/n) for lab in labels)
         po=agree/n; k=None if pe==1 else (po-pe)/(1-pe)
-        return {'project_id':project_id,'paired_decisions':n,'agreement':round(po,4),'cohen_kappa':None if k is None else round(k,4),'source':'batabase'}
+        return {'project_id':project_id,'paired_decisions':n,'agreement':round(po,4),'cohen_kappa':None if k is None else round(k,4),'source':'database'}
     except Exception as exc:
         rb(db); return {'project_id':project_id,'paired_decisions':0,'agreement':None,'cohen_kappa':None,'source':'empty_or_unavailable_db','error':str(exc)}
+
 
 
 
