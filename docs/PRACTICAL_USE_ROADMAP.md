@@ -61,3 +61,6 @@ Updated: 2026-05-30
 
 ## MVP readiness matrix
 - See docs/MVP_READINESS_MATRIX.md for final practical MVP readiness, blockers, go/no-go criteria, execution order and recommendation for Railway/Postgres restoration.
+
+## Safe branch planning index
+- See docs/SAFE_BRANCH_PLANNING_INDEX.md for the master index of all planning documents, reading order, readiness status, restrictions, go/no-go rules and resume checklist.
