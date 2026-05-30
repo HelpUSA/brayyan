@@ -66,3 +66,4 @@ async def metrics(project_id: str = '1', db: Session = Depends(get_db)):
         rb(db); return {'project_id':project_id,'paired_decisions':0,'agreement':None,'cohen_kappa':None,'source':'empty_or_unavailable_db','error':str(exc)}
 
 
+
