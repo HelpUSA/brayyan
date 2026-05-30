@@ -46,3 +46,9 @@
 
 - DeepSeek NexosAI (revisao, correcao, deploy)
 - ChatGPT Projeto Geral (implementacao)
+
+## 2026-05-29 frontend fallback deployed
+- Commit a7bd489 added frontend fallback for article API outages.
+- Production deploy after fallback smoke: /api/health OK and GET / OK.
+- UI now attempts /api/articles and falls back to demo review data when the API is empty or unavailable.
+- Continue with frontend-only conflict, PRISMA, metrics and export screens before touching persistence/startup again.

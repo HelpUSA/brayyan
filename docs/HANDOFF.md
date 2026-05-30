@@ -80,3 +80,8 @@ curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upl
 
 - ChatGPT Projeto Geral: implementacao
 - DeepSeek NexosAI: revisao, correcao, deploy
+
+## Fallback handoff note
+- Frontend fallback is now deployed in static/rayyan.js.
+- Do not reintroduce CSV import in startup. Any real data import must be manual/isolated.
+- Next safe blocks: UI panels for conflicts, PRISMA, metrics, export, and then basic auth.
