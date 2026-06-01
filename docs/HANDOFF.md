@@ -132,3 +132,9 @@ If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing chan
 - Observed errors include connection refused on postgres.railway.internal and closed connection on zephyr.proxy.rlwy.net public proxy.
 - Staging remains healthy and linked locally after restoring routers/articles.py from committed green state.
 - Next production fix should focus on Railway Postgres service/networking/variables rather than app code because staging is green with the same commit.
+
+## Production articles recovery
+- Production deploy f7a23dac recovered to SUCCESS after adding graceful degraded responses for article DB connectivity failures.
+- Confirmed HTTP 200 for production root, health, articles, and summary after recovery.
+- Staging remains green with HTTP 200 for health, articles, summary, projects, conflicts, and export.
+- Remaining follow-up: fix underlying production Postgres connectivity so database_available returns true in production article endpoints.
