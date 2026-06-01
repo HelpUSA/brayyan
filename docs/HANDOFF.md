@@ -98,3 +98,9 @@ If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing chan
 - Postgres compatibility patches applied: conditional SQLAlchemy connect_args, PostgreSQL identity primary key, boolean filters.
 - Procfile/start.sh use Railway PORT via bash start.sh; start.sh protected by .gitattributes eol=lf.
 - Production remains untouched.
+
+## Production smoke recovery check
+- After the production command timeout, recovery checks confirmed staging remains linked locally.
+- Staging health returned HTTP 200.
+- Production health returned HTTP 200.
+- Final full production endpoint smoke was requested in command brayyan_prod_final_smoke_status_docs_127.
