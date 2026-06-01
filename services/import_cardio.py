@@ -38,5 +38,5 @@ def main():
 	result = import_csv_to_db(args.csv_path)
 	print(result)
 
-if globals().get('name') == 'main':
+if __name__ == '__main__':
 	main()
