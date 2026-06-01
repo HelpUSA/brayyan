@@ -144,3 +144,9 @@ If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing chan
 - Public Railway proxy URLs automatically use sslmode=require.
 - Staging remained green after the database.py patch.
 - Production article endpoints still rely on graceful degraded responses until Railway Postgres connectivity returns database_available=true.
+
+## Database connection hardening
+- Added SQLAlchemy pool_pre_ping, 5s connect_timeout, and sslmode support from PGSSLMODE/DB_SSLMODE.
+- Public Railway proxy URLs automatically use sslmode=require.
+- Staging remained green after the database.py patch.
+- Production article endpoints still rely on graceful degraded responses until Railway Postgres connectivity returns database_available=true.
