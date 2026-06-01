@@ -1,11 +1,11 @@
-from fastapi import APIRouter
+﻿from fastapi import APIRouter
 
 router = APIRouter()
 
 @router.get('/')
-async def list_conflicts(project_id: str):
- return {'project_id': project_id, 'conflicts': []}
+async def list_conflicts():
+ return {'conflicts': [], 'total': 0}
 
-@router.patch('/{conflict_id}')
-async def resolve_conflict(conflict_id: str):
- return {'id': conflict_id, 'resolved': True}
+@router.post('/')
+async def resolve_conflict():
+ return {'message': 'Resolve conflict - to be implemented'}

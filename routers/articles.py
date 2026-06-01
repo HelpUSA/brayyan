@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+﻿from fastapi import APIRouter, Depends
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -39,7 +39,7 @@ async def article_summary(project_id: str = "1", db: Session = Depends(get_db)):
     screened = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE coalesce(a_decision, '') <> '' OR coalesce(b_decision, '') <> ''")).scalar() or 0
     included = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(provisional_decision, '')) LIKE '%include%'")).scalar() or 0
     conflicts = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE lower(coalesce(comparison_status, '')) LIKE '%conflict%'")).scalar() or 0
-    human = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE human_review_needed = 1")).scalar() or 0
+    human = db.execute(text("SELECT COUNT(*) FROM ai_screening_records WHERE human_review_needed = true")).scalar() or 0
     return {"project_id": project_id, "total": total, "screened": screened, "included": included, "conflicts": conflicts, "human_review_needed": human}
 
 
@@ -89,3 +89,6 @@ async def get_article(article_id: int, db: Session = Depends(get_db)):
     if row is None:
         return {"id": article_id}
     return row_to_article(row)
+
+
+

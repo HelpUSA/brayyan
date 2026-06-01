@@ -52,3 +52,49 @@ Await operator decision to restore Railway/Postgres. If backend remains unavaila
 
 ## Recovery note
 If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing changes, restore the latest verified static baseline immediately and avoid Vercel serverless API routing.
+
+## Backend staging environment block
+- Local backend validation is blocked because only Python 3.14 is available and Python 3.12 is absent.
+- requirements install in the Python 3.14 .venv timed out repeatedly.
+- See docs/BACKEND_STAGING_ENV_BLOCK.md for unlock options: install Python 3.12/create .venv312 or use Railway staging build.
+
+## Full functionality roadmap saved
+- Roadmap saved in docs/BRAYYAN_FULL_FUNCTIONALITY_ROADMAP.md.
+- Operator decision recorded: proceed with Python 3.14 when possible and replace incompatible dependencies instead of staying blocked on older Python versions.
+- Railway next action recorded: use staging first, deploy correct backend/staging snapshot to brayyan service, validate /api/health, then continue Postgres, migrations, imports, endpoints, frontend integration and smoke.
+- Production remains protected until staging is green.
+
+## Pre-up gate for Railway staging
+- Railway staging is created and linked locally.
+- Service brayyan is linked in staging and has URL https://brayyan-staging.up.railway.app .
+- Postgres staging is SUCCESS.
+- Production is not linked and must remain untouched.
+- Required root files for deploy: main.py, requirements.txt, railway.toml, Procfile.
+- .railwayignore must be non-empty before railway up and must exclude local venvs, temp, caches, env files, logs, Vercel metadata, node_modules, dist and local SQLite/database files.
+- .railwayignore must not exclude main.py, requirements.txt, railway.toml, Procfile or static assets needed by the backend.
+- Command for operator only after final gate approval: cd D:/dev/brayyan; railway environment link staging; railway service link brayyan; railway up
+- Post-up checks: railway service list --json; railway logs --service brayyan --environment staging --tail 120; curl.exe -i https://brayyan-staging.up.railway.app/api/health 
+- Rollback/check: if staging build fails, do not touch production; inspect logs, fix staging branch/config, redeploy staging only.
+- Risks: excluding frontend may be acceptable for backend health but can affect full static frontend serving; excluding static is not allowed if static assets are needed.
+
+## Railway staging pre-up gate finalized
+- .railwayignore finalized to exclude local venvs, caches, temp, git metadata, Vercel metadata, node_modules, dist, frontend, docs, env files, logs and local DB/SQLite files.
+- .railwayignore intentionally keeps main.py, requirements.txt, railway.toml, Procfile, static, routers, services, models, schemas and tasks available for Railway deploy.
+- Staging deploy command remains operator-gated: cd D:/dev/brayyan; railway environment link staging; railway service link brayyan; railway up
+
+## Railway staging smoke update
+- Staging deployment is SUCCESS and serving Brayyan from https://brayyan-staging.up.railway.app .
+- Health endpoint returned HTTP 200 with status ok/version 0.1.0.
+- Root route returned HTTP 200 and serves the static frontend.
+- DATABASE_URL and ENVIRONMENT are present on the brayyan staging service.
+- Postgres service is SUCCESS and linked through Railway variable reference.
+- GET smoke confirmed HTTP 200 for /api/articles/summary and /api/articles/ after Postgres compatibility patches.
+- Production remains untouched.
+
+## Final staging smoke before commit
+- Latest staging deployment: b5fbd7f9-0f4b-463e-9842-726a65a9224a, SUCCESS, running=1, crashed=0.
+- Final GET smoke: root=200, health=200, projects=200, articles=200, summary=200, conflicts=200, export=200.
+- Python compile check passed for main backend modules.
+- Postgres compatibility patches applied: conditional SQLAlchemy connect_args, PostgreSQL identity primary key, boolean filters.
+- Procfile/start.sh use Railway PORT via bash start.sh; start.sh protected by .gitattributes eol=lf.
+- Production remains untouched.
