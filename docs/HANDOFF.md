@@ -150,3 +150,12 @@ If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing chan
 - Public Railway proxy URLs automatically use sslmode=require.
 - Staging remained green after the database.py patch.
 - Production article endpoints still rely on graceful degraded responses until Railway Postgres connectivity returns database_available=true.
+
+## Current final operational status
+- Branch backend/staging is the working branch and has been pushed to origin.
+- Staging full smoke is HTTP 200 for root, health, articles, summary, projects, conflicts, and export.
+- Production full smoke is HTTP 200 for root, health, articles, summary, projects, conflicts, and export.
+- Staging articles payload has database_available=true.
+- Production articles payload is intentionally graceful degraded with database_available=false and OperationalError while Railway Postgres connectivity is unresolved.
+- Database hardening is active: pool_pre_ping, connect_timeout, PGSSLMODE/DB_SSLMODE support, and sslmode=require for Railway public proxy URLs.
+- Next infrastructure task: fix Railway production Postgres connectivity so production article endpoints return database_available=true.
