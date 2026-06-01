@@ -138,3 +138,9 @@ If production ever returns FUNCTION_INVOCATION_FAILED after backend/routing chan
 - Confirmed HTTP 200 for production root, health, articles, and summary after recovery.
 - Staging remains green with HTTP 200 for health, articles, summary, projects, conflicts, and export.
 - Remaining follow-up: fix underlying production Postgres connectivity so database_available returns true in production article endpoints.
+
+## Database connection hardening
+- Added SQLAlchemy pool_pre_ping, 5s connect_timeout, and sslmode support from PGSSLMODE/DB_SSLMODE.
+- Public Railway proxy URLs automatically use sslmode=require.
+- Staging remained green after the database.py patch.
+- Production article endpoints still rely on graceful degraded responses until Railway Postgres connectivity returns database_available=true.
