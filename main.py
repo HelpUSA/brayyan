@@ -5,7 +5,7 @@ import os
 
 app = FastAPI(title='Brayyan', version='0.1.0')
 
-from routers import auth, projects, articles, upload, conflicts, export
+from routers import auth, projects, articles, upload, conflicts, export, decisions
 
 app.include_router(auth.router, prefix='/api/auth', tags=['auth'])
 app.include_router(projects.router, prefix='/api/projects', tags=['projects'])
@@ -13,6 +13,7 @@ app.include_router(articles.router, prefix='/api/articles', tags=['articles'])
 app.include_router(upload.router, prefix='/api/upload', tags=['upload'])
 app.include_router(conflicts.router, prefix='/api/conflicts', tags=['conflicts'])
 app.include_router(export.router, prefix='/api/export', tags=['export'])
+app.include_router(decisions.router, prefix='/api/decisions', tags=['decisions'])
 
 @app.get('/api/health')
 async def health():
