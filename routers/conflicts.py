@@ -1,11 +1,18 @@
-﻿from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
+from database import get_db
+from services.csv_parser import ensure_ai_screening_table
 
 router = APIRouter()
 
 @router.get('/')
-async def list_conflicts():
- return {'conflicts': [], 'total': 0}
-
-@router.post('/')
-async def resolve_conflict():
- return {'message': 'Resolve conflict - to be implemented'}
+async def list_conflicts(limit: int = 50, db: Session = Depends(get_db)):
+    try:
+        ensure_ai_screening_table(db)
+        sql = 'SELECT id, title, a_decision, b_decision, comparison_status, conflict_priority FROM ai_screening_records WHERE comparison_status = ''conflict'' OR human_review_needed = true ORDER BY id DESC LIMIT :limit'
+        rows = db.execute(text(sql), {'limit': limit}).fetchall()
+        return {'database_available': True, 'total': len(rows), 'conflicts': [dict(row._mapping) for row in rows]}
+    except SQLAlchemyError as exc:
+        return {'database_available': False, 'total': 0, 'conflicts': [], 'error': str(exc)}

@@ -94,11 +94,11 @@
 <section id='operational' class='view'>
 <div class='card'><div class='cardHead'><h2>Operational screens</h2></div><div class='cardBody'>
 <div class='opsGrid'>
-<div class='opsCard'><h3>Upload CSV</h3><p>Next use: admin uploads the 3,539-record CardioReview consolidated CSV to a persistent database.</p><button class='btn' disabled>Enable after Railway/Postgres</button></div>
+<div class='opsCard'><h3>Upload CSV</h3><p>Next use: admin uploads the 3,539-record CardioReview consolidated CSV to a persistent database.</p><a class='btn' href='/api/articles/' target='_blank'>Open articles API</a></div>
 <div class='opsCard'><h3>Conflicts A vs B</h3><p>Show A_decision, B_decision, conflict priority and a human final decision action.</p><div class='statusItem'><span>Pending conflicts</span><b>awaiting data</b></div></div>
 <div class='opsCard'><h3>PRISMA flow</h3><p>Identified - duplicates - screened - excluded - full text - included.</p><div class='prismaLine'><span>Identified</span><b>3,539</b></div><div class='prismaLine'><span>Included</span><b>TBD</b></div></div>
 <div class='opsCard'><h3>Kappa metrics</h3><p>Agreement and Cohen's Kappa become active when A/B reviewer decisions are persisted.</p><div class='metricBig'>K = TBD</div></div>
-<div class='opsCard'><h3>Export CSV</h3><p>Export metadata, A_decision, B_decision, conflict status, final decision and notes.</p><button class='btn' disabled>Export pending DB</button></div>
+<div class='opsCard'><h3>Export CSV</h3><p>Export metadata, A_decision, B_decision, conflict status, final decision and notes.</p><a class='btn' href='/api/export/csv' target='_blank'>Export CSV</a></div>
 <div class='opsCard'><h3>Auth readiness</h3><p>Basic admin/reviewer roles are required before shared team screening.</p><div class='statusItem'><span>Status</span><b>Planned</b></div></div>
 </div></div></div>
 </section>
