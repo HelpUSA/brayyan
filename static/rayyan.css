@@ -18,3 +18,9 @@
 .statusItem:last-child.statusItem b{margin-left:auto;color:#111827;font-size:18px}
 
 
+
+.liveControls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.liveControls input{border:1px solid var(--line2);border-radius:6px;padding:8px;background:#fff}
+textarea{border:1px solid var(--line2);border-radius:6px;padding:10px;font:inherit}
+#liveArticleList .article{margin-bottom:8px}
+#liveConflictList .statusItem{align-items:flex-start}
