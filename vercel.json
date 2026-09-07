@@ -1,18 +1,21 @@
 {
-  "buildCommand": "echo static",
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/docs",
-      "destination": "https://brayyan-production.up.railway.app/docs"
+      "source": "/api/(.*)",
+      "destination": "/api"
     },
     {
-      "source": "/docs/:path*",
-      "destination": "https://brayyan-production.up.railway.app/docs/:path*"
+      "source": "/docs",
+      "destination": "/api"
+    },
+    {
+      "source": "/openapi.json",
+      "destination": "/api"
     },
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
-}
+}
