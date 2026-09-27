@@ -1,13 +1,30 @@
 {
-  "functions": {
-    "api/index.py": {
-      "maxDuration": 10
-    }
-  },
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/index.py"
+      "src": "api/index.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/index.py"
+    },
+    {
+      "src": "/rayyan.css",
+      "dest": "rayyan.css"
+    },
+    {
+      "src": "/rayyan.js",
+      "dest": "rayyan.js"
+    },
+    {
+      "src": "/helpus-logo.jpg",
+      "dest": "helpus-logo.jpg"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "index.html"
     }
   ]
 }
