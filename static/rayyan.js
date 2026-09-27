@@ -1,4 +1,4 @@
-﻿(() => {
+(() => {
   let selectedArticle = null;
 
   const $ = (sel) => document.querySelector(sel);
@@ -168,9 +168,29 @@
     }
   });
 
+  window.openPrivacyModal = () => {
+    const modal = document.getElementById("privacyModal");
+    if (modal) modal.style.display = "flex";
+  };
+
+  window.closePrivacyModal = () => {
+    const modal = document.getElementById("privacyModal");
+    if (modal) modal.style.display = "none";
+  };
+
+  window.acceptCookies = () => {
+    localStorage.setItem("helpus_cookie_consent", "true");
+    const banner = document.getElementById("cookieBanner");
+    if (banner) banner.style.display = "none";
+  };
+
   window.addEventListener("load", () => {
     if ($("#liveStatus")) {
       refreshAll().catch(err => setStatus(`Error: ${err.message}`));
+    }
+    if (localStorage.getItem("helpus_cookie_consent") === "true") {
+      const banner = document.getElementById("cookieBanner");
+      if (banner) banner.style.display = "none";
     }
   });
 })();
