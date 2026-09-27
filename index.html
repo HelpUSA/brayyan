@@ -3,100 +3,105 @@
 <head>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>Brayyan — Revisão Sistemática com IA | HelpUS Technology</title>
+<title data-i18n="title">Brayyan — Revisão Sistemática com IA | HelpUS Technology</title>
 <link rel='stylesheet' href='/rayyan.css'>
 </head>
 <body>
-<div class='topNotice'><span class='tinyLogo'></span><span>Área de avisos e atualizações do sistema Brayyan — HelpUS Technology.</span><span class='x'>x</span></div>
 <header class='header'>
 <div class='headerRow'>
-<div class='hamb'>Menu</div>
 <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
 <div class='logo'>B</div>
 <div class='crown'>*</div>
-<div class='titleWrap'>IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed <span class='helpusBadge'>HelpUS Technology</span> <span class='editIcon'>editar</span></div>
+<div class='titleWrap'><span data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</span> <span class='helpusBadge' data-i18n="helpusBadge">HelpUS Technology</span> <span class='editIcon' data-i18n="edit">editar</span></div>
 <div class='spacer'></div>
-<button class='btn'>Precisa de ajuda?</button>
-<button class='btn primary'>Upgrade / Planos</button>
+<div class='langSelectorWrap'>
+  <select id='langSelect' class='langSelect' onchange='changeLanguage(this.value)'>
+    <option value='pt' selected>🇧🇷 PT</option>
+    <option value='en'>🇺🇸 EN</option>
+    <option value='es'>🇪🇸 ES</option>
+  </select>
+</div>
+<button class='btn' data-i18n="needHelp">Precisa de ajuda?</button>
+<button class='btn primary' data-i18n="upgrade">Upgrade / Planos</button>
 <button class='btn iconBtn'>?</button>
 <button class='btn iconBtn'>cfg</button>
 <div class='avatar'>WS</div>
 </div>
 <div class='subTools'>
-<span style='font-weight:700'>Modo cego (Blind mode)</span><span class='switch'><i></i></span>
-<button class='btn' data-go='criteria'>Critérios de triagem</button><button class='btn iconBtn'>...</button>
+<span style='font-weight:700' data-i18n="blindMode">Modo cego (Blind mode)</span><span class='switch'><i></i></span>
+<button class='btn' data-go='criteria' data-i18n="screeningCriteria">Critérios de triagem</button><button class='btn iconBtn'>...</button>
 </div>
 <nav class='tabs' id='tabs'>
-<button class='tab active' data-tab='overview'>Visão Geral</button>
-<button class='tab' data-tab='reviewdata'>Dados da Revisão</button>
-<button class='tab' data-tab='screening'>Triagem (Screening)</button>
-<button class='tab' data-tab='fulltext'>Texto Completo</button>
-<button class='tab' data-tab='extraction'>Extração de Dados</button>
-<button class='tab' data-tab='risk'>Risco de Viés</button>
-<button class='tab' data-tab='practical'>MVP Prático</button>
-<button class='tab' data-tab='operational'>Operacional (Ao Vivo)</button>
+<button class='tab active' data-tab='overview' data-i18n="tabOverview">Visão Geral</button>
+<button class='tab' data-tab='reviewdata' data-i18n="tabReviewData">Dados da Revisão</button>
+<button class='tab' data-tab='screening' data-i18n="tabScreening">Triagem (Screening)</button>
+<button class='tab' data-tab='fulltext' data-i18n="tabFullText">Texto Completo</button>
+<button class='tab' data-tab='extraction' data-i18n="tabExtraction">Extração de Dados</button>
+<button class='tab' data-tab='risk' data-i18n="tabRisk">Risco de Viés</button>
+<button class='tab' data-tab='practical' data-i18n="tabPractical">MVP Prático</button>
+<button class='tab' data-tab='operational' data-i18n="tabOperational">Operacional (Ao Vivo)</button>
 </nav>
 </header>
-<div class='updateBar'><span>Mantenha-se atualizado com as revisões da equipe</span><span class='spacer'></span><button class='btn'>Editar dados</button><button class='btn'>Convidar membros</button><button class='btn'>Fluxo PRISMA</button></div>
+<div class='updateBar'><span data-i18n="updateBarMsg">Mantenha-se atualizado com as revisões da equipe</span><span class='spacer'></span><button class='btn' data-i18n="btnEditData">Editar dados</button><button class='btn' data-i18n="btnInvite">Convidar membros</button><button class='btn' data-i18n="btnPrisma">Fluxo PRISMA</button></div>
 <main class='page'>
 <section id='overview' class='view active'>
 <div class='grid overviewGrid'>
-<div class='card'><div class='cardHead'><h2>Informações da Revisão</h2></div><div class='cardBody'>
-<div class='infoRow'><div class='bubble bPurple'>i</div><div class='label'>Título da Revisão:</div><div>IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</div></div>
-<div class='infoRow'><div class='bubble bGreen'>T</div><div class='label'>Tipo de Revisão:</div><div>Revisão Sistemática com Meta-Análise</div></div>
-<div class='infoRow'><div class='bubble bGold'>D</div><div class='label'>Domínio:</div><div>Biomedicina / Cardiologia Digital</div></div>
-<div class='infoRow'><div class='bubble bRed'>D</div><div class='label'>Descrição:</div><div class='muted'>Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardReviewInfo">Informações da Revisão</h2></div><div class='cardBody'>
+<div class='infoRow'><div class='bubble bPurple'>i</div><div class='label' data-i18n="lblReviewTitle">Título da Revisão:</div><div data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</div></div>
+<div class='infoRow'><div class='bubble bGreen'>T</div><div class='label' data-i18n="lblReviewType">Tipo de Revisão:</div><div data-i18n="lblReviewTypeVal">Revisão Sistemática com Meta-Análise</div></div>
+<div class='infoRow'><div class='bubble bGold'>D</div><div class='label' data-i18n="lblDomain">Domínio:</div><div data-i18n="lblDomainVal">Biomedicina / Cardiologia Digital</div></div>
+<div class='infoRow'><div class='bubble bRed'>D</div><div class='label' data-i18n="lblDesc">Descrição:</div><div class='muted' data-i18n="lblDescVal">Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</div></div>
 </div></div>
-<div class='card'><div class='cardHead'><h2>Resumo dos Dados</h2></div><div class='cardBody summaryCards'>
-<div class='metric'><div class='name'>Referências Importadas</div><div class='num'>3.578</div><button class='btn soft'>Adicionar Referências</button></div>
-<div class='metric'><div class='name'>Total de Duplicatas</div><div class='num'>38</div><button class='btn soft'>Detectar Duplicatas</button></div>
-<div class='metric'><div class='name'>Não Resolvidos</div><div class='num'>0</div><button class='btn disabled'>Continuar Resolução</button></div>
-<div class='metric statusList'><div class='statusItem'>Resolvidos <b>19</b></div><div class='statusItem'>Não Duplicados <b>6</b></div><div class='statusItem'>Excluídos <b>13</b></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardDataSummary">Resumo dos Dados</h2></div><div class='cardBody summaryCards'>
+<div class='metric'><div class='name' data-i18n="lblImportedRefs">Referências Importadas</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnAddRefs">Adicionar Referências</button></div>
+<div class='metric'><div class='name' data-i18n="lblTotalDupes">Total de Duplicatas</div><div class='num'>38</div><button class='btn soft' data-i18n="btnDetectDupes">Detectar Duplicatas</button></div>
+<div class='metric'><div class='name' data-i18n="lblUnresolved">Não Resolvidos</div><div class='num'>0</div><button class='btn disabled' data-i18n="btnContinueResolving">Continuar Resolução</button></div>
+<div class='metric statusList'><div class='statusItem'><span data-i18n="lblResolved">Resolvidos</span> <b>19</b></div><div class='statusItem'><span data-i18n="lblNotDuplicate">Não Duplicados</span> <b>6</b></div><div class='statusItem'><span data-i18n="lblDeleted">Excluídos</span> <b>13</b></div></div>
 </div></div>
 </div>
-<div class='card' style='margin-top:14px'><div class='cardHead'><h2>Membros da Equipe</h2></div><table class='table'><thead><tr><th>Nome</th><th>E-mail</th><th>Função</th><th>Status</th></tr></thead><tbody><tr><td><div class='memberCell'><span class='memberAvatar'>WS</span>Wagner Santos</div></td><td>wagner.redes@gmail.com</td><td>Proprietário / Revisor Líder</td><td><span class='ok'>Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WA</span>Watcher A (IA)</div></td><td>watcher.a@helpusbr.com</td><td>Revisor Automatizado (IA)</td><td><span class='ok'>Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WB</span>Watcher B (IA)</div></td><td>watcher.b@helpusbr.com</td><td>Revisor Automatizado (IA)</td><td><span class='ok'>Ativo</span></td></tr></tbody></table></div>
+<div class='card' style='margin-top:14px'><div class='cardHead'><h2 data-i18n="cardMembers">Membros da Equipe</h2></div><table class='table'><thead><tr><th data-i18n="thName">Nome</th><th data-i18n="thEmail">E-mail</th><th data-i18n="thRole">Função</th><th data-i18n="thStatus">Status</th></tr></thead><tbody><tr><td><div class='memberCell'><span class='memberAvatar'>WS</span>Wagner Santos</div></td><td>wagner.redes@gmail.com</td><td data-i18n="roleOwner">Proprietário / Revisor Líder</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WA</span>Watcher A (IA)</div></td><td>watcher.a@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WB</span>Watcher B (IA)</div></td><td>watcher.b@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr></tbody></table></div>
 <div class='grid progressGrid' style='margin-top:14px'>
-<div class='card'><div class='cardHead'><h2>Seu Progresso de Triagem</h2></div><div class='cardBody progressBody'><div><div class='donut'><span>100%</span></div><div class='legend'><span><i class='dot red'></i>Excluídos (2.692)</span><span><i class='dot orange'></i>Conflitos (81)</span><span><i class='dot green'></i>Incluídos (886)</span></div></div><div class='bigCenter'><div class='time'>Triagem Automatizada por IA Finalizada</div><div class='big'>3.578 Artigos Triados</div><button class='btn primary' data-go='screening'>Ver Lista de Artigos</button><div class='muted' style='margin-top:18px'>3.578 de 3.578 Artigos Processados com Sucesso</div></div></div></div>
-<div class='card'><div class='cardHead'><h2>Resumo da Triagem</h2></div><div class='cardBody'><div class='statusItem'><span>Conflitos Pendentes</span><b>81</b></div><div class='statusItem'><span>Concordância da IA</span><b>97.74%</b></div><div class='statusItem'><span>Coeficiente Kappa</span><b>0.9479 (Excelente)</b></div><div class='progressLine'></div><div class='muted'><span class='warn'>!</span>81 artigos necessitam de auditoria humana final para resolução de divergências entre os Watchers de IA.</div></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardProgress">Seu Progresso de Triagem</h2></div><div class='cardBody progressBody'><div><div class='donut'><span>100%</span></div><div class='legend'><span><i class='dot red'></i><span data-i18n="donutExcluded">Excluídos</span> (2.692)</span><span><i class='dot orange'></i><span data-i18n="donutMaybe">Conflitos</span> (81)</span><span><i class='dot green'></i><span data-i18n="donutIncluded">Incluídos</span> (886)</span></div></div><div class='bigCenter'><div class='time' data-i18n="progressTitle">Triagem Automatizada por IA Finalizada</div><div class='big' data-i18n="progressBig">3.578 Artigos Triados</div><button class='btn primary' data-go='screening' data-i18n="btnViewArticles">Ver Lista de Artigos</button><div class='muted' style='margin-top:18px' data-i18n="progressMuted">3.578 de 3.578 Artigos Processados com Sucesso</div></div></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardScreeningSummary">Resumo da Triagem</h2></div><div class='cardBody'><div class='statusItem'><span data-i18n="lblPendingConflicts">Conflitos Pendentes</span><b>81</b></div><div class='statusItem'><span data-i18n="lblAiAgreement">Concordância da IA</span><b>97.74%</b></div><div class='statusItem'><span data-i18n="lblKappa">Coeficiente Kappa</span><b data-i18n="kappaVal">0.9479 (Excelente)</b></div><div class='progressLine'></div><div class='muted'><span class='warn'>!</span><span data-i18n="auditWarn">81 artigos necessitam de auditoria humana final para resolução de divergências entre os Watchers de IA.</span></div></div></div>
 </div>
 </section>
 <section id='reviewdata' class='view'>
 <div class='grid dataGrid'>
-<div class='card'><div class='cardHead'><h2>Conjuntos de Dados Importados</h2></div><div class='cardBody'><div class='metric'><div class='name'>Base PubMed + Scopus + IEEE</div><div class='num'>3.578</div><button class='btn soft'>Importar Novo CSV</button></div></div></div>
-<div class='card'><div class='cardHead'><h2>Status do Banco de Dados</h2></div><div class='cardBody'><div class='statusItem'>Registros SQLite <b>Prontos (3.578)</b></div><div class='statusItem'>Linhas de Triagem IA <b>Processadas</b></div><div class='miniChart'><div class='bar p' style='height:80%'></div><div class='bar g' style='height:38%'></div><div class='bar o' style='height:55%'></div></div></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardImportedData">Conjuntos de Dados Importados</h2></div><div class='cardBody'><div class='metric'><div class='name' data-i18n="lblBaseInfo">Base PubMed + Scopus + IEEE</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnImportCsv">Importar Novo CSV</button></div></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardDbStatus">Status do Banco de Dados</h2></div><div class='cardBody'><div class='statusItem'><span data-i18n="lblSqliteReady">Registros SQLite</span> <b data-i18n="lblSqliteVal">Prontos (3.578)</b></div><div class='statusItem'><span data-i18n="lblAiRows">Linhas de Triagem IA</span> <b data-i18n="lblAiRowsVal">Processadas</b></div><div class='miniChart'><div class='bar p' style='height:80%'></div><div class='bar g' style='height:38%'></div><div class='bar o' style='height:55%'></div></div></div></div>
 </div>
 </section>
 <section id='screening' class='view'>
 <div class='grid screeningLayout'>
-<aside class='card'><div class='filterBox'><h4>Palavras-chave</h4><div class='chip include'>Incluir ECG <b>892</b></div><div class='chip include'>Incluir IA <b>741</b></div><div class='chip exclude'>Excluir animal <b>118</b></div><div class='chip maybe'>Talvez validação <b>304</b></div></div></aside>
-<section class='card'><div class='cardHead'><h2>Artigos para triar</h2><button class='btn soft'>Ordenar por relevância</button></div>
+<aside class='card'><div class='filterBox'><h4 data-i18n="keywordsTitle">Palavras-chave</h4><div class='chip include'><span data-i18n="kwIncludeEcg">Incluir ECG</span> <b>892</b></div><div class='chip include'><span data-i18n="kwIncludeAi">Incluir IA</span> <b>741</b></div><div class='chip exclude'><span data-i18n="kwExcludeAnimal">Excluir animal</span> <b>118</b></div><div class='chip maybe'><span data-i18n="kwMaybeValidation">Talvez validação</span> <b>304</b></div></div></aside>
+<section class='card'><div class='cardHead'><h2 data-i18n="cardArticlesToScreen">Artigos para triar</h2><button class='btn soft' data-i18n="btnSortRelevance">Ordenar por relevância</button></div>
 <div class='article active' data-title='Artificial intelligence electrocardiography for structural heart disease detection' data-journal='Journal of Digital Cardiology' data-year='2026' data-doi='10.1000/brayyan.001' data-authors='Silva M; Santos W; Oliveira R' data-abstract='Este estudo avalia a acurácia diagnóstica da eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais em pacientes adultos.'><span class='idx'>#1</span><span class='articleTitle'>Artificial intelligence electrocardiography for structural heart disease detection</span><div class='articleMeta'>2026 · Journal of Digital Cardiology · prioridade de conflito alta</div></div>
 <div class='article' data-title='Deep learning ECG screening for left ventricular dysfunction' data-journal='European Heart AI' data-year='2025' data-doi='10.1000/brayyan.002' data-authors='Chen A; Patel S; Gomez L' data-abstract='Um modelo de deep learning aplicado a ECGs padrão de 12 derivações foi testado para triagem de disfunção ventricular esquerda e cardiomiopatia.'><span class='idx'>#2</span><span class='articleTitle'>Deep learning ECG screening for left ventricular dysfunction</span><div class='articleMeta'>2025 · European Heart AI · concordância de revisores</div></div>
 </section>
-<section class='card'><div class='cardHead'><h2>Detalhes do artigo</h2></div><div class='cardBody'><div id='detailTitle' class='detailTitle'>Artificial intelligence electrocardiography for structural heart disease detection</div><p class='abstract' id='detailAbstract'>Este estudo avalia a acurácia diagnóstica da eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais em pacientes adultos.</p><p><span class='pill'>ECG</span><span class='pill'>Inteligência Artificial</span><span class='pill'>Acurácia Diagnóstica</span><span class='pill'>Doença Cardíaca Estrutural</span></p><div class='statusItem'>Autores <b id='detailAuthors'>Silva M; Santos W; Oliveira R</b></div><div class='statusItem'>Periódico <b id='detailJournal'>Journal of Digital Cardiology</b></div><div class='statusItem'>Ano <b id='detailYear'>2026</b></div><div class='statusItem'>DOI <b id='detailDoi'>10.1000/brayyan.001</b></div><div class='decisionBar'><button class='decision inc'>Incluir</button><button class='decision may'>Talvez</button><button class='decision exc'>Excluir</button></div></div></section>
+<section class='card'><div class='cardHead'><h2 data-i18n="cardArticleDetails">Detalhes do artigo</h2></div><div class='cardBody'><div id='detailTitle' class='detailTitle'>Artificial intelligence electrocardiography for structural heart disease detection</div><p class='abstract' id='detailAbstract'>Este estudo avalia a acurácia diagnóstica da eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais em pacientes adultos.</p><p><span class='pill'>ECG</span><span class='pill'>Inteligência Artificial</span><span class='pill'>Acurácia Diagnóstica</span><span class='pill'>Doença Cardíaca Estrutural</span></p><div class='statusItem'><span data-i18n="lblAuthors">Autores</span> <b id='detailAuthors'>Silva M; Santos W; Oliveira R</b></div><div class='statusItem'><span data-i18n="lblJournal">Periódico</span> <b id='detailJournal'>Journal of Digital Cardiology</b></div><div class='statusItem'><span data-i18n="lblYear">Ano</span> <b id='detailYear'>2026</b></div><div class='statusItem'><span data-i18n="lblDoi">DOI</span> <b id='detailDoi'>10.1000/brayyan.001</b></div><div class='decisionBar'><button class='decision inc' data-i18n="btnInclude">Incluir</button><button class='decision may' data-i18n="btnMaybe">Talvez</button><button class='decision exc' data-i18n="btnExclude">Excluir</button></div></div></section>
 </div>
 </section>
 <section id='criteria' class='view'>
-<div class='card'><div class='cardHead'><h2>Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on'>Inclusão</div><div>Exclusão</div></div><div class='criteriaTitle'>Incluir estudos quando:</div><div class='criteriaText'>A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle'>Excluir estudos quando:</div><div class='criteriaText'>Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
+<div class='card'><div class='cardHead'><h2 data-i18n="cardCriteria">Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on' data-i18n="tabInclusion">Inclusão</div><div data-i18n="tabExclusion">Exclusão</div></div><div class='criteriaTitle' data-i18n="criteriaIncTitle">Incluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaIncText">A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle' data-i18n="criteriaExcTitle">Excluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaExcText">Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
 </section>
-<section id='fulltext' class='view'><div class='card emptyState'><div><div class='emptyIcon'>+</div><h2>Triagem de Texto Completo</h2><p>Adicione artigos após a triagem inicial de títulos e resumos para iniciar a revisão do texto completo.</p><button class='btn primary'>Adicionar Artigos</button></div></div></section>
-<section id='extraction' class='view'><div class='card emptyState'><div><div class='emptyIcon'>⇪</div><h2>Extração de Dados com IA</h2><p>Crie campos de extração automatizados para população, modalidade de ECG, arquitetura de IA e acurácia diagnóstica.</p><button class='btn primary'>Configurar Formulário de Extração</button></div></div></section>
-<section id='risk' class='view'><div class='card emptyState'><div><div class='emptyIcon'>!</div><h2>Risco de Viés</h2><p>Prepare os domínios de avaliação de viés QUADAS-2 para estudos de acurácia de testes diagnósticos.</p><button class='btn primary'>Configurar Avaliação QUADAS-2</button></div></div></section>
+<section id='fulltext' class='view'><div class='card emptyState'><div><div class='emptyIcon'>+</div><h2 data-i18n="fulltextTitle">Triagem de Texto Completo</h2><p data-i18n="fulltextText">Adicione artigos após a triagem inicial de títulos e resumos para iniciar a revisão do texto completo.</p><button class='btn primary' data-i18n="btnAddArticles">Adicionar Artigos</button></div></div></section>
+<section id='extraction' class='view'><div class='card emptyState'><div><div class='emptyIcon'>⇪</div><h2 data-i18n="extractionTitle">Extração de Dados com IA</h2><p data-i18n="extractionText">Crie campos de extração automatizados para população, modalidade de ECG, arquitetura de IA e acurácia diagnóstica.</p><button class='btn primary' data-i18n="btnConfigExtraction">Configurar Formulário de Extração</button></div></div></section>
+<section id='risk' class='view'><div class='card emptyState'><div><div class='emptyIcon'>!</div><h2 data-i18n="riskTitle">Risco de Viés</h2><p data-i18n="riskText">Prepare os domínios de avaliação de viés QUADAS-2 para estudos de acurácia de testes diagnósticos.</p><button class='btn primary' data-i18n="btnConfigRisk">Configurar Avaliação QUADAS-2</button></div></div></section>
 
 <section id='operational' class='view'>
-<div class='card'><div class='cardHead'><h2>Operacional (Fluxo Ao Vivo)</h2></div><div class='cardBody'>
+<div class='card'><div class='cardHead'><h2 data-i18n="tabOperational">Operacional (Ao Vivo)</h2></div><div class='cardBody'>
 <div class='opsGrid'>
 <div class="opsCard" style="grid-column:1/-1">
-  <h3>Fluxo de Trabalho Brayyan — Triagem e Auditoria por IA</h3>
-  <p>Importe arquivos CSV, carregue artigos, resolva conflitos entre os Watchers A e B, registre a decisão final e exporte os resultados.</p>
+  <h3 data-i18n="opWorkflowTitle">Fluxo de Trabalho Brayyan — Triagem e Auditoria por IA</h3>
+  <p data-i18n="opWorkflowText">Importe arquivos CSV, carregue artigos, resolva conflitos entre os Watchers A e B, registre a decisão final e exporte os resultados.</p>
   <div class="liveControls">
     <input id="csvFile" type="file" accept=".csv,text/csv">
-    <button class="btn primary" id="uploadCsvBtn" type="button">Importar CSV</button>
-    <button class="btn" id="refreshLiveBtn" type="button">Atualizar Dados</button>
-    <a class="btn" href="/api/export/csv" target="_blank">Exportar CSV Consolidado</a>
+    <button class="btn primary" id="uploadCsvBtn" type="button" data-i18n="btnImportCsvAction">Importar CSV</button>
+    <button class="btn" id="refreshLiveBtn" type="button" data-i18n="btnRefreshData">Atualizar Dados</button>
+    <a class="btn" href="/api/export/csv" target="_blank" data-i18n="btnExportCsv">Exportar CSV Consolidado</a>
   </div>
 
-  <div id="liveStatus" class="muted" style="margin-top:10px">Pronto.</div>
+  <div id="liveStatus" class="muted" style="margin-top:10px" data-i18n="lblReady">Pronto.</div>
 
   <div class="summaryCards" style="margin-top:14px">
     <div class="metric"><div class="name">Total</div><div class="num" id="liveTotal">3,578</div></div>
@@ -107,33 +112,33 @@
 
   <div class="grid screeningLayout" style="margin-top:14px">
     <section class="card">
-      <div class="cardHead"><h2>Artigos Carregados</h2><button class="btn soft" id="loadArticlesBtn" type="button">Atualizar</button></div>
+      <div class="cardHead"><h2 data-i18n="cardLiveArticles">Artigos Carregados</h2><button class="btn soft" id="loadArticlesBtn" type="button" data-i18n="btnUpdate">Atualizar</button></div>
       <div id="liveArticleList" class="cardBody"></div>
     </section>
 
     <section class="card">
-      <div class="cardHead"><h2>Detalhes do Artigo Selecionado</h2></div>
+      <div class="cardHead"><h2 data-i18n="cardLiveDetails">Detalhes do Artigo Selecionado</h2></div>
       <div class="cardBody">
-        <div id="liveDetailTitle" class="detailTitle">Selecione um artigo</div>
+        <div id="liveDetailTitle" class="detailTitle" data-i18n="lblSelectArticle">Selecione um artigo</div>
         <p id="liveDetailAbstract" class="abstract"></p>
-        <div class="statusItem">Periódico <b id="liveDetailJournal"></b></div>
-        <div class="statusItem">Ano <b id="liveDetailYear"></b></div>
-        <div class="statusItem">DOI <b id="liveDetailDoi"></b></div>
-        <div class="statusItem">Decisão Watcher A <b id="liveDetailA"></b></div>
-        <div class="statusItem">Decisão Watcher B <b id="liveDetailB"></b></div>
-        <div class="statusItem">Status de Comparação <b id="liveDetailStatus"></b></div>
+        <div class="statusItem"><span data-i18n="lblJournal">Periódico</span> <b id="liveDetailJournal"></b></div>
+        <div class="statusItem"><span data-i18n="lblYear">Ano</span> <b id="liveDetailYear"></b></div>
+        <div class="statusItem"><span data-i18n="lblDoi">DOI</span> <b id="liveDetailDoi"></b></div>
+        <div class="statusItem"><span data-i18n="lblDecisionA">Decisão Watcher A</span> <b id="liveDetailA"></b></div>
+        <div class="statusItem"><span data-i18n="lblDecisionB">Decisão Watcher B</span> <b id="liveDetailB"></b></div>
+        <div class="statusItem"><span data-i18n="lblCompStatus">Status de Comparação</span> <b id="liveDetailStatus"></b></div>
         <textarea id="decisionNote" placeholder="Nota da decisão humana ou parecer técnico..." style="width:100%;min-height:70px;margin-top:12px"></textarea>
         <div class="decisionBar">
-          <button class="decision inc" data-live-decision="include" type="button">Incluir</button>
-          <button class="decision may" data-live-decision="maybe" type="button">Talvez</button>
-          <button class="decision exc" data-live-decision="exclude" type="button">Excluir</button>
+          <button class="decision inc" data-live-decision="include" type="button" data-i18n="btnInclude">Incluir</button>
+          <button class="decision may" data-live-decision="maybe" type="button" data-i18n="btnMaybe">Talvez</button>
+          <button class="decision exc" data-live-decision="exclude" type="button" data-i18n="btnExclude">Excluir</button>
         </div>
       </div>
     </section>
   </div>
 
   <div class="card" style="margin-top:14px">
-    <div class="cardHead"><h2>Conflitos ao Vivo (Watcher A vs B)</h2><button class="btn soft" id="loadConflictsBtn" type="button">Carregar Conflitos</button></div>
+    <div class="cardHead"><h2 data-i18n="cardLiveConflicts">Conflitos ao Vivo (Watcher A vs B)</h2><button class="btn soft" id="loadConflictsBtn" type="button" data-i18n="btnLoadConflicts">Carregar Conflitos</button></div>
     <div id="liveConflictList" class="cardBody"></div>
   </div>
 </div>
@@ -142,61 +147,42 @@
 </main>
 
 <footer class="footer">
-  <div class="footerContainer">
-    <div class="footerGrid">
-      <div class="footerBrand">
-        <img src="/helpus-logo.jpg" alt="HelpUS Technology Logo" class="footerLogo">
-        <div>
-          <h4>HelpUS Technology</h4>
-          <p>Plataforma de Engenharia Científica, IA Aplicada & Soluções Avançadas de Software.</p>
-        </div>
-      </div>
-      <div class="footerCol">
-        <h5>Ecossistema</h5>
-        <div class="footerLinks">
-          <a href="https://brayyan.helpusbr.com">Brayyan AI Review</a>
-          <a href="https://helpusbr.com" target="_blank" rel="noopener">HelpUS Portal</a>
-        </div>
-      </div>
-      <div class="footerCol">
-        <h5>Legal & Privacidade</h5>
-        <div class="footerLinks">
-          <a href="javascript:void(0)" onclick="openPrivacyModal()">Política de Privacidade</a>
-          <a href="javascript:void(0)" onclick="openPrivacyModal()">Termos de Uso & LGPD</a>
-        </div>
-      </div>
-    </div>
-    <div class="footerBottom">
-      <span>© 2026 <strong>HelpUS Technology</strong>. Todos os direitos reservados. Desenvolvido por <strong>HelpUS</strong>.</span>
-    </div>
+  <div class="footerBrand">
+    <img src="/helpus-logo.jpg" alt="HelpUS Logo" class="footerLogoSmall">
+    <span data-i18n="footerCopy">© 2026 HelpUS Technology. Todos os direitos reservados. Desenvolvido por HelpUS.</span>
+  </div>
+  <div class="footerRight">
+    <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="footerPrivacy">Política de Privacidade</a>
+    <span class="footerSep">|</span>
+    <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="footerTerms">Termos & LGPD</a>
   </div>
 </footer>
 
 <div id="cookieBanner" class="cookieBanner">
   <div class="cookieContent">
     <span class="cookieIcon">🍪</span>
-    <span>Utilizamos cookies essenciais para garantir o funcionamento seguro do sistema e a melhor experiência de triagem científica. Ao continuar navegando, você concorda com nossa <a href="javascript:void(0)" onclick="openPrivacyModal()">Política de Privacidade</a>.</span>
+    <span data-i18n="cookieText">Utilizamos cookies essenciais para garantir o funcionamento seguro do sistema e a melhor experiência de triagem científica. Ao continuar navegando, você concorda com nossa Política de Privacidade.</span>
   </div>
-  <button class="btn primary" onclick="acceptCookies()">Aceitar e Continuar</button>
+  <button class="btn primary" onclick="acceptCookies()" data-i18n="btnAcceptCookies">Aceitar e Continuar</button>
 </div>
 
 <div id="privacyModal" class="modalOverlay" style="display:none;">
   <div class="modalCard">
     <div class="modalHead">
-      <h3>🔒 Política de Privacidade & Termos de Uso</h3>
+      <h3 data-i18n="modalTitle">🔒 Política de Privacidade & Termos de Uso</h3>
       <button class="modalClose" onclick="closePrivacyModal()">&times;</button>
     </div>
     <div class="modalBody">
-      <p><strong>HelpUS Technology</strong> · Diretrizes de Segurança, Privacidade e Conformidade LGPD/GDPR.</p>
-      <h4>1. Propósito e Processamento de Dados</h4>
-      <p>A aplicação <strong>Brayyan</strong> é uma plataforma dedicada ao gerenciamento, auditoria e triagem automatizada por IA de revisões sistemáticas de literatura. Os metadados acadêmicos processados pertencem exclusivamente ao projeto de pesquisa cadastrado.</p>
-      <h4>2. Proteção de Dados e Confidencialidade</h4>
-      <p>Garantimos estrita confidencialidade no armazenamento e processamento de artigos, pareceres de revisores e decisões automáticas dos agentes de IA. Nenhuma informação de pesquisa é compartilhada sem autorização expressa.</p>
-      <h4>3. Conectividade e Cookies</h4>
-      <p>Utilizamos apenas cookies essenciais para manter a autenticação de sessão e preferências locais do usuário na aplicação.</p>
+      <p data-i18n="modalSubtitle">HelpUS Technology · Diretrizes de Segurança, Privacidade e Conformidade LGPD/GDPR.</p>
+      <h4 data-i18n="modalSec1Title">1. Propósito e Processamento de Dados</h4>
+      <p data-i18n="modalSec1Text">A aplicação Brayyan é uma plataforma dedicada ao gerenciamento, auditoria e triagem automatizada por IA de revisões sistemáticas de literatura. Os metadados acadêmicos processados pertencem exclusivamente ao projeto de pesquisa cadastrado.</p>
+      <h4 data-i18n="modalSec2Title">2. Proteção de Dados e Confidencialidade</h4>
+      <p data-i18n="modalSec2Text">Garantimos estrita confidencialidade no armazenamento e processamento de artigos, pareceres de revisores e decisões automáticas dos agentes de IA. Nenhuma informação de pesquisa é compartilhada sem autorização expressa.</p>
+      <h4 data-i18n="modalSec3Title">3. Conectividade e Cookies</h4>
+      <p data-i18n="modalSec3Text">Utilizamos apenas cookies essenciais para manter a autenticação de sessão e preferências locais do usuário na aplicação.</p>
     </div>
     <div class="modalFoot">
-      <button class="btn primary" onclick="closePrivacyModal()">Entendido</button>
+      <button class="btn primary" onclick="closePrivacyModal()" data-i18n="btnUnderstood">Entendido</button>
     </div>
   </div>
 </div>
