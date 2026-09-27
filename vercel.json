@@ -1,17 +1,20 @@
 {
-  "builds": [
-    {
-      "src": "api/index.py",
-      "use": "@vercel/python"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "api/index.py"
     },
     {
-      "handle": "filesystem"
+      "src": "/rayyan.css",
+      "dest": "/rayyan.css"
+    },
+    {
+      "src": "/rayyan.js",
+      "dest": "/rayyan.js"
+    },
+    {
+      "src": "/helpus-logo.jpg",
+      "dest": "/helpus-logo.jpg"
     },
     {
       "src": "/(.*)",
