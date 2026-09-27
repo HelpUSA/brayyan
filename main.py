@@ -20,7 +20,13 @@ async def health():
     return {'status': 'ok', 'version': '0.1.0'}
 
 BASE_DIR = os.path.dirname(__file__)
-STATIC = os.path.join(BASE_DIR, 'public') if os.path.isdir(os.path.join(BASE_DIR, 'public')) else os.path.join(BASE_DIR, 'static')
+if os.path.isfile(os.path.join(BASE_DIR, 'index.html')):
+    STATIC = BASE_DIR
+elif os.path.isdir(os.path.join(BASE_DIR, 'public')):
+    STATIC = os.path.join(BASE_DIR, 'public')
+else:
+    STATIC = os.path.join(BASE_DIR, 'static')
+
 ASSETS = os.path.join(STATIC, 'assets')
 if os.path.isdir(ASSETS):
     app.mount('/assets', StaticFiles(directory=ASSETS), name='assets')
