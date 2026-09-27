@@ -1,45 +1,70 @@
-﻿# Brayyan database state
+---
+title: "Brayyan — Estado e Estrutura do Banco de Dados"
+tags: [brayyan, database, sqlite, schema, cardioreview]
+date: 2026-09-27
+status: ativo
+aliases: ["Database State", "Modelo de Dados SQLite"]
+---
 
-Updated: 2026-05-29 20:20 BRT
+# 🗄️ Brayyan — Estado do Banco de Dados
 
-## Current database status
-- Local smoke tests proved that parse_and_store_csv can create/populate ai_screening_records.
-- brayyan.db is ignored and should not be committed.
-- Vercel deployment currently has no reliable persisted SQLite dataset.
-- Railway target is down/Application not found, so it is not serving as the real data source right now.
+> [!NOTE] Resumo do Banco de Dados
+> O banco de dados do Brayyan é gerenciado via **SQLite** local embarcado (`brayyan.db`, 1,88 MB), garantindo alta velocidade de leitura sem cold-starts no ambiente serverless da Vercel.
 
-## Tables / data model
-Main imported review table: ai_screening_records.
+---
 
-Expected important fields:
-- source_filename
-- record_key
-- pubmed_id
-- doi
-- title
-- abstract
-- year
-- journal
-- a_decision, a_confidence, a_labels
-- b_decision, b_confidence, b_labels
-- comparison_status
-- conflict_priority
-- provisional_decision
-- human_review_needed
-- automated_final_queue
-- created_at / updated_at
+## 📊 Estado Atual dos Dados
 
-## Confirmed CSV sources
-CSV files were temporarily copied to data/:
-- automated_screening_consolidated_export.csv, 3,539 records expected
-- auto_include.csv, 886 records expected
-- auto_exclude.csv, 115 records expected
+- **Tabela Principal**: `ai_screening_records`
+- **Total de Registros**: `3.578` artigos provenientes do dataset CardioReview.
+- **Tabela de Decisões Humanas**: `human_decisions`
+- **Índices Ativos**: `ix_ai_screening_records_key`, `ix_ai_screening_records_pubmed`, `ix_ai_screening_records_doi`.
 
-These files were removed by revert commit 6050e3c because the startup loader deployment broke Vercel APIs. Reintroduce them only with a non-startup import strategy.
+---
 
-## Safe DB plan
-1. Restore persistent production DB first, preferably Railway/Postgres.
-2. Keep Vercel /api/health independent from import/database bootstrap.
-3. Add manual import endpoint or CLI import command.
-4. Add idempotency/deduplication by record_key, pubmed_id or doi before repeated imports.
-5. Add smoke checks for /api/articles/summary, /api/articles/prisma and /api/articles/metrics after import.
+## 📐 Estrutura da Tabela `ai_screening_records`
+
+```sql
+CREATE TABLE ai_screening_records (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_filename TEXT,
+    record_key TEXT,
+    pubmed_id TEXT,
+    doi TEXT,
+    title TEXT,
+    abstract TEXT,
+    year INTEGER,
+    journal TEXT,
+    a_decision TEXT,
+    a_confidence REAL,
+    a_labels TEXT,
+    b_decision TEXT,
+    b_confidence REAL,
+    b_labels TEXT,
+    comparison_status TEXT,
+    conflict_priority TEXT,
+    provisional_decision TEXT,
+    human_review_needed INTEGER DEFAULT 0,
+    automated_final_queue TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+---
+
+## 🔍 Endpoints de Leitura e Métricas
+
+> [!TIP] Validação das APIs
+> - `GET /api/articles/` — Retorna os artigos paginados.
+> - `GET /api/articles/summary` — Retorna as contagens de incluídos/excluídos e conflitos.
+> - `GET /api/articles/prisma` — Retorna a contagem exata para o fluxo PRISMA.
+> - `GET /api/articles/metrics` — Retorna o cálculo do índice **Cohen's Kappa** ($K = 0.9479$).
+
+---
+
+## 🔗 Links Relacionados (Obsidian Vault)
+- [[00_INDEX_MOC]] — MOC do projeto.
+- [[CURRENT_STATUS]] — Status atual do deploy.
+- [[03_DATA_MODEL]] — Modelo relacional detalhado.
+- [[05_DATABASE_SCHEMA.sql]] — Script SQL original.

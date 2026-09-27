@@ -19,24 +19,21 @@ app.include_router(decisions.router, prefix='/api/decisions', tags=['decisions']
 async def health():
     return {'status': 'ok', 'version': '0.1.0'}
 
-BASE_DIR = os.path.dirname(__file__)
-if os.path.isfile(os.path.join(BASE_DIR, 'index.html')):
-    STATIC = BASE_DIR
-elif os.path.isdir(os.path.join(BASE_DIR, 'public')):
-    STATIC = os.path.join(BASE_DIR, 'public')
-else:
-    STATIC = os.path.join(BASE_DIR, 'static')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC = BASE_DIR
 
 ASSETS = os.path.join(STATIC, 'assets')
 if os.path.isdir(ASSETS):
     app.mount('/assets', StaticFiles(directory=ASSETS), name='assets')
 
 @app.get('/{path:path}')
-async def spa(path: str):
-    if not os.path.exists(STATIC):
-        return {'message': 'Static files not found'}
-    fp = os.path.join(STATIC, path)
+async def spa(path: str = ''):
+    clean_path = path.lstrip('/')
+    if not clean_path:
+        return FileResponse(os.path.join(STATIC, 'index.html'))
+    fp = os.path.join(STATIC, clean_path)
     if os.path.isfile(fp):
         return FileResponse(fp)
     return FileResponse(os.path.join(STATIC, 'index.html'))
+
 

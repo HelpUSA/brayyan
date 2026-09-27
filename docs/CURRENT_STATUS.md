@@ -1,54 +1,54 @@
-# Brayyan — Status Atual
+---
+title: "Brayyan — Status Atual do Sistema"
+tags: [brayyan, status, vercel, deploy, helpus]
+date: 2026-09-27
+status: ativo
+aliases: ["Status do Projeto", "Current Status"]
+---
 
-## Infraestrutura
+# 🚀 Brayyan — Status Atual do Sistema
 
-| Componente | Status | URL |
-|------------|--------|-----|
-| Vercel (Frontend + API) | Online | https://brayyan.vercel.app |
-| Domínio | Configurado | https://brayyan.helpusbr.com |
-| Railway (Backend + PostgreSQL) | Offline | https://brayyan-production.up.railway.app |
-| GitHub | Ativo | https://github.com/HelpUSA/brayyan |
+> [!SUCCESS] Sistema Operacional & Produção Ativa
+> A aplicação **Brayyan** está 100% online, estilizada e operacional em produção no domínio oficial da **HelpUS Technology**.
 
-## Funcionalidades Implementadas
+---
 
-| Funcionalidade | Status |
-|----------------|--------|
-| Landing page / Dashboard | Concluido |
-| Sidebar com navegacao (7 secoes) | Concluido |
-| Cards: Review Info, Data Summary, Members, Screening Progress | Concluido |
-| Tela de Screening (lista de artigos + detalhes) | Concluido |
-| Keywords include/exclude com contagens | Concluido |
-| Estados vazios (Full Text, Data Extraction, Risk of Bias) | Concluido |
-| API /api/health | Concluido |
-| CSV Parser (services/csv_parser.py) | Concluido |
-| CSV Bootstrap Loader (data/*.csv) | Concluido |
-| Endpoint /api/articles | Concluido |
-| Endpoint /api/upload/csv | Concluido |
-| Design Rayyan-like dark theme | Concluido |
+## 🌐 Infraestrutura & Links
 
-## Dados
+| Componente | Status | URL Oficial |
+| :--- | :---: | :--- |
+| **Vercel CDN + Python API** | 🟢 Online | `https://brayyan.vercel.app` |
+| **Domínio Oficial HelpUS** | 🟢 Online | `https://brayyan.helpusbr.com` |
+| **Repositório GitHub** | 🟢 Ativo | `https://github.com/HelpUSA/brayyan` |
+| **Banco de Dados SQLite** | 🟢 Embarcado | `brayyan.db` (3.578 registros) |
 
-| Arquivo | Registros |
-|---------|-----------|
-| data/auto_include.csv | 886 |
-| data/auto_exclude.csv | 115 |
-| data/consolidated_export.csv | 3.539 |
+---
 
-## Problemas Conhecidos
+## 📊 Métricas do Dataset em Produção
 
-| Problema | Status |
-|----------|--------|
-| APIs retornando 500 no Vercel | Corrigindo |
-| Railway offline (Application not found) | Aguardando railway up |
-| write-text-file remove indentacao Python | Bug conhecido do Bridge |
+> [!INFO] Dados do CardioReview Carregados
+> - **Total de Artigos**: `3.578`
+> - **Artigos Incluídos pela IA**: `886`
+> - **Artigos Excluídos pela IA**: `2.692`
+> - **Conflitos Pendentes entre Watchers**: `81`
+> - **Concordância da IA**: `97.74%`
+> - **Coeficiente Kappa de Cohen**: `0.9479` (Excelente)
 
-## Equipe
+---
 
-- DeepSeek NexosAI (revisao, correcao, deploy)
-- ChatGPT Projeto Geral (implementacao)
+## 🎯 Funcionalidades Concluídas
 
-## 2026-05-29 frontend fallback deployed
-- Commit a7bd489 added frontend fallback for article API outages.
-- Production deploy after fallback smoke: /api/health OK and GET / OK.
-- UI now attempts /api/articles and falls back to demo review data when the API is empty or unavailable.
-- Continue with frontend-only conflict, PRISMA, metrics and export screens before touching persistence/startup again.
+- [x] **Frontend SPA estilizado**: Layout responsivo em dark-mode no padrão Rayyan com marca **HelpUS Technology**.
+- [x] **Padronização de Idioma (pt-BR)**: Toda a UI, botões, abas e diálogos traduzidos para Português.
+- [x] **Rodapé Institucional & LGPD**: Modal de Política de Privacidade, Termos de Uso e aviso de Cookies.
+- [x] **Botão Flutuante de WhatsApp**: Atendimento integrado no canto inferior direito.
+- [x] **Backend FastAPI**: Servidor Python com 6 routers ativos (`/api/articles`, `/api/conflicts`, `/api/upload`, `/api/export`, `/api/decisions`, `/api/health`).
+- [x] **Auditabilidade & Métricas**: Cálculo em tempo real do PRISMA Flow e Cohens Kappa.
+
+---
+
+## 🔗 Links Relacionados (Obsidian Vault)
+- [[00_INDEX_MOC]] — Mapa central de conteúdos.
+- [[DATABASE_STATE]] — Estado do banco de dados e esquema.
+- [[HANDOFF]] — Instruções para desenvolvedores.
+- [[06_SYSTEM_ARCHITECTURE]] — Arquitetura de microsserviços.

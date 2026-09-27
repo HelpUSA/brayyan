@@ -1,87 +1,54 @@
-# Brayyan — Guia de Retomada
+---
+title: "Brayyan — Guia de Retomada e Handoff"
+tags: [brayyan, handoff, dev-guide, setup, vercel]
+date: 2026-09-27
+status: ativo
+aliases: ["Handoff", "Guia de Retomada"]
+---
 
-## Como retomar o projeto
+# 🛠️ Brayyan — Guia de Retomada & Handoff
 
-### Pre-requisitos
-- Python 3.12+
-- Git
-- Vercel CLI
-- Railway CLI
+> [!IMPORTANT] Requisitos de Ambiente
+> - **Python**: `3.11+` ou `3.14`
+> - **Virtualenv**: `.venv/`
+> - **FastAPI**: `0.111.0`
+> - **SQLite**: `brayyan.db` (já incluso no repositório)
 
-### Setup local
+---
 
-bash
-git clone https://github.com/HelpUSA/brayyan.git
-cd brayyan
-python -m venv .venv
-.venv/Scripts/activate
+## 💻 Setup Local Passo a Passo
+
+```bash
+# 1. Clonar ou navegar até a pasta do projeto
+cd D:\AntiG\brayyan
+
+# 2. Ativar o ambiente virtual
+.\.venv\Scripts\activate
+
+# 3. Instalar dependências (caso necessário)
 pip install -r requirements.txt
+
+# 4. Executar o servidor de desenvolvimento
 uvicorn main:app --reload --port 8000
+```
 
+Acesse localmente em: `http://localhost:8000`
 
-### Deploy
+---
 
-bash
-# Vercel (automatico via Git)
-git push
+## 🚀 Roteiro de Deploy na Vercel
 
-# Railway (manual)
-railway up
+```bash
+# O deploy na Vercel é 100% automático via Git
+git add .
+git commit -m "Sua mensagem de atualização"
+git push origin master
+```
 
+---
 
-### Estrutura de pastas
-
-
-brayyan/
-├── main.py # FastAPI principal
-├── config.py # Configuracoes
-├── database.py # SQLAlchemy
-├── requirements.txt # Dependencias
-├── Procfile # Railway start command
-├── railway.toml # Railway config
-├── vercel.json # Vercel config
-├── routers/ # Endpoints
-│ ├── auth.py
-│ ├── projects.py
-│ ├── articles.py
-│ ├── upload.py
-│ ├── conflicts.py
-│ └── export.py
-├── services/ # Logica de negocio
-│ ├── csv_parser.py
-│ └── metrics.py
-├── models/ # Modelos SQLAlchemy
-├── schemas/ # Schemas Pydantic
-├── static/ # Frontend estatico
-│ ├── index.html
-│ ├── rayyan.css
-│ └── rayyan.js
-├── data/ # CSVs de dados
-│ ├── auto_include.csv
-│ ├── auto_exclude.csv
-│ └── consolidated_export.csv
-└── docs/ # Documentacao
-
-
-### Testar endpoints
-
-bash
-# Health
-curl https://brayyan.vercel.app/api/health
-
-# Artigos
-curl https://brayyan.vercel.app/api/articles?limit=5
-
-# Upload CSV
-curl -X POST -F "file=@data/auto_include.csv" https://brayyan.vercel.app/api/upload/csv
-
-
-### Chats da equipe
-
-- ChatGPT Projeto Geral: implementacao
-- DeepSeek NexosAI: revisao, correcao, deploy
-
-## Fallback handoff note
-- Frontend fallback is now deployed in static/rayyan.js.
-- Do not reintroduce CSV import in startup. Any real data import must be manual/isolated.
-- Next safe blocks: UI panels for conflicts, PRISMA, metrics, export, and then basic auth.
+## 🔗 Links Relacionados (Obsidian Vault)
+- [[00_INDEX_MOC]] — Mapa de conteúdo central.
+- [[CURRENT_STATUS]] — Status da produção e domínio.
+- [[06_SYSTEM_ARCHITECTURE]] — Arquitetura FastAPI + Vercel CDN.
+- [[12_MVP_ROADMAP]] — Fases de evolução do produto.
