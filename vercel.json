@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/index.py": {
+      "includeFiles": "index.html,rayyan.css,rayyan.js,helpus-logo.jpg,assets/**,public/**,static/**"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
