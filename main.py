@@ -19,7 +19,8 @@ app.include_router(decisions.router, prefix='/api/decisions', tags=['decisions']
 async def health():
     return {'status': 'ok', 'version': '0.1.0'}
 
-STATIC = os.path.join(os.path.dirname(__file__), 'static')
+BASE_DIR = os.path.dirname(__file__)
+STATIC = os.path.join(BASE_DIR, 'public') if os.path.isdir(os.path.join(BASE_DIR, 'public')) else os.path.join(BASE_DIR, 'static')
 ASSETS = os.path.join(STATIC, 'assets')
 if os.path.isdir(ASSETS):
     app.mount('/assets', StaticFiles(directory=ASSETS), name='assets')
@@ -32,3 +33,4 @@ async def spa(path: str):
     if os.path.isfile(fp):
         return FileResponse(fp)
     return FileResponse(os.path.join(STATIC, 'index.html'))
+
