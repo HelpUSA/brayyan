@@ -6,19 +6,23 @@
     },
     {
       "src": "/rayyan.css",
-      "dest": "/rayyan.css"
+      "dest": "rayyan.css"
     },
     {
       "src": "/rayyan.js",
-      "dest": "/rayyan.js"
+      "dest": "rayyan.js"
     },
     {
       "src": "/helpus-logo.jpg",
-      "dest": "/helpus-logo.jpg"
+      "dest": "helpus-logo.jpg"
+    },
+    {
+      "src": "/",
+      "dest": "index.html"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "index.html"
     }
   ]
 }
