@@ -1,13 +1,14 @@
 {
-  "functions": {
-    "api/index.py": {
-      "includeFiles": "index.html,rayyan.css,rayyan.js,helpus-logo.jpg,assets/**,public/**,static/**"
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python"
     }
-  },
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api"
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
     }
   ]
 }
