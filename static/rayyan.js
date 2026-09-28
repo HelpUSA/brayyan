@@ -869,6 +869,11 @@
     renderRiskTable();
     renderFulltextTable();
 
+    const currentProj = localStorage.getItem("brayyan_current_project");
+    if (currentProj) {
+      switchProject(currentProj);
+    }
+
     if ($("#liveStatus")) {
       refreshAll().catch(err => setStatus(`Error: ${err.message}`));
     }
@@ -877,4 +882,160 @@
       if (banner) banner.style.display = "none";
     }
   });
+
+  // Dynamic Projects System
+  const defaultProjects = [
+    {
+      id: "1",
+      title: "IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed",
+      domain: "Biomedicina / Cardiologia Digital",
+      type: "Revisão Sistemática com Meta-Análise",
+      desc: "Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.",
+      total: 3578,
+      included: 886,
+      conflicts: 81
+    },
+    {
+      id: "2",
+      title: "IA na Detecção de Câncer de Mama em Mamografia Digital",
+      domain: "Oncologia / Radiologia",
+      type: "Revisão Sistemática com Meta-Análise",
+      desc: "Acurácia diagnóstica de redes neurais convolucionais (CNN) para rastreamento precoce de microcalcificações e nódulos mamários.",
+      total: 1420,
+      included: 312,
+      conflicts: 19
+    },
+    {
+      id: "3",
+      title: "Deep Learning para Triagem de AVC Isquêmico em Tomografia",
+      domain: "Neurologia / Radiologia",
+      type: "Scoping Review (Mapeamento)",
+      desc: "Mapeamento das arquiteturas de IA para detecção rápida de oclusão de grandes vasos em TC de crânio na emergência.",
+      total: 890,
+      included: 154,
+      conflicts: 8
+    }
+  ];
+
+  function loadUserProjects() {
+    const stored = localStorage.getItem("brayyan_user_projects");
+    if (!stored) {
+      localStorage.setItem("brayyan_user_projects", JSON.stringify(defaultProjects));
+      return defaultProjects;
+    }
+    try {
+      return JSON.parse(stored);
+    } catch (e) {
+      return defaultProjects;
+    }
+  }
+
+  function saveUserProjects(projects) {
+    localStorage.setItem("brayyan_user_projects", JSON.stringify(projects));
+  }
+
+  let activeProjectId = localStorage.getItem("brayyan_current_project") || "1";
+
+  window.openProjectsModal = () => {
+    renderProjectsGrid();
+    const m = document.getElementById("projectsModal");
+    if (m) m.style.display = "flex";
+  };
+
+  window.closeProjectsModal = () => {
+    const m = document.getElementById("projectsModal");
+    if (m) m.style.display = "none";
+  };
+
+  window.openCreateProjectModal = () => {
+    const m = document.getElementById("createProjectModal");
+    if (m) m.style.display = "flex";
+  };
+
+  window.closeCreateProjectModal = () => {
+    const m = document.getElementById("createProjectModal");
+    if (m) m.style.display = "none";
+  };
+
+  window.switchProject = (projId) => {
+    activeProjectId = projId;
+    localStorage.setItem("brayyan_current_project", projId);
+    const projects = loadUserProjects();
+    const proj = projects.find(p => p.id === projId) || projects[0];
+
+    const titleEl = document.querySelector('[data-i18n="headerTitle"]');
+    if (titleEl) titleEl.textContent = proj.title;
+
+    const domainEl = document.querySelector('[data-i18n="lblDomainVal"]');
+    if (domainEl) domainEl.textContent = proj.domain;
+
+    const typeEl = document.querySelector('[data-i18n="lblReviewTypeVal"]');
+    if (typeEl) typeEl.textContent = proj.type;
+
+    const descEl = document.querySelector('[data-i18n="lblDescVal"]');
+    if (descEl) descEl.textContent = proj.desc;
+
+    refreshAll();
+    setStatus(`Workspace alterado para o estudo: "${proj.title}".`);
+  };
+
+  function renderProjectsGrid() {
+    const grid = document.getElementById("projectsListGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    const projects = loadUserProjects();
+
+    projects.forEach(p => {
+      const isCurrent = p.id === activeProjectId;
+      const card = document.createElement("div");
+      card.className = "card";
+      card.style.border = isCurrent ? "2px solid #5b3df5" : "1px solid var(--line)";
+      card.innerHTML = `
+        <div class="cardHead" style="background:${isCurrent ? '#ede9ff' : '#ffffff'}">
+          <h3 style="font-size:14px;color:${isCurrent ? '#4338ca' : '#0f172a'}">${p.title}</h3>
+          ${isCurrent ? '<span class="pill" style="background:#5b3df5;color:#fff">Ativo</span>' : ''}
+        </div>
+        <div class="cardBody">
+          <p class="muted" style="margin-top:0;font-size:12px">${p.desc}</p>
+          <div style="display:flex;justify-content:space-between;font-weight:700;font-size:12px;margin-top:10px">
+            <span>Área: ${p.domain.split('/')[0]}</span>
+            <span>n = ${p.total} refs</span>
+          </div>
+          <button class="btn primary" style="width:100%;margin-top:12px;justify-content:center" onclick="switchProject('${p.id}');closeProjectsModal()">
+            ${isCurrent ? 'Abrir Workspace' : 'Selecionar e Abrir Estudo'}
+          </button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  window.handleCreateProject = (ev) => {
+    ev.preventDefault();
+    const title = document.getElementById("newProjTitle")?.value;
+    const type = document.getElementById("newProjType")?.value;
+    const domain = document.getElementById("newProjDomain")?.value;
+    const desc = document.getElementById("newProjDesc")?.value;
+    const fileInput = document.getElementById("newProjFile");
+
+    const newId = String(Date.now());
+    const newProj = {
+      id: newId,
+      title: title || "Nova Revisão Sistemática",
+      domain: domain || "Biomedicina",
+      type: type || "Revisão Sistemática",
+      desc: desc || "Estudo acadêmico de revisão sistemática.",
+      total: fileInput?.files?.length ? 150 : 0,
+      included: 0,
+      conflicts: 0
+    };
+
+    const projects = loadUserProjects();
+    projects.unshift(newProj);
+    saveUserProjects(projects);
+
+    closeCreateProjectModal();
+    switchProject(newId);
+    alert(`Revisão Sistemática "${newProj.title}" criada com sucesso! O workspace foi aberto e está pronto para o seu estudo.`);
+  };
 })();

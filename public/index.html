@@ -13,6 +13,8 @@
     <span class='headerBrandText'>HelpUS Technology</span>
   </div>
   <div class='headerUserSection'>
+    <button class='btn' onclick='openProjectsModal()' style='height:34px;font-size:13px'>📁 Meus Projetos</button>
+    <button class='btn primary' onclick='openCreateProjectModal()' style='height:34px;font-size:13px'>➕ Nova Revisão</button>
     <div class='langSelectorWrap'>
       <select id='langSelect' class='langSelect' onchange='changeLanguage(this.value)'>
         <option value='pt' selected>🇧🇷 PT</option>
@@ -646,6 +648,81 @@
     </div>
     <div class="modalFoot">
       <button class="btn primary" onclick="saveProjectData()">Salvar Alterações</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Dashboard Meus Projetos -->
+<div id="projectsModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:750px">
+    <div class="modalHead">
+      <h3>📁 Meus Projetos de Revisão Sistemática</h3>
+      <button class="modalClose" onclick="closeProjectsModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+        <p class="muted" style="margin:0">Selecione um estudo existente para carregar no workspace ou crie uma nova revisão.</p>
+        <button class="btn primary" onclick="closeProjectsModal();openCreateProjectModal()">➕ Nova Revisão</button>
+      </div>
+      <div id="projectsListGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px">
+        <!-- Preenchido via JavaScript -->
+      </div>
+    </div>
+    <div class="modalFoot">
+      <button class="btn" onclick="closeProjectsModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Criar Nova Revisão Sistemática -->
+<div id="createProjectModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:620px">
+    <div class="modalHead">
+      <h3>➕ Criar Nova Revisão Sistemática</h3>
+      <button class="modalClose" onclick="closeCreateProjectModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <p class="muted" style="margin-top:0">Cadastre os parâmetros da sua nova revisão sistemática para iniciar a triagem e auditoria por IA.</p>
+      
+      <form id="newProjectForm" onsubmit="handleCreateProject(event)" style="display:flex;flex-direction:column;gap:14px;margin-top:14px">
+        <label style="font-weight:700">Título do Estudo / Revisão:
+          <input type="text" id="newProjTitle" required placeholder="Ex: Acurácia Diagnóstica da Inteligência Artificial em Eletrocardiografia" style="width:100%;padding:9px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+        </label>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <label style="font-weight:700">Tipo de Revisão:
+            <select id="newProjType" style="width:100%;padding:9px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+              <option value="Revisão Sistemática com Meta-Análise">Revisão Sistemática com Meta-Análise</option>
+              <option value="Scoping Review (Mapeamento)">Scoping Review (Mapeamento)</option>
+              <option value="Revisão Integrativa">Revisão Integrativa</option>
+              <option value="Overview de Revisões">Overview de Revisões</option>
+            </select>
+          </label>
+
+          <label style="font-weight:700">Domínio / Área:
+            <select id="newProjDomain" style="width:100%;padding:9px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+              <option value="Biomedicina / Cardiologia Digital">Biomedicina / Cardiologia Digital</option>
+              <option value="Oncologia / Radiologia">Oncologia / Radiologia</option>
+              <option value="Neurologia / Psiquiatria">Neurologia / Psiquiatria</option>
+              <option value="Saúde Coletiva / Epidemiologia">Saúde Coletiva / Epidemiologia</option>
+              <option value="Tecnologia & Ciência da Computação">Tecnologia & Ciência da Computação</option>
+            </select>
+          </label>
+        </div>
+
+        <label style="font-weight:700">Descrição / Pergunta PICO:
+          <textarea id="newProjDesc" rows="3" placeholder="População, Intervenção, Comparador, Desfechos..." style="width:100%;padding:9px;border:1px solid var(--line2);border-radius:6px;margin-top:4px"></textarea>
+        </label>
+
+        <label style="font-weight:700">Upload de Arquivo dos Artigos (CSV / RIS / BibTeX):
+          <input type="file" id="newProjFile" accept=".csv,.ris,.bib,.txt" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px;background:#f8fafc">
+        </label>
+
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px">
+          <button type="button" class="btn" onclick="closeCreateProjectModal()">Cancelar</button>
+          <button type="submit" class="btn primary">🚀 Criar Estudo & Iniciar Workspace</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
