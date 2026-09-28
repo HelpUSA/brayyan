@@ -4,6 +4,8 @@ from typing import Optional
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 import uuid
+import base64
+import json
 
 from database import get_db
 
@@ -21,6 +23,18 @@ def ensure_users_table(db: Session):
         )
     """))
     db.commit()
+
+def decode_google_jwt(credential: str) -> dict:
+    try:
+        parts = credential.split(".")
+        if len(parts) >= 2:
+            padding = "=" * (4 - len(parts[1]) % 4)
+            payload_b64 = parts[1] + padding
+            decoded_bytes = base64.urlsafe_b64decode(payload_b64)
+            return json.loads(decoded_bytes.decode("utf-8"))
+    except Exception:
+        pass
+    return {}
 
 class LoginRequest(BaseModel):
     email: str
@@ -67,9 +81,21 @@ async def login(data: LoginRequest, db: Session = Depends(get_db)):
 @router.post('/google')
 async def google_login(data: GoogleAuthRequest, db: Session = Depends(get_db)):
     ensure_users_table(db)
-    email = (data.email or "usuario.google@helpusbr.com").strip().lower()
-    name = data.name or "Usuário Google"
-    picture = data.picture or ""
+    
+    email = data.email
+    name = data.name
+    picture = data.picture
+
+    if data.credential:
+        jwt_payload = decode_google_jwt(data.credential)
+        if jwt_payload.get("email"):
+            email = jwt_payload.get("email")
+            name = jwt_payload.get("name") or jwt_payload.get("given_name") or name
+            picture = jwt_payload.get("picture") or picture
+
+    email = (email or "usuario.google@helpusbr.com").strip().lower()
+    name = name or "Usuário Google"
+    picture = picture or ""
 
     user = db.execute(text("SELECT * FROM users WHERE email = :email"), {"email": email}).fetchone()
     if not user:

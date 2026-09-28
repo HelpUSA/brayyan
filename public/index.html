@@ -64,7 +64,26 @@
           <p>Entre com sua conta oficial Google ou e-mail registrado</p>
         </div>
 
-        <!-- Official Google Sign-In Button -->
+        <!-- Official Google Sign-In Container (GIS) -->
+        <div id="g_id_onload"
+             data-client_id="93489148281-helpus.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogleCredentialResponse"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="continue_with"
+             data-size="large"
+             data-logo_alignment="left"
+             style="display:flex;justify-content:center;margin-bottom:12px;width:100%">
+        </div>
+
+        <!-- Fallback Google Sign-In Button -->
         <button type='button' class='btnGoogleLogin' onclick='handleGoogleSignIn()'>
           <svg class='googleIconSvg' viewBox='0 0 24 24'>
             <path fill='#4285F4' d='M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z'/>

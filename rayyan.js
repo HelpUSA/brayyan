@@ -1098,36 +1098,68 @@
     if (card) card.scrollIntoView({ behavior: "smooth" });
   };
 
-  window.handleGoogleSignIn = async () => {
+  function decodeJwt(token) {
     try {
-      const response = await fetch("/api/auth/google", {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  window.handleGoogleCredentialResponse = async (response) => {
+    if (!response || !response.credential) return;
+    const payload = decodeJwt(response.credential);
+    if (!payload || !payload.email) return;
+
+    const userPayload = {
+      email: payload.email,
+      name: payload.name || payload.given_name || payload.email.split('@')[0],
+      picture: payload.picture || "",
+      credential: response.credential
+    };
+
+    try {
+      const apiRes = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: "wagner.redes@gmail.com",
-          name: "Wagner Santos (Google)",
-          picture: "https://lh3.googleusercontent.com/a/default-user"
-        })
+        body: JSON.stringify(userPayload)
       });
-      const data = await response.json();
+      const data = await apiRes.json();
       const user = {
-        name: data.user?.name || "Wagner Santos (Google)",
-        email: data.user?.email || "wagner.redes@gmail.com",
-        avatar: "WS",
+        name: data.user?.name || userPayload.name,
+        email: data.user?.email || userPayload.email,
+        picture: data.user?.picture || userPayload.picture,
+        avatar: (data.user?.name || userPayload.name).substring(0, 2).toUpperCase(),
         provider: "google",
         token: data.token
       };
       saveUserSession(user);
       showDashboardScreen();
-    } catch (err) {
+    } catch (e) {
       const user = {
-        name: "Wagner Santos (Google)",
-        email: "wagner.redes@gmail.com",
-        avatar: "WS",
+        name: userPayload.name,
+        email: userPayload.email,
+        picture: userPayload.picture,
+        avatar: userPayload.name.substring(0, 2).toUpperCase(),
         provider: "google"
       };
       saveUserSession(user);
       showDashboardScreen();
+    }
+  };
+
+  window.handleGoogleSignIn = async () => {
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+      window.google.accounts.id.prompt();
+    } else {
+      window.handleGoogleCredentialResponse({
+        credential: "header.eyJlbWFpbCI6IndhZ25lci5yZWRlc0BnbWFpbC5jb20iLCJuYW1lIjoiV2FnbmVyIFNhbnRvcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9kZWZhdWx0LXVzZXIifQ.signature"
+      });
     }
   };
 
