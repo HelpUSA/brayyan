@@ -1,6 +1,6 @@
 ---
 title: "Brayyan — Estado e Estrutura do Banco de Dados"
-tags: [brayyan, database, sqlite, schema, cardioreview]
+tags: [brayyan, database, sqlite, schema, multi-project, parsers]
 date: 2026-09-27
 status: ativo
 aliases: ["Database State", "Modelo de Dados SQLite"]
@@ -8,17 +8,36 @@ aliases: ["Database State", "Modelo de Dados SQLite"]
 
 # 🗄️ Brayyan — Estado do Banco de Dados
 
-> [!NOTE] Resumo do Banco de Dados
-> O banco de dados do Brayyan é gerenciado via **SQLite** local embarcado (`brayyan.db`, 1,88 MB), garantindo alta velocidade de leitura sem cold-starts no ambiente serverless da Vercel.
+> [!NOTE] Resumo do Banco de Dados Multi-Projeto
+> O banco de dados do Brayyan é gerenciado via **SQLite** local embarcado (`brayyan.db`), garantindo alta velocidade de leitura sem cold-starts no ambiente serverless da Vercel. Oferece suporte nativo a múltiplos projetos/estudos e importação de datasets em formatos **CSV, RIS e BibTeX**.
 
 ---
 
-## 📊 Estado Atual dos Dados
+## 📊 Estado Atual das Tabelas
 
-- **Tabela Principal**: `ai_screening_records`
-- **Total de Registros**: `3.578` artigos provenientes do dataset CardioReview.
+- **Tabela de Projetos**: `projects` (Persistência multi-estudo com metadados PICO)
+- **Tabela de Artigos**: `ai_screening_records` (Com coluna `project_id` para escopo isolado por revisão)
+- **Total de Registros Padrão**: `3.578` artigos no projeto semente CardioReview (`id: 1`).
 - **Tabela de Decisões Humanas**: `human_decisions`
-- **Índices Ativos**: `ix_ai_screening_records_key`, `ix_ai_screening_records_pubmed`, `ix_ai_screening_records_doi`.
+- **Índices Ativos**: `ix_ai_screening_records_key`, `ix_ai_screening_records_pubmed`, `ix_ai_screening_records_doi`, `ix_ai_screening_records_proj`.
+
+---
+
+## 📐 Estrutura da Tabela `projects`
+
+```sql
+CREATE TABLE projects (
+    id TEXT PRIMARY KEY,
+    title TEXT NOT NULL,
+    domain TEXT,
+    study_type TEXT,
+    pico_population TEXT,
+    pico_intervention TEXT,
+    pico_comparator TEXT,
+    pico_outcome TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
 
 ---
 
@@ -27,6 +46,7 @@ aliases: ["Database State", "Modelo de Dados SQLite"]
 ```sql
 CREATE TABLE ai_screening_records (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_id TEXT DEFAULT '1',
     source_filename TEXT,
     record_key TEXT,
     pubmed_id TEXT,
@@ -53,18 +73,16 @@ CREATE TABLE ai_screening_records (
 
 ---
 
-## 🔍 Endpoints de Leitura e Métricas
+## 📂 Suporte a Arquivos de Entrada
 
-> [!TIP] Validação das APIs
-> - `GET /api/articles/` — Retorna os artigos paginados.
-> - `GET /api/articles/summary` — Retorna as contagens de incluídos/excluídos e conflitos.
-> - `GET /api/articles/prisma` — Retorna a contagem exata para o fluxo PRISMA.
-> - `GET /api/articles/metrics` — Retorna o cálculo do índice **Cohen's Kappa** ($K = 0.9479$).
+> [!TIP] Formatos Suportados
+> - **CSV**: Formato padrão CardioReview ou CSV genérico com mapeamento flexível de colunas (`Title`, `Abstract`, `Year`, `Journal`, `DOI`, `PMID`).
+> - **RIS (`.ris`)**: Suporte a tags RIS acadêmicas (`TI`/`T1`, `AB`/`N2`, `PY`/`Y1`, `JO`/`JF`, `DO`, `AN`).
+> - **BibTeX (`.bib`)**: Suporte a entradas `@article`, `@inproceedings` e `@misc`.
 
 ---
 
 ## 🔗 Links Relacionados (Obsidian Vault)
 - [[00_INDEX_MOC]] — MOC do projeto.
 - [[CURRENT_STATUS]] — Status atual do deploy.
-- [[03_DATA_MODEL]] — Modelo relacional detalhado.
-- [[05_DATABASE_SCHEMA.sql]] — Script SQL original.
+- [[12_MVP_ROADMAP]] — Fases do roadmap concluídas.
