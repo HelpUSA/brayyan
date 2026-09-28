@@ -109,11 +109,413 @@ textarea{border:1px solid var(--line2);border-radius:6px;padding:10px;font:inher
 .whatsappFloat:hover{transform:scale(1.1);box-shadow:0 10px 25px rgba(37,211,102,0.65)}
 .whatsappFloat svg{width:28px;height:28px;fill:currentColor}
 
+/* Screen Views & Auth Management */
+.screenView { width: 100%; min-height: calc(100vh - 110px); }
+.screenView.hidden { display: none !important; }
+
+/* LANDING SCREEN & GOOGLE AUTH */
+.landingContainer {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.landingHeroTitle {
+  font-size: 38px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.landingHeroTitle span {
+  color: var(--purple);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.landingHeroSubtitle {
+  font-size: 16px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 18px 0 28px 0;
+}
+
+.landingFeaturesList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.landingFeatureItem {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  padding: 14px 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+
+.landingFeatureItem h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 800;
+  color: #1e1b4b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.landingFeatureItem p {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+/* LOGIN CARD */
+.authCard {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(15,23,42,0.08);
+  padding: 28px;
+}
+
+.authCardHeader {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.authCardHeader h2 {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.authCardHeader p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* OFFICIAL GOOGLE LOGIN BUTTON */
+.btnGoogleLogin {
+  width: 100%;
+  height: 44px;
+  background: #ffffff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  color: #3c4043;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.btnGoogleLogin:hover {
+  background: #f8f9fa;
+  border-color: #d2e3fc;
+  box-shadow: 0 2px 6px rgba(60,64,67,0.15);
+}
+
+.googleIconSvg {
+  width: 20px;
+  height: 20px;
+}
+
+.authDivider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.authDivider::before, .authDivider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--line);
+}
+
+.authDivider span {
+  padding: 0 12px;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.authField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.authField label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.authInput {
+  height: 42px;
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.authInput:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(91, 61, 245, 0.15);
+}
+
+.authSubmitBtn {
+  width: 100%;
+  height: 44px;
+  background: var(--purple);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.authSubmitBtn:hover {
+  background: #4f46e5;
+}
+
+.authDemoBtn {
+  width: 100%;
+  height: 40px;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.authDemoBtn:hover {
+  background: #e2e8f0;
+}
+
+/* DASHBOARD SCREEN */
+.dashboardContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.dashHeroBanner {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  color: #ffffff;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 10px 25px rgba(30, 27, 75, 0.2);
+}
+
+.dashHeroText h1 {
+  margin: 0 0 8px 0;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.dashHeroText p {
+  margin: 0;
+  color: #c7d2fe;
+  font-size: 14px;
+}
+
+.btnLg {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.dashProjectsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashProjectsHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.projectCard {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.projectCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15,23,42,0.1);
+  border-color: #cbd5e1;
+}
+
+.projectCardDomainBadge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.projectCardTitle {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+  padding-right: 80px;
+}
+
+.projectCardMeta {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 14px;
+}
+
+.projectCardProgress {
+  margin: 14px 0;
+}
+
+.projectCardProgressBar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.projectCardProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+  border-radius: 4px;
+}
+
+.projectCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.createCard {
+  border: 2px dashed #cbd5e1;
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  min-height: 220px;
+}
+
+.createCard:hover {
+  background: #f1f5f9;
+  border-color: var(--purple);
+}
+
+.createCardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--purple2);
+  color: var(--purple);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.userProfileHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userNameSpan {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e1b4b;
+}
+
 /* Responsividade Completa (Mobile & Tablet) */
 @media (max-width: 1024px) {
   body{padding-top:68px;padding-bottom:70px}
   .header{padding:0 12px}
   .headerBrandText{font-size:14px}
+  .landingContainer { grid-template-columns: 1fr; gap: 24px; margin: 10px auto; }
+  .landingHeroTitle { font-size: 28px; }
+  .landingFeaturesList { grid-template-columns: 1fr; }
+  .dashHeroBanner { flex-direction: column; text-align: center; }
+  .projectsGrid { grid-template-columns: 1fr; }
   .projectTitleRow{flex-direction:column;align-items:flex-start}
   .projectActionsGroup{width:100%;justify-content:flex-start}
   .subToolsInline{border-left:none;padding-left:0;margin-left:0;width:100%;margin-top:4px}

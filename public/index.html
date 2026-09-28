@@ -5,649 +5,601 @@
 <meta name='viewport' content='width=device-width,initial-scale=1'>
 <title data-i18n="title">Brayyan — Revisão Sistemática com IA | HelpUS Technology</title>
 <link rel='stylesheet' href='/rayyan.css'>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-<header class='header'>
-  <div class='headerBrand'>
-    <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
-    <span class='headerBrandText'>HelpUS Technology</span>
-  </div>
-  <div class='headerUserSection'>
-    <button class='btn' onclick='openProjectsModal()' style='height:34px;font-size:13px'>📁 Meus Projetos</button>
-    <button class='btn primary' onclick='openCreateProjectModal()' style='height:34px;font-size:13px'>➕ Nova Revisão</button>
-    <div class='langSelectorWrap'>
-      <select id='langSelect' class='langSelect' onchange='changeLanguage(this.value)'>
-        <option value='pt' selected>🇧🇷 PT</option>
-        <option value='en'>🇺🇸 EN</option>
-        <option value='es'>🇪🇸 ES</option>
-      </select>
-    </div>
-    <div class='avatar' title='Wagner Santos'>WS</div>
-  </div>
-</header>
 
-<main class='page'>
-  <div class='projectHeaderCard'>
-    <div class='projectTitleRow'>
-      <div class='projectTitleGroup'>
-        <div class='logo'>B</div>
-        <div class='crown'>*</div>
-        <div class='titleWrap'>
-          <span data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</span>
-          <span class='helpusBadge' data-i18n="helpusBadge">HelpUS Technology</span>
-          <span class='editIcon' data-i18n="edit">editar</span>
-        </div>
-      </div>
-      <div class='projectActionsGroup'>
-        <button class='btn primary' data-i18n="upgrade">Upgrade / Planos</button>
-        <button class='btn' data-i18n="needHelp">Precisa de ajuda?</button>
-        <button class='btn iconBtn'>?</button>
-        <button class='btn iconBtn'>cfg</button>
-        <div class='subToolsInline'>
-          <span style='font-weight:700' data-i18n="blindMode">Modo cego (Blind mode)</span>
-          <span class='switch'><i></i></span>
-          <button class='btn' data-go='criteria' data-i18n="screeningCriteria">Critérios de triagem</button>
-          <button class='btn iconBtn'>...</button>
-        </div>
-      </div>
+<!-- LANDING & LOGIN SCREEN -->
+<div id='landingScreen' class='screenView'>
+  <header class='header'>
+    <div class='headerBrand'>
+      <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
+      <span class='headerBrandText'>HelpUS Technology</span>
     </div>
-    
-    <nav class='tabs' id='tabs'>
-      <button class='tab active' data-tab='overview' data-i18n="tabOverview">Visão Geral</button>
-      <button class='tab' data-tab='reviewdata' data-i18n="tabReviewData">Dados da Revisão</button>
-      <button class='tab' data-tab='screening' data-i18n="tabScreening">Triagem (Screening)</button>
-      <button class='tab' data-tab='fulltext' data-i18n="tabFullText">Texto Completo</button>
-      <button class='tab' data-tab='extraction' data-i18n="tabExtraction">Extração de Dados</button>
-      <button class='tab' data-tab='risk' data-i18n="tabRisk">Risco de Viés</button>
-      <button class='tab' data-tab='practical' data-i18n="tabPractical">MVP Prático</button>
-      <button class='tab' data-tab='operational' data-i18n="tabOperational">Operacional (Ao Vivo)</button>
-    </nav>
-    
-    <div class='updateBar'>
-      <span data-i18n="updateBarMsg">Mantenha-se atualizado com as revisões da equipe</span>
-      <div class='updateBarButtons'>
-        <button class='btn' data-i18n="btnEditData">Editar dados</button>
-        <button class='btn' data-i18n="btnInvite">Convidar membros</button>
-        <button class='btn' data-i18n="btnPrisma">Fluxo PRISMA</button>
+    <div class='headerUserSection'>
+      <div class='langSelectorWrap'>
+        <select class='langSelect' onchange='changeLanguage(this.value)'>
+          <option value='pt' selected>🇧🇷 PT</option>
+          <option value='en'>🇺🇸 EN</option>
+          <option value='es'>🇪🇸 ES</option>
+        </select>
       </div>
+      <button class='btn primary' onclick='scrollToAuthCard()'>🔐 Entrar / Cadastrar</button>
     </div>
-  </div>
-<section id='overview' class='view active'>
-<div class='grid overviewGrid'>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardReviewInfo">Informações da Revisão</h2></div><div class='cardBody'>
-<div class='infoRow'><div class='bubble bPurple'>i</div><div class='label' data-i18n="lblReviewTitle">Título da Revisão:</div><div data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</div></div>
-<div class='infoRow'><div class='bubble bGreen'>T</div><div class='label' data-i18n="lblReviewType">Tipo de Revisão:</div><div data-i18n="lblReviewTypeVal">Revisão Sistemática com Meta-Análise</div></div>
-<div class='infoRow'><div class='bubble bGold'>D</div><div class='label' data-i18n="lblDomain">Domínio:</div><div data-i18n="lblDomainVal">Biomedicina / Cardiologia Digital</div></div>
-<div class='infoRow'><div class='bubble bRed'>D</div><div class='label' data-i18n="lblDesc">Descrição:</div><div class='muted' data-i18n="lblDescVal">Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</div></div>
-</div></div>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardDataSummary">Resumo dos Dados</h2></div><div class='cardBody summaryCards'>
-<div class='metric'><div class='name' data-i18n="lblImportedRefs">Referências Importadas</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnAddRefs">Adicionar Referências</button></div>
-<div class='metric'><div class='name' data-i18n="lblTotalDupes">Total de Duplicatas</div><div class='num'>38</div><button class='btn soft' data-i18n="btnDetectDupes">Detectar Duplicatas</button></div>
-<div class='metric'><div class='name' data-i18n="lblUnresolved">Não Resolvidos</div><div class='num'>0</div><button class='btn disabled' data-i18n="btnContinueResolving">Continuar Resolução</button></div>
-<div class='metric statusList'><div class='statusItem'><span data-i18n="lblResolved">Resolvidos</span> <b>19</b></div><div class='statusItem'><span data-i18n="lblNotDuplicate">Não Duplicados</span> <b>6</b></div><div class='statusItem'><span data-i18n="lblDeleted">Excluídos</span> <b>13</b></div></div>
-</div></div>
-</div>
-<div class='card' style='margin-top:14px'><div class='cardHead'><h2 data-i18n="cardMembers">Membros da Equipe</h2></div><table class='table'><thead><tr><th data-i18n="thName">Nome</th><th data-i18n="thEmail">E-mail</th><th data-i18n="thRole">Função</th><th data-i18n="thStatus">Status</th></tr></thead><tbody><tr><td><div class='memberCell'><span class='memberAvatar'>WS</span>Wagner Santos</div></td><td>wagner.redes@gmail.com</td><td data-i18n="roleOwner">Proprietário / Revisor Líder</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WA</span>Watcher A (IA)</div></td><td>watcher.a@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr><tr><td><div class='memberCell'><span class='memberAvatar'>WB</span>Watcher B (IA)</div></td><td>watcher.b@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr></tbody></table></div>
-<div class='grid progressGrid' style='margin-top:14px'>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardProgress">Seu Progresso de Triagem</h2></div><div class='cardBody progressBody'><div><div class='donut'><span>100%</span></div><div class='legend'><span><i class='dot red'></i><span data-i18n="donutExcluded">Excluídos</span> (2.692)</span><span><i class='dot orange'></i><span data-i18n="donutMaybe">Conflitos</span> (81)</span><span><i class='dot green'></i><span data-i18n="donutIncluded">Incluídos</span> (886)</span></div></div><div class='bigCenter'><div class='time' data-i18n="progressTitle">Triagem Automatizada por IA Finalizada</div><div class='big' data-i18n="progressBig">3.578 Artigos Triados</div><button class='btn primary' data-go='screening' data-i18n="btnViewArticles">Ver Lista de Artigos</button><div class='muted' style='margin-top:18px' data-i18n="progressMuted">3.578 de 3.578 Artigos Processados com Sucesso</div></div></div></div>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardScreeningSummary">Resumo da Triagem</h2></div><div class='cardBody'><div class='statusItem'><span data-i18n="lblPendingConflicts">Conflitos Pendentes</span><b>81</b></div><div class='statusItem'><span data-i18n="lblAiAgreement">Concordância da IA</span><b>97.74%</b></div><div class='statusItem'><span data-i18n="lblKappa">Coeficiente Kappa</span><b data-i18n="kappaVal">0.9479 (Excelente)</b></div><div class='progressLine'></div><div class='muted'><span class='warn'>!</span><span data-i18n="auditWarn">81 artigos necessitam de auditoria humana final para resolução de divergências entre os Watchers de IA.</span></div></div></div>
-</div>
-</section>
-<section id='reviewdata' class='view'>
-<div class='grid dataGrid'>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardImportedData">Conjuntos de Dados Importados</h2></div><div class='cardBody'><div class='metric'><div class='name' data-i18n="lblBaseInfo">Base PubMed + Scopus + IEEE</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnImportCsv">Importar Novo CSV</button></div></div></div>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardDbStatus">Status do Banco de Dados</h2></div><div class='cardBody'><div class='statusItem'><span data-i18n="lblSqliteReady">Registros SQLite</span> <b data-i18n="lblSqliteVal">Prontos (3.578)</b></div><div class='statusItem'><span data-i18n="lblAiRows">Linhas de Triagem IA</span> <b data-i18n="lblAiRowsVal">Processadas</b></div><div class='miniChart'><div class='bar p' style='height:80%'></div><div class='bar g' style='height:38%'></div><div class='bar o' style='height:55%'></div></div></div></div>
-</div>
-</section>
-<section id='screening' class='view'>
-<div class='grid screeningLayout'>
-<aside class='card'><div class='filterBox'><h4 data-i18n="keywordsTitle">Palavras-chave</h4><div class='chip include'><span data-i18n="kwIncludeEcg">Incluir ECG</span> <b>892</b></div><div class='chip include'><span data-i18n="kwIncludeAi">Incluir IA</span> <b>741</b></div><div class='chip exclude'><span data-i18n="kwExcludeAnimal">Excluir animal</span> <b>118</b></div><div class='chip maybe'><span data-i18n="kwMaybeValidation">Talvez validação</span> <b>304</b></div></div></aside>
-<section class='card'><div class='cardHead'><h2 data-i18n="cardArticlesToScreen">Artigos para triar</h2>
-<select id='confidenceFilter' style='padding:4px 8px;border:1px solid var(--line2);border-radius:6px;font-size:12px' onchange='filterArticlesByConfidence(this.value)'><option value='0'>Confiança IA: Todas</option><option value='0.9'>Confiança > 90%</option><option value='0.8'>Confiança > 80%</option></select>
-<button class='btn soft' id='loadArticlesBtnScreening' type='button' data-i18n="btnSortRelevance">Atualizar Lista</button></div>
-<div id='screeningArticleList' style='max-height:650px;overflow-y:auto'></div>
-</section>
-<section class='card'><div class='cardHead'><h2 data-i18n="cardArticleDetails">Detalhes do artigo</h2><span class='muted' style='font-size:11px'>⌨️ Atalhos: [1] Incluir | [2] Talvez | [3] Excluir | [U] Desfazer</span></div><div class='cardBody'><div id='detailTitle' class='detailTitle' data-i18n="lblSelectArticle">Selecione um artigo</div><p class='abstract' id='detailAbstract'></p><p><span class='pill'>ECG</span><span class='pill'>Inteligência Artificial</span><span class='pill'>Acurácia Diagnóstica</span><span class='pill'>Doença Cardíaca Estrutural</span></p><div class='statusItem'><span data-i18n="lblAuthors">Autores</span> <b id='detailAuthors'>-</b></div><div class='statusItem'><span data-i18n="lblJournal">Periódico</span> <b id='detailJournal'>-</b></div><div class='statusItem'><span data-i18n="lblYear">Ano</span> <b id='detailYear'>-</b></div><div class='statusItem'><span data-i18n="lblDoi">DOI</span> <b id='detailDoi'>-</b></div><div class='statusItem'><span data-i18n="lblDecisionA">Decisão Watcher A</span> <b id='detailWatcherA'>-</b></div><div class='statusItem'><span data-i18n="lblDecisionB">Decisão Watcher B</span> <b id='detailWatcherB'>-</b></div><div class='statusItem'><span data-i18n="lblCompStatus">Status de Comparação</span> <b id='detailStatus'>-</b></div><div class='decisionBar'><button class='decision inc' data-live-decision='include' type='button' data-i18n="btnInclude">Incluir [1]</button><button class='decision may' data-live-decision='maybe' type='button' data-i18n="btnMaybe">Talvez [2]</button><button class='decision exc' data-live-decision='exclude' type='button' data-i18n="btnExclude">Excluir [3]</button><button class='btn' type='button' onclick='undoLastDecision()' title='Desfazer última decisão [U]'>↩ Desfazer</button></div></div></section>
-</div>
-</section>
-<section id='criteria' class='view'>
-<div class='card'><div class='cardHead'><h2 data-i18n="cardCriteria">Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on' data-i18n="tabInclusion">Inclusão</div><div data-i18n="tabExclusion">Exclusão</div></div><div class='criteriaTitle' data-i18n="criteriaIncTitle">Incluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaIncText">A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle' data-i18n="criteriaExcTitle">Excluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaExcText">Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
-</section>
-<section id='fulltext' class='view'>
-  <div class='grid' style='gap:16px'>
-    <div class='card'>
-      <div class='cardHead'>
-        <h2 data-i18n="fulltextTitle">Triagem de Texto Completo (Full-Text Assessment)</h2>
-        <button class='btn primary' onclick='openUploadPdfModal()'>+ Upload de PDFs / Artigos</button>
-      </div>
-      <div class='cardBody'>
-        <p class='muted' style='margin-top:0'>
-          Avaliação de elegibilidade dos 886 artigos em texto completo com verificação de critérios PICO e laudos ecocardiográficos de referência.
-        </p>
-        <div class='summaryCards' style='margin-top:14px'>
-          <div class='metric'>
-            <div class='name'>Artigos em Texto Completo</div>
-            <div class='num'>886</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>PDFs Anexados</div>
-            <div class='num' style='color:#6366f1'>142</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Aprovados para Síntese</div>
-            <div class='num' style='color:#16a34a'>128</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Excluídos no Texto Completo</div>
-            <div class='num' style='color:#dc2626'>14</div>
-          </div>
+  </header>
+
+  <div class='landingContainer'>
+    <div class='landingHeroLeft'>
+      <h1 class='landingHeroTitle'>
+        Plataforma SaaS para <span>Revisão Sistemática</span> com IA
+      </h1>
+      <p class='landingHeroSubtitle'>
+        Crie, audite e sintetize pesquisas acadêmicas e biomédicas com assistentes virtuais de IA (Watchers A & B). Importe datasets RIS, BibTeX e CSV em segundos.
+      </p>
+
+      <div class='landingFeaturesList'>
+        <div class='landingFeatureItem'>
+          <h4>📁 Gestão Multi-Projeto</h4>
+          <p>Cadastre e gerencie múltiplos trabalhos simultâneos por usuário.</p>
+        </div>
+        <div class='landingFeatureItem'>
+          <h4>🤖 Revisor Duplo por IA</h4>
+          <p>Triagem automatizada com cálculo imediato do índice Cohen's Kappa.</p>
+        </div>
+        <div class='landingFeatureItem'>
+          <h4>📊 Fluxograma PRISMA 2020</h4>
+          <p>Geração interativa do diagrama PRISMA em PDF e PNG.</p>
+        </div>
+        <div class='landingFeatureItem'>
+          <h4>⚖️ Risco de Viés QUADAS-2</h4>
+          <p>Gráficos de semáforo por domínios e tabelas exportáveis.</p>
         </div>
       </div>
     </div>
 
-    <div class='card'>
-      <div class='cardHead'>
-        <h2>Documentos e PDFs para Auditoria</h2>
-        <input type='text' id='searchFulltext' placeholder='Buscar por artigo ou DOI...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterFulltextTable(this.value)'>
+    <div class='landingHeroRight' id='authCardSection'>
+      <div class='authCard'>
+        <div class='authCardHeader'>
+          <h2>Acesse sua Conta</h2>
+          <p>Entre com sua conta oficial Google ou e-mail registrado</p>
+        </div>
+
+        <!-- Official Google Sign-In Button -->
+        <button type='button' class='btnGoogleLogin' onclick='handleGoogleSignIn()'>
+          <svg class='googleIconSvg' viewBox='0 0 24 24'>
+            <path fill='#4285F4' d='M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z'/>
+            <path fill='#34A853' d='M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z'/>
+            <path fill='#FBBC05' d='M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.39l3.99-3.15z'/>
+            <path fill='#EA4335' d='M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z'/>
+          </svg>
+          Continuar com o Google
+        </button>
+
+        <div class='authDivider'><span>ou com e-mail</span></div>
+
+        <form class='authForm' onsubmit='handleEmailLogin(event)'>
+          <div class='authField'>
+            <label for='loginEmail'>E-mail Profissional / Acadêmico</label>
+            <input type='email' id='loginEmail' class='authInput' placeholder='seu.nome@universidade.edu.br' required>
+          </div>
+          <div class='authField'>
+            <label for='loginPassword'>Senha</label>
+            <input type='password' id='loginPassword' class='authInput' placeholder='••••••••' required>
+          </div>
+          <button type='submit' class='authSubmitBtn'>🔐 Entrar na Plataforma</button>
+        </form>
+
+        <button type='button' class='authDemoBtn' onclick='handleGuestLogin()'>🚀 Acesso Rápido de Teste (Demo)</button>
       </div>
-      <div style='overflow-x:auto'>
-        <table class='table' id='fulltextTable'>
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD SCREEN (Multi-Project Hub for Logged-In User) -->
+<div id='dashboardScreen' class='screenView hidden'>
+  <header class='header'>
+    <div class='headerBrand'>
+      <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
+      <span class='headerBrandText'>HelpUS Technology</span>
+    </div>
+    <div class='headerUserSection'>
+      <button class='btn primary' onclick='openCreateProjectModal()' style='height:34px;font-size:13px'>➕ Nova Revisão</button>
+      <div class='langSelectorWrap'>
+        <select class='langSelect' onchange='changeLanguage(this.value)'>
+          <option value='pt' selected>🇧🇷 PT</option>
+          <option value='en'>🇺🇸 EN</option>
+          <option value='es'>🇪🇸 ES</option>
+        </select>
+      </div>
+      <div class='userProfileHeader'>
+        <div class='avatar' id='dashUserAvatar'>WS</div>
+        <span class='userNameSpan' id='dashUserName'>Wagner Santos</span>
+        <button class='btn soft' onclick='handleLogout()' style='height:32px;font-size:12px'>🚪 Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <div class='dashboardContainer'>
+    <div class='dashHeroBanner'>
+      <div class='dashHeroText'>
+        <h1 id='dashGreetingTitle'>Minhas Revisões Sistemáticas</h1>
+        <p id='dashGreetingSub'>Gerencie seus trabalhos cadastrados, importe arquivos RIS/BibTeX/CSV e monitore relatórios de triagem com IA.</p>
+      </div>
+      <button class='btn primary btnLg' onclick='openCreateProjectModal()'>➕ Cadastrar Novo Trabalho</button>
+    </div>
+
+    <div class='dashProjectsSection'>
+      <div class='dashProjectsHeader'>
+        <h2>📁 Seus Trabalhos Registrados</h2>
+      </div>
+      <div class='projectsGrid' id='dashboardProjectsGrid'>
+        <!-- Dynamic Cards -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKSPACE SCREEN (Active Systematic Review) -->
+<div id='workspaceScreen' class='screenView hidden'>
+  <header class='header'>
+    <div class='headerBrand'>
+      <button class='btn' onclick='showDashboardScreen()' style='height:34px;font-size:13px;font-weight:700'>← Minhas Revisões</button>
+      <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
+      <span class='headerBrandText'>HelpUS Technology</span>
+    </div>
+    <div class='headerUserSection'>
+      <button class='btn' onclick='openProjectsModal()' style='height:34px;font-size:13px'>📁 Alternar Projeto</button>
+      <button class='btn primary' onclick='openCreateProjectModal()' style='height:34px;font-size:13px'>➕ Nova Revisão</button>
+      <div class='langSelectorWrap'>
+        <select class='langSelect' onchange='changeLanguage(this.value)'>
+          <option value='pt' selected>🇧🇷 PT</option>
+          <option value='en'>🇺🇸 EN</option>
+          <option value='es'>🇪🇸 ES</option>
+        </select>
+      </div>
+      <div class='avatar' id='headerWorkspaceAvatar' title='Perfil User'>WS</div>
+      <button class='btn soft' onclick='handleLogout()' style='height:30px;font-size:11px;padding:0 8px'>Sair</button>
+    </div>
+  </header>
+
+  <main class='page'>
+    <div class='projectHeaderCard'>
+      <div class='projectTitleRow'>
+        <div class='projectTitleGroup'>
+          <div class='logo'>B</div>
+          <div class='crown'>*</div>
+          <div class='titleWrap'>
+            <span data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</span>
+            <span class='helpusBadge' data-i18n="helpusBadge">HelpUS Technology</span>
+            <span class='editIcon' data-i18n="edit">editar</span>
+          </div>
+        </div>
+        <div class='projectActionsGroup'>
+          <button class='btn primary' data-i18n="upgrade">Upgrade / Planos</button>
+          <button class='btn' data-i18n="needHelp">Precisa de ajuda?</button>
+          <button class='btn iconBtn'>?</button>
+          <button class='btn iconBtn'>cfg</button>
+          <div class='subToolsInline'>
+            <span style='font-weight:700' data-i18n="blindMode">Modo cego (Blind mode)</span>
+            <span class='switch'><i></i></span>
+            <button class='btn' data-go='criteria' data-i18n="screeningCriteria">Critérios de triagem</button>
+            <button class='btn iconBtn'>...</button>
+          </div>
+        </div>
+      </div>
+      
+      <nav class='tabs' id='tabs'>
+        <button class='tab active' data-tab='overview' data-i18n="tabOverview">Visão Geral</button>
+        <button class='tab' data-tab='reviewdata' data-i18n="tabReviewData">Dados da Revisão</button>
+        <button class='tab' data-tab='screening' data-i18n="tabScreening">Triagem (Screening)</button>
+        <button class='tab' data-tab='fulltext' data-i18n="tabFullText">Texto Completo</button>
+        <button class='tab' data-tab='extraction' data-i18n="tabExtraction">Extração de Dados</button>
+        <button class='tab' data-tab='risk' data-i18n="tabRisk">Risco de Viés</button>
+        <button class='tab' data-tab='practical' data-i18n="tabPractical">MVP Prático</button>
+        <button class='tab' data-tab='operational' data-i18n="tabOperational">Operacional (Ao Vivo)</button>
+      </nav>
+      
+      <div class='updateBar'>
+        <span data-i18n="updateBarMsg">Mantenha-se atualizado com as revisões da equipe</span>
+        <div class='updateBarButtons'>
+          <button class='btn' data-i18n="btnEditData">Editar dados</button>
+          <button class='btn' data-i18n="btnInvite">Convidar membros</button>
+          <button class='btn' data-i18n="btnPrisma">Fluxo PRISMA</button>
+        </div>
+      </div>
+    </div>
+
+    <section id='overview' class='view active'>
+      <div class='grid overviewGrid'>
+        <div class='card'>
+          <div class='cardHead'><h2 data-i18n="cardReviewInfo">Informações da Revisão</h2></div>
+          <div class='cardBody'>
+            <div class='infoRow'><div class='bubble bPurple'>i</div><div class='label' data-i18n="lblReviewTitle">Título da Revisão:</div><div data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</div></div>
+            <div class='infoRow'><div class='bubble bGreen'>T</div><div class='label' data-i18n="lblReviewType">Tipo de Revisão:</div><div data-i18n="lblReviewTypeVal">Revisão Sistemática com Meta-Análise</div></div>
+            <div class='infoRow'><div class='bubble bGold'>D</div><div class='label' data-i18n="lblDomain">Domínio:</div><div data-i18n="lblDomainVal">Biomedicina / Cardiologia Digital</div></div>
+            <div class='infoRow'><div class='bubble bRed'>D</div><div class='label' data-i18n="lblDesc">Descrição:</div><div class='muted' data-i18n="lblDescVal">Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</div></div>
+          </div>
+        </div>
+        <div class='card'>
+          <div class='cardHead'><h2 data-i18n="cardDataSummary">Resumo dos Dados</h2></div>
+          <div class='cardBody summaryCards'>
+            <div class='metric'><div class='name' data-i18n="lblImportedRefs">Referências Importadas</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnAddRefs">Adicionar Referências</button></div>
+            <div class='metric'><div class='name' data-i18n="lblTotalDupes">Total de Duplicatas</div><div class='num'>38</div><button class='btn soft' data-i18n="btnDetectDupes">Detectar Duplicatas</button></div>
+            <div class='metric'><div class='name' data-i18n="lblUnresolved">Não Resolvidos</div><div class='num'>0</div><button class='btn disabled' data-i18n="btnContinueResolving">Continuar Resolução</button></div>
+            <div class='metric statusList'><div class='statusItem'><span data-i18n="lblResolved">Resolvidos</span> <b>19</b></div><div class='statusItem'><span data-i18n="lblNotDuplicate">Não Duplicados</span> <b>6</b></div><div class='statusItem'><span data-i18n="lblDeleted">Excluídos</span> <b>13</b></div></div>
+          </div>
+        </div>
+      </div>
+      <div class='card' style='margin-top:14px'>
+        <div class='cardHead'><h2 data-i18n="cardMembers">Membros da Equipe</h2></div>
+        <table class='table'>
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Título do Estudo</th>
-              <th>Arquivo PDF</th>
-              <th>Status do Texto</th>
-              <th>Razão de Exclusão</th>
-              <th>Revisor Responsável</th>
-              <th>Ação</th>
-            </tr>
+            <tr><th data-i18n="thName">Nome</th><th data-i18n="thEmail">E-mail</th><th data-i18n="thRole">Função</th><th data-i18n="thStatus">Status</th></tr>
           </thead>
-          <tbody id='fulltextTbody'>
-            <!-- Preenchido via JavaScript -->
+          <tbody>
+            <tr><td><div class='memberCell'><span class='memberAvatar'>WS</span>Wagner Santos</div></td><td>wagner.redes@gmail.com</td><td data-i18n="roleOwner">Proprietário / Revisor Líder</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr>
+            <tr><td><div class='memberCell'><span class='memberAvatar'>WA</span>Watcher A (IA)</div></td><td>watcher.a@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr>
+            <tr><td><div class='memberCell'><span class='memberAvatar'>WB</span>Watcher B (IA)</div></td><td>watcher.b@helpusbr.com</td><td data-i18n="roleAiWatcher">Revisor Automatizado (IA)</td><td><span class='ok' data-i18n="statusActive">Ativo</span></td></tr>
           </tbody>
         </table>
       </div>
-    </div>
-  </div>
-</section>
-<section id='extraction' class='view'>
-  <div class='grid' style='gap:16px'>
-    <div class='card'>
-      <div class='cardHead'>
-        <h2 data-i18n="extractionTitle">Extração de Dados com IA & Auditoria</h2>
-        <div style='display:flex;gap:8px'>
-          <button class='btn primary' onclick='openExtractionModal()' data-i18n="btnConfigExtraction">Configurar Formulário</button>
-          <button class='btn' onclick='exportExtractionCsv()'>Exportar CSV</button>
-        </div>
-      </div>
-      <div class='cardBody'>
-        <p class='muted' style='margin-top:0'>
-          Formulário padronizado de extração automatizada de parâmetros clínicos, acurácia diagnóstica e arquitetura de IA em ECG.
-        </p>
-        <div class='summaryCards' style='margin-top:14px'>
-          <div class='metric'>
-            <div class='name'>Campos Ativos</div>
-            <div class='num' id='extActiveFieldsCount'>6</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Artigos Processados</div>
-            <div class='num' id='extExtractedCount'>886</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>AUC / ROC Média</div>
-            <div class='num' style='color:#16a34a'>0.948</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Sensibilidade Média</div>
-            <div class='num' style='color:#2563eb'>92.4%</div>
+      <div class='grid progressGrid' style='margin-top:14px'>
+        <div class='card'>
+          <div class='cardHead'><h2 data-i18n="cardProgress">Seu Progresso de Triagem</h2></div>
+          <div class='cardBody progressBody'>
+            <div>
+              <div class='donut'><span>100%</span></div>
+              <div class='legend'><span><i class='dot red'></i><span data-i18n="donutExcluded">Excluídos</span> (2.692)</span><span><i class='dot orange'></i><span data-i18n="donutMaybe">Conflitos</span> (81)</span><span><i class='dot green'></i><span data-i18n="donutIncluded">Incluídos</span> (886)</span></div>
+            </div>
+            <div class='bigCenter'>
+              <div class='time' data-i18n="progressTitle">Triagem Automatizada por IA Finalizada</div>
+              <div class='big' data-i18n="progressBig">3.578 Artigos Triados</div>
+              <button class='btn primary' data-go='screening' data-i18n="btnViewArticles">Ver Lista de Artigos</button>
+              <div class='muted' style='margin-top:18px' data-i18n="progressMuted">3.578 de 3.578 Artigos Processados com Sucesso</div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class='card'>
-      <div class='cardHead'>
-        <h2>Tabela de Evidências Extraídas (Artigos Incluídos)</h2>
-        <input type='text' id='searchExtraction' placeholder='Buscar no formulário...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:220px;font-size:13px' oninput='filterExtractionTable(this.value)'>
-      </div>
-      <div style='overflow-x:auto'>
-        <table class='table' id='extractionTable'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Título do Estudo</th>
-              <th>População</th>
-              <th>Modalidade ECG</th>
-              <th>Arquitetura IA</th>
-              <th>AUC / ROC</th>
-              <th>Sens. / Espec.</th>
-              <th>Desfecho Alvo</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id='extractionTbody'>
-            <!-- Preenchido via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-<section id='risk' class='view'>
-  <div class='grid' style='gap:16px'>
-    <div class='card'>
-      <div class='cardHead'>
-        <h2 data-i18n="riskTitle">Avaliação de Risco de Viés (QUADAS-2)</h2>
-        <div style='display:flex;gap:8px'>
-          <button class='btn primary' onclick='openRiskModal()' data-i18n="btnConfigRisk">Configurar QUADAS-2</button>
-          <button class='btn' onclick='exportRiskCsv()'>Exportar Relatório (CSV)</button>
-        </div>
-      </div>
-      <div class='cardBody'>
-        <p class='muted' style='margin-top:0'>
-          Ferramenta padronizada QUADAS-2 para avaliação rigorosa de risco de viés e aplicabilidade clínica em estudos de acurácia diagnóstica baseados em IA.
-        </p>
-        <div class='summaryCards' style='margin-top:14px'>
-          <div class='metric'>
-            <div class='name'>Baixo Risco Geral</div>
-            <div class='num' style='color:#16a34a'>78.4%</div>
+        <div class='card'>
+          <div class='cardHead'><h2 data-i18n="cardScreeningSummary">Resumo da Triagem</h2></div>
+          <div class='cardBody'>
+            <div class='statusItem'><span data-i18n="lblPendingConflicts">Conflitos Pendentes</span><b>81</b></div>
+            <div class='statusItem'><span data-i18n="lblAiAgreement">Concordância da IA</span><b>97.74%</b></div>
+            <div class='statusItem'><span data-i18n="lblKappa">Coeficiente Kappa</span><b data-i18n="kappaVal">0.9479 (Excelente)</b></div>
+            <div class='progressLine'></div>
+            <div class='muted'><span class='warn'>!</span><span data-i18n="auditWarn">81 artigos necessitam de auditoria humana final para resolução de divergências entre os Watchers de IA.</span></div>
           </div>
-          <div class='metric'>
-            <div class='name'>Alguma Incerteza</div>
-            <div class='num' style='color:#d97706'>15.2%</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Alto Risco de Viés</div>
-            <div class='num' style='color:#dc2626'>6.4%</div>
-          </div>
-          <div class='metric'>
-            <div class='name'>Estudos Avaliados</div>
-            <div class='num' id='riskEvaluatedCount'>886</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class='card'>
-      <div class='cardHead'>
-        <h2>Resumo Proporcional por Domínio QUADAS-2</h2>
-      </div>
-      <div class='cardBody' style='display:flex;flex-direction:column;gap:14px'>
-        <div>
-          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
-            <span>D1. Seleção de Pacientes (Amostragem & Elegibilidade)</span>
-            <span style='color:#16a34a'>82% Baixo Risco</span>
-          </div>
-          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
-            <div style='width:82%;background:#16a34a' title='82% Baixo Risco'></div>
-            <div style='width:12%;background:#f59e0b' title='12% Incerteza'></div>
-            <div style='width:6%;background:#ef4444' title='6% Alto Risco'></div>
-          </div>
-        </div>
-
-        <div>
-          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
-            <span>D2. Teste Índice (Cegamento do Modelo de IA)</span>
-            <span style='color:#16a34a'>88% Baixo Risco</span>
-          </div>
-          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
-            <div style='width:88%;background:#16a34a' title='88% Baixo Risco'></div>
-            <div style='width:8%;background:#f59e0b' title='8% Incerteza'></div>
-            <div style='width:4%;background:#ef4444' title='4% Alto Risco'></div>
-          </div>
-        </div>
-
-        <div>
-          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
-            <span>D3. Padrão de Referência (Ecocardiograma / RMN)</span>
-            <span style='color:#16a34a'>91% Baixo Risco</span>
-          </div>
-          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
-            <div style='width:91%;background:#16a34a' title='91% Baixo Risco'></div>
-            <div style='width:6%;background:#f59e0b' title='6% Incerteza'></div>
-            <div style='width:3%;background:#ef4444' title='3% Alto Risco'></div>
-          </div>
-        </div>
-
-        <div>
-          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
-            <span>D4. Fluxo e Tempo Inter-Exames (Intervalo ECG x Referência)</span>
-            <span style='color:#16a34a'>74% Baixo Risco</span>
-          </div>
-          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
-            <div style='width:74%;background:#16a34a' title='74% Baixo Risco'></div>
-            <div style='width:18%;background:#f59e0b' title='18% Incerteza'></div>
-            <div style='width:8%;background:#ef4444' title='8% Alto Risco'></div>
-          </div>
-        </div>
-
-        <div style='display:flex;gap:16px;justify-content:center;margin-top:8px;font-weight:700;font-size:12px'>
-          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#16a34a'></i> Baixo Risco (Low Risk)</span>
-          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#f59e0b'></i> Incerteza (Uncertain)</span>
-          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#ef4444'></i> Alto Risco (High Risk)</span>
-        </div>
-      </div>
-    </div>
-
-    <div class='card'>
-      <div class='cardHead'>
-        <h2>Classificação QUADAS-2 por Estudo</h2>
-        <input type='text' id='searchRisk' placeholder='Buscar estudo na matriz QUADAS...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterRiskTable(this.value)'>
-      </div>
-      <div style='overflow-x:auto'>
-        <table class='table' id='riskTable'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Título do Estudo</th>
-              <th>D1. Pacientes</th>
-              <th>D2. Teste IA</th>
-              <th>D3. Referência</th>
-              <th>D4. Fluxo/Tempo</th>
-              <th>Aplicabilidade</th>
-              <th>Avaliação Geral</th>
-            </tr>
-          </thead>
-          <tbody id='riskTbody'>
-            <!-- Preenchido via JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id='operational' class='view'>
-<div class='card'><div class='cardHead'><h2 data-i18n="tabOperational">Operacional (Ao Vivo)</h2></div><div class='cardBody'>
-<div class='opsGrid'>
-<div class="opsCard" style="grid-column:1/-1">
-  <h3 data-i18n="opWorkflowTitle">Fluxo de Trabalho Brayyan — Triagem e Auditoria por IA</h3>
-  <p data-i18n="opWorkflowText">Importe arquivos CSV, carregue artigos, resolva conflitos entre os Watchers A e B, registre a decisão final e exporte os resultados.</p>
-  <div class="liveControls">
-    <input id="csvFile" type="file" accept=".csv,text/csv">
-    <button class="btn primary" id="uploadCsvBtn" type="button" data-i18n="btnImportCsvAction">Importar CSV</button>
-    <button class="btn" id="refreshLiveBtn" type="button" data-i18n="btnRefreshData">Atualizar Dados</button>
-    <a class="btn" href="/api/export/csv" target="_blank" data-i18n="btnExportCsv">Exportar CSV Consolidado</a>
-  </div>
-
-  <div id="liveStatus" class="muted" style="margin-top:10px" data-i18n="lblReady">Pronto.</div>
-
-  <div class="summaryCards" style="margin-top:14px">
-    <div class="metric"><div class="name">Total</div><div class="num" id="liveTotal">3,578</div></div>
-    <div class="metric"><div class="name">Triados</div><div class="num" id="liveScreened">3,578</div></div>
-    <div class="metric"><div class="name">Incluídos</div><div class="num" id="liveIncluded">886</div></div>
-    <div class="metric"><div class="name">Conflitos</div><div class="num" id="liveConflicts">81</div></div>
-  </div>
-
-  <div class="grid screeningLayout" style="margin-top:14px">
-    <section class="card">
-      <div class="cardHead"><h2 data-i18n="cardLiveArticles">Artigos Carregados</h2><button class="btn soft" id="loadArticlesBtn" type="button" data-i18n="btnUpdate">Atualizar</button></div>
-      <div id="liveArticleList" class="cardBody"></div>
-    </section>
-
-    <section class="card">
-      <div class="cardHead"><h2 data-i18n="cardLiveDetails">Detalhes do Artigo Selecionado</h2></div>
-      <div class="cardBody">
-        <div id="liveDetailTitle" class="detailTitle" data-i18n="lblSelectArticle">Selecione um artigo</div>
-        <p id="liveDetailAbstract" class="abstract"></p>
-        <div class="statusItem"><span data-i18n="lblJournal">Periódico</span> <b id="liveDetailJournal"></b></div>
-        <div class="statusItem"><span data-i18n="lblYear">Ano</span> <b id="liveDetailYear"></b></div>
-        <div class="statusItem"><span data-i18n="lblDoi">DOI</span> <b id="liveDetailDoi"></b></div>
-        <div class="statusItem"><span data-i18n="lblDecisionA">Decisão Watcher A</span> <b id="liveDetailA"></b></div>
-        <div class="statusItem"><span data-i18n="lblDecisionB">Decisão Watcher B</span> <b id="liveDetailB"></b></div>
-        <div class="statusItem"><span data-i18n="lblCompStatus">Status de Comparação</span> <b id="liveDetailStatus"></b></div>
-        <textarea id="decisionNote" placeholder="Nota da decisão humana ou parecer técnico..." style="width:100%;min-height:70px;margin-top:12px"></textarea>
-        <div class="decisionBar">
-          <button class="decision inc" data-live-decision="include" type="button" data-i18n="btnInclude">Incluir</button>
-          <button class="decision may" data-live-decision="maybe" type="button" data-i18n="btnMaybe">Talvez</button>
-          <button class="decision exc" data-live-decision="exclude" type="button" data-i18n="btnExclude">Excluir</button>
         </div>
       </div>
     </section>
-  </div>
 
-  <div class="card" style="margin-top:14px">
-    <div class="cardHead"><h2 data-i18n="cardLiveConflicts">Conflitos ao Vivo (Watcher A vs B)</h2><button class="btn soft" id="loadConflictsBtn" type="button" data-i18n="btnLoadConflicts">Carregar Conflitos</button></div>
-    <div id="liveConflictList" class="cardBody"></div>
-  </div>
+    <section id='reviewdata' class='view'>
+      <div class='grid dataGrid'>
+        <div class='card'><div class='cardHead'><h2 data-i18n="cardImportedData">Conjuntos de Dados Importados</h2></div><div class='cardBody'><div class='metric'><div class='name' data-i18n="lblBaseInfo">Base PubMed + Scopus + IEEE</div><div class='num'>3.578</div><button class='btn soft' data-i18n="btnImportCsv">Importar Novo CSV</button></div></div></div>
+        <div class='card'><div class='cardHead'><h2 data-i18n="cardDbStatus">Status do Banco de Dados</h2></div><div class='cardBody'><div class='statusItem'><span data-i18n="lblSqliteReady">Registros SQLite</span> <b data-i18n="lblSqliteVal">Prontos (3.578)</b></div><div class='statusItem'><span data-i18n="lblAiRows">Linhas de Triagem IA</span> <b data-i18n="lblAiRowsVal">Processadas</b></div><div class='miniChart'><div class='bar p' style='height:80%'></div><div class='bar g' style='height:38%'></div><div class='bar o' style='height:55%'></div></div></div></div>
+      </div>
+    </section>
+
+    <section id='screening' class='view'>
+      <div class='grid screeningLayout'>
+        <aside class='card'><div class='filterBox'><h4 data-i18n="keywordsTitle">Palavras-chave</h4><div class='chip include'><span data-i18n="kwIncludeEcg">Incluir ECG</span> <b>892</b></div><div class='chip include'><span data-i18n="kwIncludeAi">Incluir IA</span> <b>741</b></div><div class='chip exclude'><span data-i18n="kwExcludeAnimal">Excluir animal</span> <b>118</b></div><div class='chip maybe'><span data-i18n="kwMaybeValidation">Talvez validação</span> <b>304</b></div></div></aside>
+        <section class='card'><div class='cardHead'><h2 data-i18n="cardArticlesToScreen">Artigos para triar</h2>
+        <select id='confidenceFilter' style='padding:4px 8px;border:1px solid var(--line2);border-radius:6px;font-size:12px' onchange='filterArticlesByConfidence(this.value)'><option value='0'>Confiança IA: Todas</option><option value='0.9'>Confiança > 90%</option><option value='0.8'>Confiança > 80%</option></select>
+        <button class='btn soft' id='loadArticlesBtnScreening' type='button' data-i18n="btnSortRelevance">Atualizar Lista</button></div>
+        <div id='screeningArticleList' style='max-height:650px;overflow-y:auto'></div>
+        </section>
+        <section class='card'><div class='cardHead'><h2 data-i18n="cardArticleDetails">Detalhes do artigo</h2><span class='muted' style='font-size:11px'>⌨️ Atalhos: [1] Incluir | [2] Talvez | [3] Excluir | [U] Desfazer</span></div><div class='cardBody'><div id='detailTitle' class='detailTitle' data-i18n="lblSelectArticle">Selecione um artigo</div><p class='abstract' id='detailAbstract'></p><p><span class='pill'>ECG</span><span class='pill'>Inteligência Artificial</span><span class='pill'>Acurácia Diagnóstica</span><span class='pill'>Doença Cardíaca Estrutural</span></p><div class='statusItem'><span data-i18n="lblAuthors">Autores</span> <b id='detailAuthors'>-</b></div><div class='statusItem'><span data-i18n="lblJournal">Periódico</span> <b id='detailJournal'>-</b></div><div class='statusItem'><span data-i18n="lblYear">Ano</span> <b id='detailYear'>-</b></div><div class='statusItem'><span data-i18n="lblDoi">DOI</span> <b id='detailDoi'>-</b></div><div class='statusItem'><span data-i18n="lblDecisionA">Decisão Watcher A</span> <b id='detailWatcherA'>-</b></div><div class='statusItem'><span data-i18n="lblDecisionB">Decisão Watcher B</span> <b id='detailWatcherB'>-</b></div><div class='statusItem'><span data-i18n="lblCompStatus">Status de Comparação</span> <b id='detailStatus'>-</b></div><div class='decisionBar'><button class='decision inc' data-live-decision='include' type='button' data-i18n="btnInclude">Incluir [1]</button><button class='decision may' data-live-decision='maybe' type='button' data-i18n="btnMaybe">Talvez [2]</button><button class='decision exc' data-live-decision='exclude' type='button' data-i18n="btnExclude">Excluir [3]</button><button class='btn' type='button' onclick='undoLastDecision()' title='Desfazer última decisão [U]'>↩ Desfazer</button></div></div></section>
+      </div>
+    </section>
+
+    <section id='criteria' class='view'>
+      <div class='card'><div class='cardHead'><h2 data-i18n="cardCriteria">Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on' data-i18n="tabInclusion">Inclusão</div><div data-i18n="tabExclusion">Exclusão</div></div><div class='criteriaTitle' data-i18n="criteriaIncTitle">Incluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaIncText">A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle' data-i18n="criteriaExcTitle">Excluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaExcText">Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
+    </section>
+
+    <section id='fulltext' class='view'>
+      <div class='grid' style='gap:16px'>
+        <div class='card'>
+          <div class='cardHead'>
+            <h2 data-i18n="fulltextTitle">Triagem de Texto Completo (Full-Text Assessment)</h2>
+            <button class='btn primary' onclick='openUploadPdfModal()'>+ Upload de PDFs / Artigos</button>
+          </div>
+          <div class='cardBody'>
+            <p class='muted' style='margin-top:0'>
+              Avaliação de elegibilidade dos 886 artigos em texto completo com verificação de critérios PICO e laudos ecocardiográficos de referência.
+            </p>
+            <div class='summaryCards' style='margin-top:14px'>
+              <div class='metric'>
+                <div class='name'>Artigos em Texto Completo</div>
+                <div class='num'>886</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>PDFs Anexados</div>
+                <div class='num' style='color:#6366f1'>142</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Aprovados para Síntese</div>
+                <div class='num' style='color:#16a34a'>128</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Excluídos no Texto Completo</div>
+                <div class='num' style='color:#dc2626'>14</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='card'>
+          <div class='cardHead'>
+            <h2>Documentos e PDFs para Auditoria</h2>
+            <input type='text' id='searchFulltext' placeholder='Buscar por artigo ou DOI...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterFulltextTable(this.value)'>
+          </div>
+          <div style='overflow-x:auto'>
+            <table class='table' id='fulltextTable'>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título do Estudo</th>
+                  <th>Arquivo PDF</th>
+                  <th>Status do Texto</th>
+                  <th>Razão de Exclusão</th>
+                  <th>Revisor Responsável</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id='fulltextTbody'>
+                <!-- Preenchido via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id='extraction' class='view'>
+      <div class='grid' style='gap:16px'>
+        <div class='card'>
+          <div class='cardHead'>
+            <h2 data-i18n="extractionTitle">Extração de Dados com IA & Auditoria</h2>
+            <div style='display:flex;gap:8px'>
+              <button class='btn primary' onclick='openExtractionModal()' data-i18n="btnConfigExtraction">Configurar Formulário</button>
+              <button class='btn' onclick='exportExtractionCsv()'>Exportar CSV</button>
+            </div>
+          </div>
+          <div class='cardBody'>
+            <p class='muted' style='margin-top:0'>
+              Formulário padronizado de extração automatizada de parâmetros clínicos, acurácia diagnóstica e arquitetura de IA em ECG.
+            </p>
+            <div class='summaryCards' style='margin-top:14px'>
+              <div class='metric'>
+                <div class='name'>Campos Ativos</div>
+                <div class='num' id='extActiveFieldsCount'>6</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Artigos Processados</div>
+                <div class='num' id='extExtractedCount'>886</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>AUC / ROC Média</div>
+                <div class='num' style='color:#16a34a'>0.948</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='card'>
+          <div class='cardHead'>
+            <h2>Matriz de Extração de Dados dos Estudos Incluídos</h2>
+            <input type='text' id='searchExtraction' placeholder='Buscar por estudo, autor ou desfecho...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterExtractionTable(this.value)'>
+          </div>
+          <div style='overflow-x:auto'>
+            <table class='table' id='extractionTable'>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Estudo / Autor</th>
+                  <th>Ano</th>
+                  <th>Acurácia (AUC-ROC)</th>
+                  <th>Sensibilidade</th>
+                  <th>Arquitetura IA</th>
+                  <th>Amostra (N)</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id='extractionTbody'>
+                <!-- Preenchido via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id='risk' class='view'>
+      <div class='grid' style='gap:16px'>
+        <div class='card'>
+          <div class='cardHead'>
+            <h2 data-i18n="riskTitle">Avaliação de Risco de Viés (QUADAS-2 Tool)</h2>
+            <div style='display:flex;gap:8px'>
+              <button class='btn primary' onclick='openRiskModal()'>Diretrizes QUADAS-2</button>
+              <button class='btn' onclick='exportRiskCsv()'>Exportar Risco (CSV)</button>
+            </div>
+          </div>
+          <div class='cardBody'>
+            <p class='muted' style='margin-top:0'>
+              Avaliação sistemática do risco de viés em estudos de acurácia diagnóstica através de 4 domínios fundamentais.
+            </p>
+            <div style='display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px'>
+              <div class='metric'>
+                <div class='name'>Seleção de Pacientes</div>
+                <div class='num' style='color:#16a34a;font-size:18px'>88% Baixo Risco</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Teste de Índice (IA)</div>
+                <div class='num' style='color:#16a34a;font-size:18px'>94% Baixo Risco</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Padrão de Referência</div>
+                <div class='num' style='color:#eab308;font-size:18px'>12% Risco Incerto</div>
+              </div>
+              <div class='metric'>
+                <div class='name'>Fluxo e Tempo</div>
+                <div class='num' style='color:#16a34a;font-size:18px'>91% Baixo Risco</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='card'>
+          <div class='cardHead'>
+            <h2>Matriz QUADAS-2 por Estudo (Traffic Light Plot)</h2>
+            <input type='text' id='searchRisk' placeholder='Buscar por estudo...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterRiskTable(this.value)'>
+          </div>
+          <div style='overflow-x:auto'>
+            <table class='table' id='riskTable'>
+              <thead>
+                <tr>
+                  <th>Estudo</th>
+                  <th>Seleção de Pacientes</th>
+                  <th>Teste de Índice (IA)</th>
+                  <th>Padrão de Referência</th>
+                  <th>Fluxo e Tempo</th>
+                  <th>Avaliação Geral</th>
+                </tr>
+              </thead>
+              <tbody id='riskTbody'>
+                <!-- Preenchido via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id='practical' class='view'>
+      <div class='card'>
+        <div class='cardHead'><h2>Visão Prática & Demonstração</h2></div>
+        <div class='cardBody'>
+          <p>Módulo de demonstração interativa para exploração dos recursos de triagem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id='operational' class='view'>
+      <div class='card'>
+        <div class='cardHead'><h2>Painel Operacional Ao Vivo</h2></div>
+        <div class='cardBody'>
+          <p>Monitoramento em tempo real do processamento serverless e das filas de decisão.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
-</div></div></div>
-</section>
-</main>
 
-<footer class="footer">
-  <div class="footerBrand">
-    <img src="/helpus-logo.jpg" alt="HelpUS Logo" class="footerLogoSmall">
-    <span data-i18n="footerCopy">© 2026 HelpUS Technology. Todos os direitos reservados. Desenvolvido por HelpUS.</span>
+<!-- RODAPÉ INSTITUCIONAL (FIXED FOOTER) -->
+<footer class='footer'>
+  <div class='footerBrand'>
+    <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='footerLogoSmall'>
+    <span>Brayyan © 2026 — Desenvolvido por <b>HelpUS Technology</b></span>
   </div>
-  <div class="footerRight">
-    <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="footerPrivacy">Política de Privacidade</a>
-    <span class="footerSep">|</span>
-    <a href="javascript:void(0)" onclick="openPrivacyModal()" data-i18n="footerTerms">Termos & LGPD</a>
+  <div class='footerRight'>
+    <a onclick='openPrivacyModal()'>Política de Privacidade & LGPD</a>
+    <span class='footerSep'>|</span>
+    <a href='https://wa.me/5583999999999?text=Atendimento%20HelpUS' target='_blank' rel='noopener'>Suporte WhatsApp</a>
   </div>
 </footer>
 
+<!-- COOKIE BANNER -->
 <div id="cookieBanner" class="cookieBanner">
   <div class="cookieContent">
     <span class="cookieIcon">🍪</span>
-    <span data-i18n="cookieText">Utilizamos cookies essenciais para garantir o funcionamento seguro do sistema e a melhor experiência de triagem científica. Ao continuar navegando, você concorda com nossa Política de Privacidade.</span>
+    <span>Utilizamos cookies para otimizar sua experiência na plataforma Brayyan. Ao continuar, você concorda com nossa <a onclick="openPrivacyModal()">Política de Privacidade</a>.</span>
   </div>
-  <button class="btn primary" onclick="acceptCookies()" data-i18n="btnAcceptCookies">Aceitar e Continuar</button>
+  <button class="btn primary" onclick="acceptCookies()" style="height:32px;font-size:12px">Aceitar e Continuar</button>
 </div>
 
-<div id="privacyModal" class="modalOverlay" style="display:none;">
+<!-- MODAL PRIVACIDADE & LGPD -->
+<div id="privacyModal" class="modalOverlay" style="display:none">
   <div class="modalCard">
     <div class="modalHead">
-      <h3 data-i18n="modalTitle">🔒 Política de Privacidade & Termos de Uso</h3>
-      <button class="modalClose" onclick="closePrivacyModal()">&times;</button>
+      <h3>🛡️ Política de Privacidade & Conformidade LGPD</h3>
+      <button class="modalClose" onclick="closePrivacyModal()">×</button>
     </div>
     <div class="modalBody">
-      <p data-i18n="modalSubtitle">HelpUS Technology · Diretrizes de Segurança, Privacidade e Conformidade LGPD/GDPR.</p>
-      <h4 data-i18n="modalSec1Title">1. Propósito e Processamento de Dados</h4>
-      <p data-i18n="modalSec1Text">A aplicação Brayyan é uma plataforma dedicada ao gerenciamento, auditoria e triagem automatizada por IA de revisões sistemáticas de literatura. Os metadados acadêmicos processados pertencem exclusivamente ao projeto de pesquisa cadastrado.</p>
-      <h4 data-i18n="modalSec2Title">2. Proteção de Dados e Confidencialidade</h4>
-      <p data-i18n="modalSec2Text">Garantimos estrita confidencialidade no armazenamento e processamento de artigos, pareceres de revisores e decisões automáticas dos agentes de IA. Nenhuma informação de pesquisa é compartilhada sem autorização expressa.</p>
-      <h4 data-i18n="modalSec3Title">3. Conectividade e Cookies</h4>
-      <p data-i18n="modalSec3Text">Utilizamos apenas cookies essenciais para manter a autenticação de sessão e preferências locais do usuário na aplicação.</p>
+      <h4>1. Transparência no Tratamento de Dados</h4>
+      <p>A <b>HelpUS Technology</b> respeita a privacidade de seus usuários e garante a segurança dos dados cadastrados nos projetos de revisão sistemática. Todos os dados são processados em estrita conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018 - LGPD).</p>
+      <h4>2. Finalidade da Plataforma</h4>
+      <p>O <b>Brayyan</b> utiliza assistentes automatizados de IA para auxiliar revisores na triagem, extração de evidências e avaliação do risco de viés em estudos científicos. Seus dados de pesquisa pertencem exclusivamente ao usuário.</p>
+      <h4>3. Armazenamento e Criptografia</h4>
+      <p>Os bancos de dados são protegidos com criptografia SSL/TLS no tráfego e isolados por projeto. Não compartilhamos informações com terceiros.</p>
     </div>
     <div class="modalFoot">
-      <button class="btn primary" onclick="closePrivacyModal()" data-i18n="btnUnderstood">Entendido</button>
+      <button class="btn primary" onclick="closePrivacyModal()">Compreendido</button>
     </div>
   </div>
 </div>
 
-<div id="extractionModal" class="modalOverlay" style="display:none">
-  <div class="modalCard" style="max-width:580px">
-    <div class="modalHead">
-      <h3>⚙️ Configuração dos Campos de Extração por IA</h3>
-      <button class="modalClose" onclick="closeExtractionModal()">×</button>
-    </div>
-    <div class="modalBody">
-      <p style="margin-top:0" class="muted">Selecione os parâmetros acadêmicos que a IA deve extrair automaticamente dos estudos incluídos.</p>
-      
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked disabled> População e Tamanho da Amostra (N)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked disabled> Modalidade de ECG (12 Derivações, Single-lead, Wearables)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked disabled> Arquitetura do Modelo de IA (CNN, ResNet-50, Transformer)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" id="fieldAuc" checked> Acurácia Diagnóstica (AUC-ROC / C-Statistic)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" id="fieldSens" checked> Sensibilidade e Especificidade (%)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" id="fieldTarget" checked> Desfecho Alvo (Disfunção Ventricular, Valvopatia)
-        </label>
-      </div>
-    </div>
-    <div class="modalFoot">
-      <button class="btn primary" onclick="saveExtractionConfig()">Salvar Configuração</button>
-    </div>
-  </div>
-</div>
-
-<div id="riskModal" class="modalOverlay" style="display:none">
-  <div class="modalCard" style="max-width:580px">
-    <div class="modalHead">
-      <h3>⚙️ Configuração da Ferramenta QUADAS-2</h3>
-      <button class="modalClose" onclick="closeRiskModal()">×</button>
-    </div>
-    <div class="modalBody">
-      <p style="margin-top:0" class="muted">Ajuste as diretrizes de auditoria de risco de viés e aplicabilidade clínica para estudos de acurácia em IA-ECG.</p>
-
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked> Exigir amostragem consecutiva ou aleatória de pacientes (Domínio 1)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked> Verificar cegamento do modelo de IA quanto aos laudos clínicos (Domínio 2)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked> Exigir confirmação por Ecocardiograma ou RMN Cardíaca (Domínio 3)
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
-          <input type="checkbox" checked> Limitar intervalo entre ECG e Exame de Referência em até 30 dias (Domínio 4)
-        </label>
-      </div>
-    </div>
-    <div class="modalFoot">
-      <button class="btn primary" onclick="saveRiskConfig()">Salvar Diretrizes QUADAS-2</button>
-    </div>
-  </div>
-</div>
-
-<!-- Modal PRISMA 2020 -->
+<!-- Modal Fluxograma PRISMA 2020 -->
 <div id="prismaModal" class="modalOverlay" style="display:none">
-  <div class="modalCard" style="max-width:850px">
+  <div class="modalCard" style="max-width:700px">
     <div class="modalHead">
-      <h3>📊 Fluxograma PRISMA 2020 — Diretrizes de Revisão Sistemática</h3>
+      <h3>📊 Fluxograma PRISMA 2020 — Síntese da Revisão</h3>
       <button class="modalClose" onclick="closePrismaModal()">×</button>
     </div>
-    <div class="modalBody" style="background:#f8fafc;padding:24px">
-      <div style="display:flex;flex-direction:column;gap:18px;max-width:720px;margin:0 auto">
-        <div style="border:2px solid #6366f1;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(99,102,241,0.08)">
-          <div style="font-weight:800;color:#4338ca;font-size:14px;margin-bottom:6px">1. IDENTIFICAÇÃO DOS ESTUDOS</div>
-          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-            <div style="flex:1;min-width:220px;background:#e0e7ff;padding:10px;border-radius:6px;font-size:13px">
-              <b>Registros identificados nas bases:</b><br>
-              PubMed + Scopus + IEEE (n = 3.578)
-            </div>
-            <div style="flex:1;min-width:220px;background:#fee2e2;padding:10px;border-radius:6px;font-size:13px;color:#991b1b">
-              <b>Registros duplicados removidos:</b><br>
-              Duplicatas detectadas (n = 38)
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align:center;font-weight:900;color:#6366f1;font-size:20px">↓</div>
-
-        <div style="border:2px solid #0ea5e9;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(14,165,233,0.08)">
-          <div style="font-weight:800;color:#0369a1;font-size:14px;margin-bottom:6px">2. TRIAGEM DE TÍTULOS E RESUMOS (IA + HUMANOS)</div>
-          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-            <div style="flex:1;min-width:220px;background:#e0f2fe;padding:10px;border-radius:6px;font-size:13px">
-              <b>Registros triados por IA:</b><br>
-              Watchers A & B (n = 3.578)
-            </div>
-            <div style="flex:1;min-width:220px;background:#fee2e2;padding:10px;border-radius:6px;font-size:13px;color:#991b1b">
-              <b>Registros excluídos na triagem:</b><br>
-              Critérios de exclusão (n = 2.692)
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align:center;font-weight:900;color:#0ea5e9;font-size:20px">↓</div>
-
-        <div style="border:2px solid #f59e0b;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(245,158,11,0.08)">
-          <div style="font-weight:800;color:#b45309;font-size:14px;margin-bottom:6px">3. ELEGIBILIDADE E AUDITORIA DE CONFLITOS</div>
-          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-            <div style="flex:1;min-width:220px;background:#fef3c7;padding:10px;border-radius:6px;font-size:13px">
-              <b>Conflitos divergentes (A vs B):</b><br>
-              Auditados por revisor humano (n = 81)
-            </div>
-            <div style="flex:1;min-width:220px;background:#dcfce7;padding:10px;border-radius:6px;font-size:13px;color:#15803d">
-              <b>Concordância de IA (Kappa 0.9479):</b><br>
-              Consenso automático (97.74%)
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align:center;font-weight:900;color:#10b981;font-size:20px">↓</div>
-
-        <div style="border:2px solid #10b981;border-radius:10px;background:#dcfce7;padding:16px;text-align:center;box-shadow:0 4px 12px rgba(16,185,129,0.12)">
-          <div style="font-weight:900;color:#065f46;font-size:16px">4. ESTUDOS INCLUÍDOS NA REVISÃO E SÍNTESE</div>
-          <div style="font-size:22px;font-weight:900;color:#047857;margin-top:6px">n = 886 Estudos Selecionados</div>
-          <div style="font-size:12px;color:#065f46;margin-top:4px">Estudos de Acurácia Diagnóstica em IA-ECG para Doenças Cardíacas Estruturais</div>
-        </div>
-
-      </div>
-    </div>
-    <div class="modalFoot" style="display:flex;justify-content:space-between;align-items:center">
-      <span class="muted" style="font-size:12px">Conforme diretrizes PRISMA 2020 (Page MJ et al., BMJ 2021)</span>
-      <div style="display:flex;gap:8px">
-        <button class="btn" onclick="downloadPrismaPdf()">📄 Baixar Relatório PDF</button>
-        <button class="btn primary" onclick="downloadPrismaPng()">📷 Download Diagrama (PNG)</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Convidar Membros -->
-<div id="inviteModal" class="modalOverlay" style="display:none">
-  <div class="modalCard" style="max-width:500px">
-    <div class="modalHead">
-      <h3>👥 Convidar Membros para a Revisão</h3>
-      <button class="modalClose" onclick="closeInviteModal()">×</button>
-    </div>
     <div class="modalBody">
-      <p style="margin-top:0" class="muted">Insira o e-mail do pesquisador para conceder acesso de revisão ou auditoria.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
-        <label style="font-weight:700">E-mail do Pesquisador:
-          <input type="email" id="inviteEmail" placeholder="pesquisador@instituicao.edu.br" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
-        </label>
-        <label style="font-weight:700">Função:
-          <select id="inviteRole" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
-            <option value="reviewer">Revisor Humano (Auditor)</option>
-            <option value="viewer">Observador (Somente Leitura)</option>
-            <option value="admin">Co-Proprietário do Projeto</option>
-          </select>
-        </label>
+      <div id="prismaDiagramContent" style="display:flex;flex-direction:column;gap:12px;background:#f8fafc;padding:16px;border-radius:8px;border:1px solid var(--line)">
+        <div style="background:#e0e7ff;color:#3730a3;padding:10px;border-radius:6px;font-weight:700;text-align:center">
+          1. IDENTIFICAÇÃO: 3.578 Registros Importados (PubMed, Scopus, IEEE)
+        </div>
+        <div style="text-align:center;font-size:16px">↓</div>
+        <div style="background:#fee2e2;color:#991b1b;padding:8px;border-radius:6px;font-weight:700;text-align:center">
+          38 Registros Duplicados Removidos
+        </div>
+        <div style="text-align:center;font-size:16px">↓</div>
+        <div style="background:#fef3c7;color:#92400e;padding:10px;border-radius:6px;font-weight:700;text-align:center">
+          2. TRIAGEM DE TÍTULO/ABSTRACT: 3.540 Registros Avaliados por IA
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:#fee2e2;color:#991b1b;padding:8px;border-radius:6px;font-weight:700;text-align:center">Excluídos: 2.654 Artigos</div>
+          <div style="background:#dcfce7;color:#166534;padding:8px;border-radius:6px;font-weight:700;text-align:center">Selecionados: 886 Artigos</div>
+        </div>
+        <div style="text-align:center;font-size:16px">↓</div>
+        <div style="background:#dcfce7;color:#166534;padding:10px;border-radius:6px;font-weight:700;text-align:center">
+          3. ELEGIBILIDADE & INCLUSÃO: 886 Estudos para Texto Completo & Meta-Análise
+        </div>
       </div>
     </div>
-    <div class="modalFoot">
-      <button class="btn primary" onclick="sendInvite()">Enviar Convite</button>
+    <div class="modalFoot" style="display:flex;justify-content:space-between">
+      <button class="btn" onclick="downloadPrismaPdf()">📄 Baixar Relatório PDF</button>
+      <button class="btn primary" onclick="closePrismaModal()">Fechar</button>
     </div>
   </div>
 </div>
 
-<!-- Modal Editar Dados -->
+<!-- Modal Editar Dados do Projeto -->
 <div id="editDataModal" class="modalOverlay" style="display:none">
   <div class="modalCard" style="max-width:550px">
     <div class="modalHead">
-      <h3>✏️ Editar Informações do Projeto</h3>
+      <h3>⚙️ Editar Dados do Projeto</h3>
       <button class="modalClose" onclick="closeEditDataModal()">×</button>
     </div>
     <div class="modalBody">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <label style="font-weight:700">Título da Revisão:
-          <input type="text" id="editProjectTitle" value="IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+      <form id="editProjectForm" onsubmit="handleSaveProjectEdits(event)" style="display:flex;flex-direction:column;gap:12px">
+        <label style="font-weight:700">Título do Estudo:
+          <input type="text" id="editProjTitle" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px" required>
         </label>
-        <label style="font-weight:700">Domínio / Especialidade:
-          <input type="text" id="editProjectDomain" value="Biomedicina / Cardiologia Digital" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+        <label style="font-weight:700">Domínio / Área:
+          <input type="text" id="editProjDomain" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px" required>
         </label>
-        <label style="font-weight:700">Descrição PICO:
-          <textarea id="editProjectDesc" rows="3" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</textarea>
+        <label style="font-weight:700">Tipo de Revisão:
+          <input type="text" id="editProjType" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px" required>
         </label>
-      </div>
-    </div>
-    <div class="modalFoot">
-      <button class="btn primary" onclick="saveProjectData()">Salvar Alterações</button>
+        <label style="font-weight:700">Descrição / Pergunta PICO:
+          <textarea id="editProjDesc" rows="3" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px"></textarea>
+        </label>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:10px">
+          <button type="button" class="btn" onclick="closeEditDataModal()">Cancelar</button>
+          <button type="submit" class="btn primary">Salvar Alterações</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

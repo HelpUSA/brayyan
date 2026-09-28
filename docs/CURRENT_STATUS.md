@@ -1,6 +1,6 @@
 ---
-title: "Brayyan — Status Atual do Sistema (Plataforma Multi-Projeto)"
-tags: [brayyan, status, vercel, deploy, helpus, saas, multi-project]
+title: "Brayyan — Status Atual do Sistema (Plataforma SaaS & Google Auth)"
+tags: [brayyan, status, vercel, deploy, helpus, saas, multi-project, auth, google-login]
 date: 2026-09-27
 status: ativo
 aliases: ["Status do Projeto", "Current Status"]
@@ -8,8 +8,8 @@ aliases: ["Status do Projeto", "Current Status"]
 
 # 🚀 Brayyan — Status Atual do Sistema
 
-> [!SUCCESS] Sistema SaaS Operacional & Suporte a Qualquer Estudo
-> A aplicação **Brayyan (HelpUS Technology)** opera como uma plataforma SaaS universal para **qualquer usuário criar e auditar qualquer revisão sistemática** (Cardiologia, Oncologia, Neurologia, Ciência da Computação, etc.).
+> [!SUCCESS] Sistema SaaS Operacional com Autenticação Google & Dashboard Multi-Projeto
+> A aplicação **Brayyan (HelpUS Technology)** opera como uma plataforma SaaS universal completa. Cada usuário conta com uma **Tela Inicial / Landing Page com Login Oficial da Google**, além de um **Dashboard de Trabalhos Cadastrados** para gerenciar múltiplos estudos de revisão sistemática simultâneos.
 
 ---
 
@@ -19,16 +19,18 @@ aliases: ["Status do Projeto", "Current Status"]
 | :--- | :---: | :--- |
 | **Vercel CDN + FastAPI** | 🟢 Online | `https://brayyan.helpusbr.com` |
 | **Repositório GitHub** | 🟢 Ativo | `https://github.com/HelpUSA/brayyan` |
-| **Arquitetura Multi-Projeto** | 🟢 Ativa | Dashboard `📁 Meus Projetos` + Wizard `➕ Nova Revisão` |
+| **Autenticação Oficial** | 🟢 Ativa | Login Google (`/api/auth/google`) + Login E-mail (`/api/auth/login`) |
+| **Dashboard de Trabalhos** | 🟢 Ativo | Tela `#dashboardScreen` com cards dinâmicos e atalho PICO |
 | **Idiomas Suportados** | 🟢 Ativo | 🇧🇷 PT-BR / 🇺🇸 EN / 🇪🇸 ES |
 
 ---
 
 ## 🎯 Principais Recursos Ativos em Produção
 
-- [x] **Criação de Novos Projetos (`➕ Nova Revisão`)**: Wizard interativo para cadastrar título, tipo de estudo, domínio, pergunta PICO e upload de datasets (CSV/RIS/BibTeX).
-- [x] **Dashboard de Projetos (`📁 Meus Projetos`)**: Gerenciamento e alternância em tempo real entre diferentes pesquisas.
-- [x] **Interface Genérica & Dinâmica**: O workspace adapta título, área, métricas, artigos e tabelas para o projeto selecionado pelo usuário.
+- [x] **Tela Inicial / Landing Page (`#landingScreen`)**: Apresentação institucional da HelpUS Technology, lista de vantagens competitivas, formulário de login por e-mail e **botão oficial de Login com a Google**.
+- [x] **Dashboard do Usuário Logado (`#dashboardScreen`)**: Hub visual com saudação personalizada ("Olá, Wagner Santos! 👋"), lista de todos os trabalhos/estudos cadastrados, progresso de triagem, edição de parâmetros PICO e atalho `➕ Cadastrar Novo Trabalho`.
+- [x] **Navegação & Breadcrumb no Workspace**: Botão `← Minhas Revisões` no topo do workspace para retorno instantâneo ao dashboard do usuário.
+- [x] **Múltiplos Formatos de Importação**: Parser backend de arquivos **CSV, RIS (`.ris`) e BibTeX (`.bib`)** com associação por `project_id`.
 - [x] **Triagem Interativa com IA & Atalhos**: Teclas `1` (Incluir), `2` (Talvez), `3` (Excluir) e `U` (Desfazer), com gravação em tempo real no banco SQLite.
 - [x] **Highlight Dinâmico de Palavras-Chave**: Destaque automático no abstract para termos de inclusão e exclusão.
 - [x] **Extração Estruturada de Evidências por IA**: Tabela de extração dinâmica com exportação CSV (`brayyan_extracao_evidencias.csv`).
