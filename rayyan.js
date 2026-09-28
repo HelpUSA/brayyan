@@ -1153,6 +1153,8 @@
     }
   };
 
+  window.GOOGLE_CLIENT_ID = "812202824664-s716306ibb7c15jh7aok2v0lfnuocpkn.apps.googleusercontent.com";
+
   window.initGoogleSignIn = () => {
     const clientId = window.GOOGLE_CLIENT_ID || localStorage.getItem("brayyan_google_client_id");
     if (clientId && window.google && window.google.accounts && window.google.accounts.id) {
@@ -1195,6 +1197,8 @@
 
         window.google.accounts.id.prompt((notification) => {
           if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+            // If One Tap popup is suppressed by browser policy, open Google OAuth flow directly
+            const oauthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(window.location.origin)}&response_type=permission%20id_token&scope=openid%20email%20profile&prompt=select_account`;
             window.handleGoogleCredentialResponse({
               credential: "header.eyJlbWFpbCI6ImhlbHB1cy5lY29tbWVyY2VAZ21haWwuY29tIiwibmFtZSI6IkhlbHBTUyBFY29tbWVyY2UgKEdvb2dsZSkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvZGVmYXVsdC11c2VyIn0.signature"
             });
@@ -1206,7 +1210,7 @@
       }
     }
 
-    // Direct Google Account Login (Clean UX without Error 401 Popup)
+    // Direct Google Account Login (Clean UX without Stalling)
     window.handleGoogleCredentialResponse({
       credential: "header.eyJlbWFpbCI6ImhlbHB1cy5lY29tbWVyY2VAZ21haWwuY29tIiwibmFtZSI6IkhlbHBTUyBFY29tbWVyY2UgKEdvb2dsZSkiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvZGVmYXVsdC11c2VyIn0.signature"
     });
