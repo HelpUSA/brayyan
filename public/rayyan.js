@@ -652,6 +652,69 @@
 
   window.filterExtractionTable = (val) => renderExtractionTable(val);
 
+  const mockRiskData = [
+    { id: 3579, title: "Artificial intelligence electrocardiography for structural heart disease detection", d1: "🟢 Baixo", d2: "🟢 Baixo", d3: "🟢 Baixo", d4: "🟡 Incerteza", app: "Alta Aplicabilidade", overall: "🟢 Baixo Risco" },
+    { id: 3578, title: "Deep learning ECG screening for left ventricular dysfunction", d1: "🟢 Baixo", d2: "🟢 Baixo", d3: "🟢 Baixo", d4: "🟢 Baixo", app: "Alta Aplicabilidade", overall: "🟢 Baixo Risco" },
+    { id: 3577, title: "Automated detection of valvular heart disease via AI-enhanced ECG", d1: "🟢 Baixo", d2: "🟢 Baixo", d3: "🟢 Baixo", d4: "🟢 Baixo", app: "Alta Aplicabilidade", overall: "🟢 Baixo Risco" },
+    { id: 3576, title: "Neural network detection of hypertrophic cardiomyopathy from 12-lead ECG", d1: "🟡 Incerteza", d2: "🟢 Baixo", d3: "🟢 Baixo", d4: "🟢 Baixo", app: "Média Aplicabilidade", overall: "🟡 Alguma Incerteza" },
+    { id: 3575, title: "Machine learning prediction of heart failure with preserved ejection fraction", d1: "🔴 Alto Risco", d2: "🟢 Baixo", d3: "🟢 Baixo", d4: "🔴 Alto Risco", app: "Baixa Aplicabilidade", overall: "🔴 Alto Risco" }
+  ];
+
+  window.openRiskModal = () => {
+    const m = document.getElementById("riskModal");
+    if (m) m.style.display = "flex";
+  };
+
+  window.closeRiskModal = () => {
+    const m = document.getElementById("riskModal");
+    if (m) m.style.display = "none";
+  };
+
+  window.saveRiskConfig = () => {
+    window.closeRiskModal();
+    setStatus("Diretrizes de avaliação QUADAS-2 atualizadas.");
+  };
+
+  window.exportRiskCsv = () => {
+    let csv = "ID,Titulo,D1_Pacientes,D2_TesteIA,D3_Referencia,D4_FluxoTempo,Aplicabilidade,AvaliacaoGeral\n";
+    mockRiskData.forEach(row => {
+      csv += `"${row.id}","${row.title.replace(/"/g, '""')}","${row.d1}","${row.d2}","${row.d3}","${row.d4}","${row.app}","${row.overall}"\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "brayyan_quadas2_risco_vies.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  function renderRiskTable(filter = "") {
+    const tbody = document.getElementById("riskTbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    const term = filter.toLowerCase();
+    const rows = mockRiskData.filter(r =>
+      !term || r.title.toLowerCase().includes(term) || r.overall.toLowerCase().includes(term)
+    );
+    rows.forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>#${r.id}</b></td>
+        <td><span style="font-weight:700;color:#0f172a">${r.title}</span></td>
+        <td>${r.d1}</td>
+        <td>${r.d2}</td>
+        <td>${r.d3}</td>
+        <td>${r.d4}</td>
+        <td><b>${r.app}</b></td>
+        <td><b>${r.overall}</b></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.filterRiskTable = (val) => renderRiskTable(val);
+
   window.openPrivacyModal = () => {
     const modal = document.getElementById("privacyModal");
     if (modal) modal.style.display = "flex";
@@ -672,6 +735,7 @@
     const savedLang = localStorage.getItem("brayyan_lang") || "pt";
     window.changeLanguage(savedLang);
     renderExtractionTable();
+    renderRiskTable();
 
     if ($("#liveStatus")) {
       refreshAll().catch(err => setStatus(`Error: ${err.message}`));

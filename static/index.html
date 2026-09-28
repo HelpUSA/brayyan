@@ -173,7 +173,129 @@
     </div>
   </div>
 </section>
-<section id='risk' class='view'><div class='card emptyState'><div><div class='emptyIcon'>!</div><h2 data-i18n="riskTitle">Risco de Viés</h2><p data-i18n="riskText">Prepare os domínios de avaliação de viés QUADAS-2 para estudos de acurácia de testes diagnósticos.</p><button class='btn primary' data-i18n="btnConfigRisk">Configurar Avaliação QUADAS-2</button></div></div></section>
+<section id='risk' class='view'>
+  <div class='grid' style='gap:16px'>
+    <div class='card'>
+      <div class='cardHead'>
+        <h2 data-i18n="riskTitle">Avaliação de Risco de Viés (QUADAS-2)</h2>
+        <div style='display:flex;gap:8px'>
+          <button class='btn primary' onclick='openRiskModal()' data-i18n="btnConfigRisk">Configurar QUADAS-2</button>
+          <button class='btn' onclick='exportRiskCsv()'>Exportar Relatório (CSV)</button>
+        </div>
+      </div>
+      <div class='cardBody'>
+        <p class='muted' style='margin-top:0'>
+          Ferramenta padronizada QUADAS-2 para avaliação rigorosa de risco de viés e aplicabilidade clínica em estudos de acurácia diagnóstica baseados em IA.
+        </p>
+        <div class='summaryCards' style='margin-top:14px'>
+          <div class='metric'>
+            <div class='name'>Baixo Risco Geral</div>
+            <div class='num' style='color:#16a34a'>78.4%</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Alguma Incerteza</div>
+            <div class='num' style='color:#d97706'>15.2%</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Alto Risco de Viés</div>
+            <div class='num' style='color:#dc2626'>6.4%</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Estudos Avaliados</div>
+            <div class='num' id='riskEvaluatedCount'>886</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='cardHead'>
+        <h2>Resumo Proporcional por Domínio QUADAS-2</h2>
+      </div>
+      <div class='cardBody' style='display:flex;flex-direction:column;gap:14px'>
+        <div>
+          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
+            <span>D1. Seleção de Pacientes (Amostragem & Elegibilidade)</span>
+            <span style='color:#16a34a'>82% Baixo Risco</span>
+          </div>
+          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
+            <div style='width:82%;background:#16a34a' title='82% Baixo Risco'></div>
+            <div style='width:12%;background:#f59e0b' title='12% Incerteza'></div>
+            <div style='width:6%;background:#ef4444' title='6% Alto Risco'></div>
+          </div>
+        </div>
+
+        <div>
+          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
+            <span>D2. Teste Índice (Cegamento do Modelo de IA)</span>
+            <span style='color:#16a34a'>88% Baixo Risco</span>
+          </div>
+          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
+            <div style='width:88%;background:#16a34a' title='88% Baixo Risco'></div>
+            <div style='width:8%;background:#f59e0b' title='8% Incerteza'></div>
+            <div style='width:4%;background:#ef4444' title='4% Alto Risco'></div>
+          </div>
+        </div>
+
+        <div>
+          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
+            <span>D3. Padrão de Referência (Ecocardiograma / RMN)</span>
+            <span style='color:#16a34a'>91% Baixo Risco</span>
+          </div>
+          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
+            <div style='width:91%;background:#16a34a' title='91% Baixo Risco'></div>
+            <div style='width:6%;background:#f59e0b' title='6% Incerteza'></div>
+            <div style='width:3%;background:#ef4444' title='3% Alto Risco'></div>
+          </div>
+        </div>
+
+        <div>
+          <div style='display:flex;justify-content:space-between;font-weight:700;margin-bottom:4px;font-size:13px'>
+            <span>D4. Fluxo e Tempo Inter-Exames (Intervalo ECG x Referência)</span>
+            <span style='color:#16a34a'>74% Baixo Risco</span>
+          </div>
+          <div style='display:flex;height:14px;border-radius:7px;overflow:hidden;background:#e2e8f0'>
+            <div style='width:74%;background:#16a34a' title='74% Baixo Risco'></div>
+            <div style='width:18%;background:#f59e0b' title='18% Incerteza'></div>
+            <div style='width:8%;background:#ef4444' title='8% Alto Risco'></div>
+          </div>
+        </div>
+
+        <div style='display:flex;gap:16px;justify-content:center;margin-top:8px;font-weight:700;font-size:12px'>
+          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#16a34a'></i> Baixo Risco (Low Risk)</span>
+          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#f59e0b'></i> Incerteza (Uncertain)</span>
+          <span style='display:flex;align-items:center;gap:6px'><i class='dot' style='background:#ef4444'></i> Alto Risco (High Risk)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='cardHead'>
+        <h2>Classificação QUADAS-2 por Estudo</h2>
+        <input type='text' id='searchRisk' placeholder='Buscar estudo na matriz QUADAS...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterRiskTable(this.value)'>
+      </div>
+      <div style='overflow-x:auto'>
+        <table class='table' id='riskTable'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título do Estudo</th>
+              <th>D1. Pacientes</th>
+              <th>D2. Teste IA</th>
+              <th>D3. Referência</th>
+              <th>D4. Fluxo/Tempo</th>
+              <th>Aplicabilidade</th>
+              <th>Avaliação Geral</th>
+            </tr>
+          </thead>
+          <tbody id='riskTbody'>
+            <!-- Preenchido via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id='operational' class='view'>
 <div class='card'><div class='cardHead'><h2 data-i18n="tabOperational">Operacional (Ao Vivo)</h2></div><div class='cardBody'>
@@ -306,6 +428,36 @@
     </div>
     <div class="modalFoot">
       <button class="btn primary" onclick="saveExtractionConfig()">Salvar Configuração</button>
+    </div>
+  </div>
+</div>
+
+<div id="riskModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:580px">
+    <div class="modalHead">
+      <h3>⚙️ Configuração da Ferramenta QUADAS-2</h3>
+      <button class="modalClose" onclick="closeRiskModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <p style="margin-top:0" class="muted">Ajuste as diretrizes de auditoria de risco de viés e aplicabilidade clínica para estudos de acurácia em IA-ECG.</p>
+
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked> Exigir amostragem consecutiva ou aleatória de pacientes (Domínio 1)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked> Verificar cegamento do modelo de IA quanto aos laudos clínicos (Domínio 2)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked> Exigir confirmação por Ecocardiograma ou RMN Cardíaca (Domínio 3)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked> Limitar intervalo entre ECG e Exame de Referência em até 30 dias (Domínio 4)
+        </label>
+      </div>
+    </div>
+    <div class="modalFoot">
+      <button class="btn primary" onclick="saveRiskConfig()">Salvar Diretrizes QUADAS-2</button>
     </div>
   </div>
 </div>
