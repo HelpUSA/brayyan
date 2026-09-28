@@ -574,6 +574,10 @@
     const go = ev.target.closest("[data-go]");
     if (go) showTab(go.dataset.go);
 
+    if (ev.target.closest('[data-i18n="btnPrisma"]')) openPrismaModal();
+    if (ev.target.closest('[data-i18n="btnInvite"]')) openInviteModal();
+    if (ev.target.closest('[data-i18n="btnEditData"]')) openEditDataModal();
+
     try {
       if (ev.target.closest("#uploadCsvBtn")) await uploadCsv();
       if (ev.target.closest("#refreshLiveBtn")) await refreshAll();
@@ -715,6 +719,80 @@
 
   window.filterRiskTable = (val) => renderRiskTable(val);
 
+  // FullText Mock Data & Render
+  const mockFulltextData = [
+    { id: 3579, title: "Artificial intelligence electrocardiography for structural heart disease detection", pdf: "artigo_3579_ecg_ai.pdf", status: "Aprovado", reason: "-", reviewer: "Wagner Santos" },
+    { id: 3578, title: "Deep learning ECG screening for left ventricular dysfunction", pdf: "artigo_3578_dysfunction.pdf", status: "Aprovado", reason: "-", reviewer: "Watcher A (IA)" },
+    { id: 3577, title: "Automated detection of valvular heart disease via AI-enhanced ECG", pdf: "artigo_3577_valvular.pdf", status: "Aprovado", reason: "-", reviewer: "Watcher B (IA)" },
+    { id: 3576, title: "Neural network detection of hypertrophic cardiomyopathy from 12-lead ECG", pdf: "artigo_3576_hypertrophic.pdf", status: "Excluído", reason: "Sem grupo controle humano", reviewer: "Wagner Santos" },
+    { id: 3575, title: "Machine learning prediction of heart failure with preserved ejection fraction", pdf: "artigo_3575_heart_failure.pdf", status: "Aprovado", reason: "-", reviewer: "Wagner Santos" }
+  ];
+
+  function renderFulltextTable(filter = "") {
+    const tbody = document.getElementById("fulltextTbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    const term = filter.toLowerCase();
+    const rows = mockFulltextData.filter(r =>
+      !term || r.title.toLowerCase().includes(term) || r.pdf.toLowerCase().includes(term)
+    );
+    rows.forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>#${r.id}</b></td>
+        <td><span style="font-weight:700;color:#0f172a">${r.title}</span></td>
+        <td>📄 <a href="#" style="color:#4f46e5;font-weight:700" onclick="alert('Visualizando arquivo PDF: ${r.pdf}');return false">${r.pdf}</a></td>
+        <td>${r.status === 'Aprovado' ? '<span class="ok">Aprovado</span>' : '<span style="color:#dc2626;font-weight:700">Excluído</span>'}</td>
+        <td>${r.reason}</td>
+        <td><b>${r.reviewer}</b></td>
+        <td><button class="btn soft" style="height:28px;padding:0 8px;font-size:11px" onclick="alert('Abrindo auditoria do PDF #${r.id}')">Auditar</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.filterFulltextTable = (val) => renderFulltextTable(val);
+  window.openUploadPdfModal = () => alert("Selecione um arquivo PDF para anexar ao estudo.");
+
+  // Modals & Handlers
+  window.openPrismaModal = () => {
+    const m = document.getElementById("prismaModal");
+    if (m) m.style.display = "flex";
+  };
+  window.closePrismaModal = () => {
+    const m = document.getElementById("prismaModal");
+    if (m) m.style.display = "none";
+  };
+  window.downloadPrismaPdf = () => alert("Gerando relatório executivo consolidado PRISMA 2020 em PDF...");
+  window.downloadPrismaPng = () => alert("Fazendo download do Fluxograma PRISMA 2020 em imagem de alta resolução (PNG)...");
+
+  window.openInviteModal = () => {
+    const m = document.getElementById("inviteModal");
+    if (m) m.style.display = "flex";
+  };
+  window.closeInviteModal = () => {
+    const m = document.getElementById("inviteModal");
+    if (m) m.style.display = "none";
+  };
+  window.sendInvite = () => {
+    const email = document.getElementById("inviteEmail")?.value;
+    window.closeInviteModal();
+    setStatus(`Convite enviado com sucesso para: ${email || "pesquisador"}.`);
+  };
+
+  window.openEditDataModal = () => {
+    const m = document.getElementById("editDataModal");
+    if (m) m.style.display = "flex";
+  };
+  window.closeEditDataModal = () => {
+    const m = document.getElementById("editDataModal");
+    if (m) m.style.display = "none";
+  };
+  window.saveProjectData = () => {
+    window.closeEditDataModal();
+    setStatus("Informações do projeto atualizadas com sucesso.");
+  };
+
   window.openPrivacyModal = () => {
     const modal = document.getElementById("privacyModal");
     if (modal) modal.style.display = "flex";
@@ -736,6 +814,7 @@
     window.changeLanguage(savedLang);
     renderExtractionTable();
     renderRiskTable();
+    renderFulltextTable();
 
     if ($("#liveStatus")) {
       refreshAll().catch(err => setStatus(`Error: ${err.message}`));

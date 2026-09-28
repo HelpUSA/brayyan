@@ -109,7 +109,64 @@
 <section id='criteria' class='view'>
 <div class='card'><div class='cardHead'><h2 data-i18n="cardCriteria">Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on' data-i18n="tabInclusion">Inclusão</div><div data-i18n="tabExclusion">Exclusão</div></div><div class='criteriaTitle' data-i18n="criteriaIncTitle">Incluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaIncText">A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle' data-i18n="criteriaExcTitle">Excluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaExcText">Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
 </section>
-<section id='fulltext' class='view'><div class='card emptyState'><div><div class='emptyIcon'>+</div><h2 data-i18n="fulltextTitle">Triagem de Texto Completo</h2><p data-i18n="fulltextText">Adicione artigos após a triagem inicial de títulos e resumos para iniciar a revisão do texto completo.</p><button class='btn primary' data-i18n="btnAddArticles">Adicionar Artigos</button></div></div></section>
+<section id='fulltext' class='view'>
+  <div class='grid' style='gap:16px'>
+    <div class='card'>
+      <div class='cardHead'>
+        <h2 data-i18n="fulltextTitle">Triagem de Texto Completo (Full-Text Assessment)</h2>
+        <button class='btn primary' onclick='openUploadPdfModal()'>+ Upload de PDFs / Artigos</button>
+      </div>
+      <div class='cardBody'>
+        <p class='muted' style='margin-top:0'>
+          Avaliação de elegibilidade dos 886 artigos em texto completo com verificação de critérios PICO e laudos ecocardiográficos de referência.
+        </p>
+        <div class='summaryCards' style='margin-top:14px'>
+          <div class='metric'>
+            <div class='name'>Artigos em Texto Completo</div>
+            <div class='num'>886</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>PDFs Anexados</div>
+            <div class='num' style='color:#6366f1'>142</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Aprovados para Síntese</div>
+            <div class='num' style='color:#16a34a'>128</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Excluídos no Texto Completo</div>
+            <div class='num' style='color:#dc2626'>14</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='cardHead'>
+        <h2>Documentos e PDFs para Auditoria</h2>
+        <input type='text' id='searchFulltext' placeholder='Buscar por artigo ou DOI...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:240px;font-size:13px' oninput='filterFulltextTable(this.value)'>
+      </div>
+      <div style='overflow-x:auto'>
+        <table class='table' id='fulltextTable'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título do Estudo</th>
+              <th>Arquivo PDF</th>
+              <th>Status do Texto</th>
+              <th>Razão de Exclusão</th>
+              <th>Revisor Responsável</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody id='fulltextTbody'>
+            <!-- Preenchido via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 <section id='extraction' class='view'>
   <div class='grid' style='gap:16px'>
     <div class='card'>
@@ -458,6 +515,135 @@
     </div>
     <div class="modalFoot">
       <button class="btn primary" onclick="saveRiskConfig()">Salvar Diretrizes QUADAS-2</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PRISMA 2020 -->
+<div id="prismaModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:850px">
+    <div class="modalHead">
+      <h3>📊 Fluxograma PRISMA 2020 — Diretrizes de Revisão Sistemática</h3>
+      <button class="modalClose" onclick="closePrismaModal()">×</button>
+    </div>
+    <div class="modalBody" style="background:#f8fafc;padding:24px">
+      <div style="display:flex;flex-direction:column;gap:18px;max-width:720px;margin:0 auto">
+        <div style="border:2px solid #6366f1;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(99,102,241,0.08)">
+          <div style="font-weight:800;color:#4338ca;font-size:14px;margin-bottom:6px">1. IDENTIFICAÇÃO DOS ESTUDOS</div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px;background:#e0e7ff;padding:10px;border-radius:6px;font-size:13px">
+              <b>Registros identificados nas bases:</b><br>
+              PubMed + Scopus + IEEE (n = 3.578)
+            </div>
+            <div style="flex:1;min-width:220px;background:#fee2e2;padding:10px;border-radius:6px;font-size:13px;color:#991b1b">
+              <b>Registros duplicados removidos:</b><br>
+              Duplicatas detectadas (n = 38)
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;font-weight:900;color:#6366f1;font-size:20px">↓</div>
+
+        <div style="border:2px solid #0ea5e9;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(14,165,233,0.08)">
+          <div style="font-weight:800;color:#0369a1;font-size:14px;margin-bottom:6px">2. TRIAGEM DE TÍTULOS E RESUMOS (IA + HUMANOS)</div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px;background:#e0f2fe;padding:10px;border-radius:6px;font-size:13px">
+              <b>Registros triados por IA:</b><br>
+              Watchers A & B (n = 3.578)
+            </div>
+            <div style="flex:1;min-width:220px;background:#fee2e2;padding:10px;border-radius:6px;font-size:13px;color:#991b1b">
+              <b>Registros excluídos na triagem:</b><br>
+              Critérios de exclusão (n = 2.692)
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;font-weight:900;color:#0ea5e9;font-size:20px">↓</div>
+
+        <div style="border:2px solid #f59e0b;border-radius:10px;background:#fff;padding:14px;box-shadow:0 4px 12px rgba(245,158,11,0.08)">
+          <div style="font-weight:800;color:#b45309;font-size:14px;margin-bottom:6px">3. ELEGIBILIDADE E AUDITORIA DE CONFLITOS</div>
+          <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px;background:#fef3c7;padding:10px;border-radius:6px;font-size:13px">
+              <b>Conflitos divergentes (A vs B):</b><br>
+              Auditados por revisor humano (n = 81)
+            </div>
+            <div style="flex:1;min-width:220px;background:#dcfce7;padding:10px;border-radius:6px;font-size:13px;color:#15803d">
+              <b>Concordância de IA (Kappa 0.9479):</b><br>
+              Consenso automático (97.74%)
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;font-weight:900;color:#10b981;font-size:20px">↓</div>
+
+        <div style="border:2px solid #10b981;border-radius:10px;background:#dcfce7;padding:16px;text-align:center;box-shadow:0 4px 12px rgba(16,185,129,0.12)">
+          <div style="font-weight:900;color:#065f46;font-size:16px">4. ESTUDOS INCLUÍDOS NA REVISÃO E SÍNTESE</div>
+          <div style="font-size:22px;font-weight:900;color:#047857;margin-top:6px">n = 886 Estudos Selecionados</div>
+          <div style="font-size:12px;color:#065f46;margin-top:4px">Estudos de Acurácia Diagnóstica em IA-ECG para Doenças Cardíacas Estruturais</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modalFoot" style="display:flex;justify-content:space-between;align-items:center">
+      <span class="muted" style="font-size:12px">Conforme diretrizes PRISMA 2020 (Page MJ et al., BMJ 2021)</span>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="downloadPrismaPdf()">📄 Baixar Relatório PDF</button>
+        <button class="btn primary" onclick="downloadPrismaPng()">📷 Download Diagrama (PNG)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Convidar Membros -->
+<div id="inviteModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:500px">
+    <div class="modalHead">
+      <h3>👥 Convidar Membros para a Revisão</h3>
+      <button class="modalClose" onclick="closeInviteModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <p style="margin-top:0" class="muted">Insira o e-mail do pesquisador para conceder acesso de revisão ou auditoria.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+        <label style="font-weight:700">E-mail do Pesquisador:
+          <input type="email" id="inviteEmail" placeholder="pesquisador@instituicao.edu.br" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+        </label>
+        <label style="font-weight:700">Função:
+          <select id="inviteRole" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+            <option value="reviewer">Revisor Humano (Auditor)</option>
+            <option value="viewer">Observador (Somente Leitura)</option>
+            <option value="admin">Co-Proprietário do Projeto</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <div class="modalFoot">
+      <button class="btn primary" onclick="sendInvite()">Enviar Convite</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar Dados -->
+<div id="editDataModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:550px">
+    <div class="modalHead">
+      <h3>✏️ Editar Informações do Projeto</h3>
+      <button class="modalClose" onclick="closeEditDataModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <label style="font-weight:700">Título da Revisão:
+          <input type="text" id="editProjectTitle" value="IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+        </label>
+        <label style="font-weight:700">Domínio / Especialidade:
+          <input type="text" id="editProjectDomain" value="Biomedicina / Cardiologia Digital" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">
+        </label>
+        <label style="font-weight:700">Descrição PICO:
+          <textarea id="editProjectDesc" rows="3" style="width:100%;padding:8px;border:1px solid var(--line2);border-radius:6px;margin-top:4px">Revisão sistemática e meta-análise sobre a acurácia diagnóstica de eletrocardiografia aprimorada por inteligência artificial para detecção de doenças cardíacas estruturais.</textarea>
+        </label>
+      </div>
+    </div>
+    <div class="modalFoot">
+      <button class="btn primary" onclick="saveProjectData()">Salvar Alterações</button>
     </div>
   </div>
 </div>
