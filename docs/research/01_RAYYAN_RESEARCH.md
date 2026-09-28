@@ -1,79 +1,41 @@
-# Pesquisa Completa Rayyan.ai
+---
+title: "Brayyan — Pesquisa Benchmark Rayyan.ai & Recursos Adotados"
+tags: [brayyan, research, rayyan, benchmark, obsidian-vault]
+date: 2026-09-27
+status: ativo
+aliases: ["Pesquisa Rayyan", "Benchmark Rayyan"]
+---
 
-## 1. Visao Geral
+# 📚 Pesquisa Rayyan.ai & Recursos Adotados no Brayyan
 
-Plataforma web para revisoes sistematicas, desenvolvida pelo Qatar Computing Research Institute (QCRI). Lancada em 2013. Mais de 1 milhao de usuarios, 180+ paises.
+> [!NOTE] Referência do Mercado
+> O **Rayyan.ai** é a principal referência global em triagem colaborativa de revisões sistemáticas. O **Brayyan (HelpUS Technology)** foi desenvolvido incorporando as melhores práticas de UX do Rayyan, aprimorando-as com capacidades nativas de IA e auditoria de concordância.
 
-## 2. Estrutura de Telas
+---
 
-### Dashboard Principal (My Reviews)
-- Cards de reviews com titulo, numero de referencias, colaboradores
-- Barra de busca
-- Botao New Review
-- Ordenacao por data, nome, progresso
+## 🔍 Recursos do Rayyan Incorporados no Brayyan
 
-### Tela da Review (Workspace)
-Sidebar esquerda com navegacao:
-- Dashboard (visao geral)
-- References (lista de artigos)
-- Screening (triagem sequencial)
-- Conflicts (conflitos entre revisores)
-- Labels (sistema de etiquetas)
-- Analytics (metricas e PRISMA)
-- Settings (configuracoes)
-- Collaborators (gestao de equipe)
-- Import/Export
+| Recurso Rayyan | Status no Brayyan | Implementação |
+| :--- | :---: | :--- |
+| **Atalhos de Teclado (Hotkeys)** | 🟢 **Incorporado** | Teclas `1` (Incluir), `2` (Talvez), `3` (Excluir), `U` (Desfazer) |
+| **Highlight de Palavras-Chave** | 🟢 **Incorporado** | Destaque automático de termos clínicos em verde (inclusão) e vermelho (exclusão) no abstract |
+| **Filtro de Confiança da IA** | 🟢 **Incorporado** | Selector por limiar de confiança (`>90%`, `>80%`) na lista de artigos |
+| **Função Desfazer (Undo)** | 🟢 **Incorporado** | Botão e atalho `U` para reverter a última decisão tomada |
+| **Fluxograma PRISMA** | 🟢 **Incorporado** | Modal dinâmico PRISMA 2020 em 4 estágios com download PDF/PNG |
+| **Cegamento de Revisores (Blind Mode)** | 🟢 **Incorporado** | Switch para ocultar opiniões de outros revisores |
+| **Gestão de Colaboradores** | 🟢 **Incorporado** | Modal para convidar membros com papéis de Revisor/Observador/Admin |
 
-### Tela de Screening (Principal)
-- Layout: artigo centralizado com abstract completo
-- Botoes de acao fixos: Include, Maybe, Exclude, Skip
-- Atalhos de teclado: 1=include, 2=maybe, 3=exclude
-- Razao de exclusao (selecionavel ao clicar exclude)
-- Blind mode: nao mostra decisoes de outros revisores
-- Progresso: X de Y artigos triados
-- Highlight de keywords
-- Link externo para PubMed/DOI
-- Historio de decisoes
-- Undo da ultima decisao
+---
 
-### Tela de Conflitos
-- Lista de artigos onde revisores discordaram
-- Side-by-side: decisao do revisor A vs revisor B
-- Rationale de cada revisor
-- Campo para decisao final (resolucao)
+## 🏆 Diferenciais Exclusivos do Brayyan (Além do Rayyan)
 
-### Tela de Analytics
-- PRISMA Flow Diagram interativo
-- Contagens por revisor
-- Matriz de concordancia
-- Cohens Kappa
-- Tempo medio por artigo
-- Distribuicao de labels
+1. **Dual-Watcher Consensus (Watcher A vs Watcher B)**: Comparativo automático de decisões de dois robôs de IA com cálculo em tempo real do coeficiente **Cohen's Kappa**.
+2. **Extração Estruturada de Evidências por IA**: Tabela nativa de parâmetros de acurácia diagnóstica (AUC-ROC, Sensibilidade, Especificidade, Arquitetura IA, Tamanho N) com exportação CSV.
+3. **Avaliação QUADAS-2 Nativa**: Gráfico em formato de semáforo (*Traffic Light Plot*) para 4 domínios de viés em IA.
 
-### Tela de Labels
-- Criacao de labels customizadas
-- Cores por label
-- Categorias: include, exclude, maybe, custom
-- Aplicacao em lote (bulk apply)
-- Filtros por label
+---
 
-## 3. Funcionalidades Importantes
-
-- Import: RIS, BibTeX, CSV, PubMed (NBIB), EndNote
-- Deteccao de duplicatas automatica
-- Colaboracao multi-usuario
-- Blinding configuracel
-- Export CSV, RIS, PRISMA
-- Rayyan AI (sugestoes de include/exclude, pago)
-
-## 4. Modelo de Negocio
-
-- Free: 3 reviews, 1000 refs cada, 2 colaboradores
-- Professional (25/mes): reviews ilimitados, 5000 refs, 5 colaboradores, Rayyan AI
-- Teams (50/usuario/mes): 20000 refs, colaboradores ilimitados
-- Enterprise: customizado, SSO, API
-
-## 5. Diferencial do Brayyan
-
-Rayyan = triagem manual por humanos
-Brayyan = triagem ja feita por IAs, upload e auditoria
+## 🔗 Links Relacionados (Obsidian Vault)
+- [[00_INDEX_MOC]] — Mapa de conteúdo central.
+- [[CURRENT_STATUS]] — Status atual do sistema.
+- [[02_COMPETITOR_ANALYSIS]] — Análise comparativa com outros concorrentes.

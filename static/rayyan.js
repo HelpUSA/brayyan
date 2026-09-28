@@ -455,10 +455,30 @@
     return s;
   }
 
+  let lastDecisionHistory = [];
+
+  function highlightKeywords(text) {
+    if (!text) return "Nenhum resumo disponível.";
+    let html = text;
+    const includeTerms = ["electrocardiography", "electrocardiogram", "eletrocardiografia", "ECG", "artificial intelligence", "inteligência artificial", "AI", "deep learning", "machine learning", "accuracy", "acurácia", "structural heart disease"];
+    const excludeTerms = ["animal", "pediatric", "pediátrico", "editorial", "letter", "case report"];
+
+    includeTerms.forEach(term => {
+      const reg = new RegExp(`\\b(${term})\\b`, "gi");
+      html = html.replace(reg, '<mark style="background:#dcfce7;color:#15803d;padding:1px 4px;border-radius:4px;font-weight:700">$1</mark>');
+    });
+    excludeTerms.forEach(term => {
+      const reg = new RegExp(`\\b(${term})\\b`, "gi");
+      html = html.replace(reg, '<mark style="background:#fee2e2;color:#b91c1c;padding:1px 4px;border-radius:4px;font-weight:700">$1</mark>');
+    });
+    return html;
+  }
+
   function renderArticle(article) {
     const div = document.createElement("div");
     div.className = "article";
     div.dataset.liveId = article.id;
+    div.dataset.confidence = article.A_confidence || article.a_confidence || 0.95;
     div.innerHTML = `
       <span class="idx">#${article.id}</span>
       <span class="articleTitle">${article.title || "(untitled)"}</span>
@@ -474,9 +494,11 @@
       a.classList.toggle("active", a.dataset.liveId == article.id);
     });
 
-    // Detailed view in Screening Tab
+    // Detailed view in Screening Tab with Keyword Highlighting
     setText("#detailTitle", article.title || "(sem título)");
-    setText("#detailAbstract", article.abstract || "Nenhum resumo disponível.");
+    const abstractEl = $("#detailAbstract");
+    if (abstractEl) abstractEl.innerHTML = highlightKeywords(article.abstract);
+
     setText("#detailJournal", article.journal || "-");
     setText("#detailYear", article.year || "-");
     setText("#detailDoi", article.doi || "-");
@@ -550,6 +572,10 @@
       setStatus("Selecione um artigo primeiro.");
       return;
     }
+    lastDecisionHistory.push({
+      id: selectedArticle.id,
+      previousDecision: selectedArticle.provisional_decision || "maybe"
+    });
     const note = $("#decisionNote")?.value || "";
     setStatus(`Salvando decisão '${decision}' para o artigo #${selectedArticle.id}...`);
     const data = await fetchJson(`/api/decisions/${selectedArticle.id}/decision`, {
@@ -560,6 +586,33 @@
     setStatus(`Decisão '${data.decision}' salva com sucesso para o artigo #${data.record_id}.`);
     await refreshAll();
   }
+
+  window.undoLastDecision = async () => {
+    if (!lastDecisionHistory.length) {
+      setStatus("Nenhuma decisão anterior para desfazer.");
+      return;
+    }
+    const last = lastDecisionHistory.pop();
+    setStatus(`Desfazendo última decisão para o artigo #${last.id}...`);
+    await saveDecision(last.previousDecision || "maybe");
+  };
+
+  window.filterArticlesByConfidence = (val) => {
+    const threshold = parseFloat(val) || 0;
+    const articles = document.querySelectorAll("#screeningArticleList .article");
+    articles.forEach(art => {
+      const conf = parseFloat(art.dataset.confidence) || 0.95;
+      art.style.display = conf >= threshold ? "block" : "none";
+    });
+  };
+
+  document.addEventListener("keydown", (ev) => {
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(ev.target.tagName)) return;
+    if (ev.key === "1") saveDecision("include");
+    if (ev.key === "2") saveDecision("maybe");
+    if (ev.key === "3") saveDecision("exclude");
+    if (ev.key.toLowerCase() === "u") window.undoLastDecision();
+  });
 
   async function refreshAll() {
     await loadSummary();
