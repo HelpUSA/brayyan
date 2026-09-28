@@ -8,42 +8,68 @@
 </head>
 <body>
 <header class='header'>
-<div class='headerRow'>
-<img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
-<div class='logo'>B</div>
-<div class='crown'>*</div>
-<div class='titleWrap'><span data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</span> <span class='helpusBadge' data-i18n="helpusBadge">HelpUS Technology</span> <span class='editIcon' data-i18n="edit">editar</span></div>
-<div class='spacer'></div>
-<div class='langSelectorWrap'>
-  <select id='langSelect' class='langSelect' onchange='changeLanguage(this.value)'>
-    <option value='pt' selected>🇧🇷 PT</option>
-    <option value='en'>🇺🇸 EN</option>
-    <option value='es'>🇪🇸 ES</option>
-  </select>
-</div>
-<button class='btn' data-i18n="needHelp">Precisa de ajuda?</button>
-<button class='btn primary' data-i18n="upgrade">Upgrade / Planos</button>
-<button class='btn iconBtn'>?</button>
-<button class='btn iconBtn'>cfg</button>
-<div class='avatar'>WS</div>
-</div>
-<div class='subTools'>
-<span style='font-weight:700' data-i18n="blindMode">Modo cego (Blind mode)</span><span class='switch'><i></i></span>
-<button class='btn' data-go='criteria' data-i18n="screeningCriteria">Critérios de triagem</button><button class='btn iconBtn'>...</button>
-</div>
-<nav class='tabs' id='tabs'>
-<button class='tab active' data-tab='overview' data-i18n="tabOverview">Visão Geral</button>
-<button class='tab' data-tab='reviewdata' data-i18n="tabReviewData">Dados da Revisão</button>
-<button class='tab' data-tab='screening' data-i18n="tabScreening">Triagem (Screening)</button>
-<button class='tab' data-tab='fulltext' data-i18n="tabFullText">Texto Completo</button>
-<button class='tab' data-tab='extraction' data-i18n="tabExtraction">Extração de Dados</button>
-<button class='tab' data-tab='risk' data-i18n="tabRisk">Risco de Viés</button>
-<button class='tab' data-tab='practical' data-i18n="tabPractical">MVP Prático</button>
-<button class='tab' data-tab='operational' data-i18n="tabOperational">Operacional (Ao Vivo)</button>
-</nav>
+  <div class='headerBrand'>
+    <img src='/helpus-logo.jpg' alt='HelpUS Technology' class='helpusHeaderLogo'>
+    <span class='headerBrandText'>HelpUS Technology</span>
+  </div>
+  <div class='headerUserSection'>
+    <div class='langSelectorWrap'>
+      <select id='langSelect' class='langSelect' onchange='changeLanguage(this.value)'>
+        <option value='pt' selected>🇧🇷 PT</option>
+        <option value='en'>🇺🇸 EN</option>
+        <option value='es'>🇪🇸 ES</option>
+      </select>
+    </div>
+    <div class='avatar' title='Wagner Santos'>WS</div>
+  </div>
 </header>
-<div class='updateBar'><span data-i18n="updateBarMsg">Mantenha-se atualizado com as revisões da equipe</span><span class='spacer'></span><button class='btn' data-i18n="btnEditData">Editar dados</button><button class='btn' data-i18n="btnInvite">Convidar membros</button><button class='btn' data-i18n="btnPrisma">Fluxo PRISMA</button></div>
+
 <main class='page'>
+  <div class='projectHeaderCard'>
+    <div class='projectTitleRow'>
+      <div class='projectTitleGroup'>
+        <div class='logo'>B</div>
+        <div class='crown'>*</div>
+        <div class='titleWrap'>
+          <span data-i18n="headerTitle">IA-ECG Doenças Cardíacas Estruturais - Grupo 2 PubMed</span>
+          <span class='helpusBadge' data-i18n="helpusBadge">HelpUS Technology</span>
+          <span class='editIcon' data-i18n="edit">editar</span>
+        </div>
+      </div>
+      <div class='projectActionsGroup'>
+        <button class='btn primary' data-i18n="upgrade">Upgrade / Planos</button>
+        <button class='btn' data-i18n="needHelp">Precisa de ajuda?</button>
+        <button class='btn iconBtn'>?</button>
+        <button class='btn iconBtn'>cfg</button>
+        <div class='subToolsInline'>
+          <span style='font-weight:700' data-i18n="blindMode">Modo cego (Blind mode)</span>
+          <span class='switch'><i></i></span>
+          <button class='btn' data-go='criteria' data-i18n="screeningCriteria">Critérios de triagem</button>
+          <button class='btn iconBtn'>...</button>
+        </div>
+      </div>
+    </div>
+    
+    <nav class='tabs' id='tabs'>
+      <button class='tab active' data-tab='overview' data-i18n="tabOverview">Visão Geral</button>
+      <button class='tab' data-tab='reviewdata' data-i18n="tabReviewData">Dados da Revisão</button>
+      <button class='tab' data-tab='screening' data-i18n="tabScreening">Triagem (Screening)</button>
+      <button class='tab' data-tab='fulltext' data-i18n="tabFullText">Texto Completo</button>
+      <button class='tab' data-tab='extraction' data-i18n="tabExtraction">Extração de Dados</button>
+      <button class='tab' data-tab='risk' data-i18n="tabRisk">Risco de Viés</button>
+      <button class='tab' data-tab='practical' data-i18n="tabPractical">MVP Prático</button>
+      <button class='tab' data-tab='operational' data-i18n="tabOperational">Operacional (Ao Vivo)</button>
+    </nav>
+    
+    <div class='updateBar'>
+      <span data-i18n="updateBarMsg">Mantenha-se atualizado com as revisões da equipe</span>
+      <div class='updateBarButtons'>
+        <button class='btn' data-i18n="btnEditData">Editar dados</button>
+        <button class='btn' data-i18n="btnInvite">Convidar membros</button>
+        <button class='btn' data-i18n="btnPrisma">Fluxo PRISMA</button>
+      </div>
+    </div>
+  </div>
 <section id='overview' class='view active'>
 <div class='grid overviewGrid'>
 <div class='card'><div class='cardHead'><h2 data-i18n="cardReviewInfo">Informações da Revisão</h2></div><div class='cardBody'>
