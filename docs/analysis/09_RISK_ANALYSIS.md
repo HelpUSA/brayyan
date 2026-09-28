@@ -1,96 +1,56 @@
-# Analise de Risco — Brayyan
+---
+title: "Brayyan — Análise e Matriz de Riscos"
+tags: [brayyan, risk-analysis, security, architecture, obsidian-vault]
+date: 2026-09-27
+status: ativo
+aliases: ["Matriz de Riscos", "Risk Analysis"]
+---
 
-## 1. Matriz de Risco
+# ⚠️ Brayyan — Análise e Matriz de Risco
 
-| ID | Risco | Probabilidade | Impacto | Severidade |
-|----|-------|--------------|---------|------------|
-| R01 | CSV com formato inconsistente das IAs | Alta | Alto | Critico |
-| R02 | Performance com datasets grandes (10k+ artigos) | Media | Medio | Alto |
-| R03 | Perda de dados por falta de backup | Baixa | Alto | Medio |
-| R04 | Incompatibilidade de colunas entre watchers | Alta | Medio | Alto |
-| R05 | Falha no calculo de metricas (Kappa, PRISMA) | Media | Alto | Alto |
-| R06 | Ataque de seguranca (SQL injection, XSS) | Baixa | Alto | Medio |
-| R07 | Exceder limites do plano gratuito (Vercel/Railway) | Media | Medio | Medio |
-| R08 | Falta de adocao por pesquisadores | Media | Alto | Alto |
-| R09 | Complexidade de upload para usuarios nao tecnicos | Alta | Medio | Alto |
-| R10 | Sincronizacao entre frontend e backend | Baixa | Medio | Baixo |
+> [!IMPORTANT] Monitoramento Contínuo
+> A matriz abaixo identifica os principais riscos operacionais, técnicos e de dados na triagem assistida por IA do **Brayyan**, acompanhada dos planos de mitigação ativos.
 
-## 2. Detalhamento dos Riscos
+---
 
-### R01 — CSV com formato inconsistente
-Descricao: Cada IA (ChatGPT, DeepSeek, Claude) pode gerar CSVs com nomes de colunas diferentes.
-Mitigacao:
-- Schema de colunas esperado documentado
-- Mapeamento automatico de colunas (fuzzy matching)
-- Validacao no upload com mensagens claras de erro
-- Template CSV para download
+## 📊 1. Matriz de Risco
 
-### R02 — Performance com datasets grandes
-Descricao: 10.000+ artigos podem tornar a interface lenta.
-Mitigacao:
-- Paginacao (50 registros por pagina)
-- Indices no banco de dados
-- Virtualizacao de tabela (TanStack Virtual)
-- Cache com React Query
-- Processamento async para calculos pesados
+| ID | Risco | Probabilidade | Impacto | Severidade | Status |
+| :--- | :--- | :---: | :---: | :---: | :---: |
+| **R01** | Formato inconsistente de CSVs de IAs externas | Alta | Alto | 🔴 Crítico | Mitigado |
+| **R02** | Degradação de performance em datasets (10k+ artigos) | Média | Médio | 🟡 Alto | Monitorado |
+| **R03** | Perda de dados por falha de persistência | Baixa | Alto | 🟡 Médio | Mitigado |
+| **R04** | Divergência de colunas entre Watchers A e B | Alta | Médio | 🟡 Alto | Mitigado |
+| **R05** | Discrepância nos cálculos estatísticos (Kappa / PRISMA) | Média | Alto | 🟡 Alto | Testado |
+| **R06** | Vulnerabilidades de segurança (XSS / Injection) | Baixa | Alto | 🟡 Médio | Mitigado |
+| **R07** | Limite de requisições do plano serverless Vercel | Média | Médio | 🟢 Baixo | Monitorado |
+| **R08** | Resistência acadêmica à triagem 100% automatizada | Média | Alto | 🟡 Alto | Tratado |
 
-### R03 — Perda de dados
-Descricao: Falha no banco de dados pode resultar em perda de projetos.
-Mitigacao:
-- Railway faz backups automaticos do PostgreSQL
-- Exportacao periodica (CSV) como backup adicional
-- Documentacao de recovery
+---
 
-### R04 — Incompatibilidade de colunas entre watchers
-Descricao: Watcher A e B podem ter colunas com nomes diferentes para o mesmo dado.
-Mitigacao:
-- Schema canonico de colunas
-- Mapeamento configuracel por projeto
-- Validacao de chaves estrangeiras (PMID/DOI)
+## 🔍 2. Detalhamento dos Riscos e Mitigações
 
-### R05 — Falha no calculo de metricas
-Descricao: Calculos de Cohens Kappa, PRISMA counts podem estar errados.
-Mitigacao:
-- Testes unitarios com dados conhecidos
-- Validacao cruzada com calculo manual
-- Documentacao das formulas usadas
+### R01 — Formato Inconsistente de CSVs
+> [!WARNING] Risco
+> Diferentes modelos de IA (ChatGPT, DeepSeek, Claude) podem retornar arquivos CSV com cabeçalhos não padronizados.
+- **Mitigação**: Mapeamento dinâmico de colunas no backend (`services/csv_parser.py`), validação estrita de schema e suporte a upload manual padronizado.
 
-### R06 — Ataque de seguranca
-Descricao: SQL injection, XSS, CSRF.
-Mitigacao:
-- SQLAlchemy previne SQL injection
-- React previne XSS por default
-- CORS configurado
-- Rate limiting
-- Helmet.js headers de seguranca
+### R02 — Performance em Datasets Grandes
+> [!TIP] Desempenho
+> Datasets acima de 10.000 registros podem desacelerar a renderização do navegador.
+- **Mitigação**: Paginação otimizada via SQL (`GET /api/articles/?page=1&limit=50`), virtualização de elementos DOM e índices SQLite por `pubmed_id` e `doi`.
 
-### R07 — Limites de plano gratuito
-Descricao: Vercel (100GB bandwidth, 1000 serverless exec/mes) ou Railway ($5 credit).
-Mitigacao:
-- Monitoramento de uso
-- Otimizacao de assets estaticos
-- Upgrade de plano quando necessario
+### R03 — Persistência e Backup de Dados
+- **Mitigação**: O banco SQLite embarcado (`brayyan.db`) é versionado no repositório com suporte a rotinas de exportação em CSV consolidado a qualquer momento.
 
-### R08 — Falta de adocao
-Descricao: Pesquisadores podem nao confiar em triagem 100% IA.
-Mitigacao:
-- Foco em transparencia (rationale, scores)
-- Export compativel com PRISMA e ferramentas tradicionais
-- Publicacao do metodo (paper do CardioReview como prova de conceito)
-- Interface familiar (Rayyan-like)
+### R05 — Precisão das Métricas Estatísticas
+> [!NOTE] Auditoria Matemática
+> - **Cohen's Kappa**: Implementado em `services/metrics.py` com validação cruzada automatizada.
+> - **Fluxo PRISMA**: Contagem em tempo real refletida nos endpoints da API.
 
-### R09 — Complexidade de upload
-Descricao: Usuarios podem nao saber preparar CSVs no formato correto.
-Mitigacao:
-- Template CSV para download
-- Wizard de upload passo a passo
-- Exemplos visuais
-- Mensagens de erro amigaveis
-- Suporte a drag-and-drop
+---
 
-### R10 — Sincronizacao frontend/backend
-Descricao: Discrepancia entre o que o frontend mostra e o que o backend tem.
-Mitigacao:
-- React Query com invalidacao de cache
-- WebSockets para atualizacoes em tempo real (fase 2)
-- Testes E2E com Playwright
+## 🔗 Links Relacionados (Obsidian Vault)
+- [[00_INDEX_MOC]] — Mapa de conteúdo central.
+- [[DATABASE_STATE]] — Estado do banco SQLite de 3.578 registros.
+- [[06_SYSTEM_ARCHITECTURE]] — Arquitetura de mitigação e rotas API.

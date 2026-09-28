@@ -470,8 +470,22 @@
 
   function selectArticle(article, element) {
     selectedArticle = article;
-    document.querySelectorAll("#liveArticleList .article").forEach(a => a.classList.remove("active"));
-    if (element) element.classList.add("active");
+    document.querySelectorAll(".article").forEach(a => {
+      a.classList.toggle("active", a.dataset.liveId == article.id);
+    });
+
+    // Detailed view in Screening Tab
+    setText("#detailTitle", article.title || "(sem título)");
+    setText("#detailAbstract", article.abstract || "Nenhum resumo disponível.");
+    setText("#detailJournal", article.journal || "-");
+    setText("#detailYear", article.year || "-");
+    setText("#detailDoi", article.doi || "-");
+    setText("#detailAuthors", article.authors || "-");
+    setText("#detailWatcherA", article.A_decision || article.a_decision || "-");
+    setText("#detailWatcherB", article.B_decision || article.b_decision || "-");
+    setText("#detailStatus", article.comparison_status || "-");
+
+    // Detailed view in Operational Tab
     setText("#liveDetailTitle", article.title);
     setText("#liveDetailAbstract", article.abstract);
     setText("#liveDetailJournal", article.journal);
@@ -483,24 +497,29 @@
   }
 
   async function loadArticles() {
-    setStatus("Loading articles...");
+    setStatus("Carregando artigos do banco de dados...");
     const data = await fetchJson("/api/articles/?limit=50");
-    const box = $("#liveArticleList");
-    if (!box) return;
-    box.innerHTML = "";
-    (data.articles || []).forEach(a => box.appendChild(renderArticle(a)));
-    if ((data.articles || []).length) selectArticle(data.articles[0], box.querySelector(".article"));
-    setStatus(`Loaded ${data.total || 0} article(s).`);
+    const boxes = [$("#liveArticleList"), $("#screeningArticleList")].filter(Boolean);
+    boxes.forEach(box => {
+      box.innerHTML = "";
+      (data.articles || []).forEach(a => box.appendChild(renderArticle(a)));
+    });
+    if ((data.articles || []).length) {
+      const firstArticle = data.articles[0];
+      const activeEl = document.querySelector(`.article[data-live-id="${firstArticle.id}"]`);
+      selectArticle(firstArticle, activeEl);
+    }
+    setStatus(`Carregados ${data.total || 0} artigo(s) do banco de dados.`);
   }
 
   async function loadConflicts() {
-    setStatus("Loading conflicts...");
+    setStatus("Carregando conflitos...");
     const data = await fetchJson("/api/conflicts/");
     const box = $("#liveConflictList");
     if (!box) return;
     box.innerHTML = "";
     if (!(data.conflicts || []).length) {
-      box.innerHTML = "<div class='muted'>No conflicts.</div>";
+      box.innerHTML = "<div class='muted'>Nenhum conflito pendente.</div>";
     } else {
       data.conflicts.forEach(c => {
         const row = document.createElement("div");
@@ -509,36 +528,36 @@
         box.appendChild(row);
       });
     }
-    setStatus(`Loaded ${data.total || 0} conflict(s).`);
+    setStatus(`Carregados ${data.total || 0} conflito(s).`);
   }
 
   async function uploadCsv() {
     const input = $("#csvFile");
     if (!input || !input.files || !input.files[0]) {
-      setStatus("Select a CSV file first.");
+      setStatus("Selecione um arquivo CSV primeiro.");
       return;
     }
-    setStatus("Uploading CSV...");
+    setStatus("Enviando CSV...");
     const form = new FormData();
     form.append("file", input.files[0]);
     const data = await fetchJson("/api/upload/csv", { method: "POST", body: form });
-    setStatus(`Imported ${data.imported_count || 0} record(s) from ${data.filename || "CSV"}.`);
+    setStatus(`Importados ${data.imported_count || 0} registro(s) do arquivo ${data.filename || "CSV"}.`);
     await refreshAll();
   }
 
   async function saveDecision(decision) {
     if (!selectedArticle) {
-      setStatus("Select an article first.");
+      setStatus("Selecione um artigo primeiro.");
       return;
     }
     const note = $("#decisionNote")?.value || "";
-    setStatus(`Saving ${decision} for article #${selectedArticle.id}...`);
+    setStatus(`Salvando decisão '${decision}' para o artigo #${selectedArticle.id}...`);
     const data = await fetchJson(`/api/decisions/${selectedArticle.id}/decision`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ decision, note })
     });
-    setStatus(`Saved decision: ${data.decision} for record ${data.record_id}.`);
+    setStatus(`Decisão '${data.decision}' salva com sucesso para o artigo #${data.record_id}.`);
     await refreshAll();
   }
 
@@ -555,28 +574,16 @@
     const go = ev.target.closest("[data-go]");
     if (go) showTab(go.dataset.go);
 
-    const article = ev.target.closest(".article");
-    if (article && !article.closest("#liveArticleList")) {
-      document.querySelectorAll(".article").forEach(a => a.classList.remove("active"));
-      article.classList.add("active");
-      setText("#detailTitle", article.dataset.title);
-      setText("#detailJournal", article.dataset.journal);
-      setText("#detailDoi", article.dataset.doi);
-      setText("#detailYear", article.dataset.year);
-      setText("#detailAuthors", article.dataset.authors);
-      setText("#detailAbstract", article.dataset.abstract);
-    }
-
     try {
       if (ev.target.closest("#uploadCsvBtn")) await uploadCsv();
       if (ev.target.closest("#refreshLiveBtn")) await refreshAll();
-      if (ev.target.closest("#loadArticlesBtn")) await loadArticles();
+      if (ev.target.closest("#loadArticlesBtn") || ev.target.closest("#loadArticlesBtnScreening")) await loadArticles();
       if (ev.target.closest("#loadConflictsBtn")) await loadConflicts();
 
       const decisionBtn = ev.target.closest("[data-live-decision]");
       if (decisionBtn) await saveDecision(decisionBtn.dataset.liveDecision);
     } catch (err) {
-      setStatus(`Error: ${err.message}`);
+      setStatus(`Erro: ${err.message}`);
       console.error(err);
     }
   });
