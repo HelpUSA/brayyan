@@ -110,7 +110,69 @@
 <div class='card'><div class='cardHead'><h2 data-i18n="cardCriteria">Critérios de triagem</h2></div><div class='cardBody'><div class='criteriaTabs'><div class='on' data-i18n="tabInclusion">Inclusão</div><div data-i18n="tabExclusion">Exclusão</div></div><div class='criteriaTitle' data-i18n="criteriaIncTitle">Incluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaIncText">A população inclui adultos ou coortes clínicas avaliadas com eletrocardiografia; o teste do estudo envolve inteligência artificial, aprendizado de máquina, rede neural ou interpretação automatizada de ECG; o desfecho alvo inclui doença cardíaca estrutural, cardiomiopatia, valvopatia, disfunção ventricular, hipertrofia ou fenótipos relacionados.</div><div class='criteriaTitle' data-i18n="criteriaExcTitle">Excluir estudos quando:</div><div class='criteriaText' data-i18n="criteriaExcText">Estudos sem dados de ECG, sem métodos de IA, estudos exclusivamente em animais, editoriais ou comentários não diagnósticos.</div></div></div>
 </section>
 <section id='fulltext' class='view'><div class='card emptyState'><div><div class='emptyIcon'>+</div><h2 data-i18n="fulltextTitle">Triagem de Texto Completo</h2><p data-i18n="fulltextText">Adicione artigos após a triagem inicial de títulos e resumos para iniciar a revisão do texto completo.</p><button class='btn primary' data-i18n="btnAddArticles">Adicionar Artigos</button></div></div></section>
-<section id='extraction' class='view'><div class='card emptyState'><div><div class='emptyIcon'>⇪</div><h2 data-i18n="extractionTitle">Extração de Dados com IA</h2><p data-i18n="extractionText">Crie campos de extração automatizados para população, modalidade de ECG, arquitetura de IA e acurácia diagnóstica.</p><button class='btn primary' data-i18n="btnConfigExtraction">Configurar Formulário de Extração</button></div></div></section>
+<section id='extraction' class='view'>
+  <div class='grid' style='gap:16px'>
+    <div class='card'>
+      <div class='cardHead'>
+        <h2 data-i18n="extractionTitle">Extração de Dados com IA & Auditoria</h2>
+        <div style='display:flex;gap:8px'>
+          <button class='btn primary' onclick='openExtractionModal()' data-i18n="btnConfigExtraction">Configurar Formulário</button>
+          <button class='btn' onclick='exportExtractionCsv()'>Exportar CSV</button>
+        </div>
+      </div>
+      <div class='cardBody'>
+        <p class='muted' style='margin-top:0'>
+          Formulário padronizado de extração automatizada de parâmetros clínicos, acurácia diagnóstica e arquitetura de IA em ECG.
+        </p>
+        <div class='summaryCards' style='margin-top:14px'>
+          <div class='metric'>
+            <div class='name'>Campos Ativos</div>
+            <div class='num' id='extActiveFieldsCount'>6</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Artigos Processados</div>
+            <div class='num' id='extExtractedCount'>886</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>AUC / ROC Média</div>
+            <div class='num' style='color:#16a34a'>0.948</div>
+          </div>
+          <div class='metric'>
+            <div class='name'>Sensibilidade Média</div>
+            <div class='num' style='color:#2563eb'>92.4%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='cardHead'>
+        <h2>Tabela de Evidências Extraídas (Artigos Incluídos)</h2>
+        <input type='text' id='searchExtraction' placeholder='Buscar no formulário...' style='padding:6px 12px;border:1px solid var(--line2);border-radius:6px;width:220px;font-size:13px' oninput='filterExtractionTable(this.value)'>
+      </div>
+      <div style='overflow-x:auto'>
+        <table class='table' id='extractionTable'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título do Estudo</th>
+              <th>População</th>
+              <th>Modalidade ECG</th>
+              <th>Arquitetura IA</th>
+              <th>AUC / ROC</th>
+              <th>Sens. / Espec.</th>
+              <th>Desfecho Alvo</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id='extractionTbody'>
+            <!-- Preenchido via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
 <section id='risk' class='view'><div class='card emptyState'><div><div class='emptyIcon'>!</div><h2 data-i18n="riskTitle">Risco de Viés</h2><p data-i18n="riskText">Prepare os domínios de avaliação de viés QUADAS-2 para estudos de acurácia de testes diagnósticos.</p><button class='btn primary' data-i18n="btnConfigRisk">Configurar Avaliação QUADAS-2</button></div></div></section>
 
 <section id='operational' class='view'>
@@ -208,6 +270,42 @@
     </div>
     <div class="modalFoot">
       <button class="btn primary" onclick="closePrivacyModal()" data-i18n="btnUnderstood">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<div id="extractionModal" class="modalOverlay" style="display:none">
+  <div class="modalCard" style="max-width:580px">
+    <div class="modalHead">
+      <h3>⚙️ Configuração dos Campos de Extração por IA</h3>
+      <button class="modalClose" onclick="closeExtractionModal()">×</button>
+    </div>
+    <div class="modalBody">
+      <p style="margin-top:0" class="muted">Selecione os parâmetros acadêmicos que a IA deve extrair automaticamente dos estudos incluídos.</p>
+      
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked disabled> População e Tamanho da Amostra (N)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked disabled> Modalidade de ECG (12 Derivações, Single-lead, Wearables)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" checked disabled> Arquitetura do Modelo de IA (CNN, ResNet-50, Transformer)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" id="fieldAuc" checked> Acurácia Diagnóstica (AUC-ROC / C-Statistic)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" id="fieldSens" checked> Sensibilidade e Especificidade (%)
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-weight:700">
+          <input type="checkbox" id="fieldTarget" checked> Desfecho Alvo (Disfunção Ventricular, Valvopatia)
+        </label>
+      </div>
+    </div>
+    <div class="modalFoot">
+      <button class="btn primary" onclick="saveExtractionConfig()">Salvar Configuração</button>
     </div>
   </div>
 </div>

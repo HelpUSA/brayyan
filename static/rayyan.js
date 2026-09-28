@@ -588,6 +588,70 @@
     }
   });
 
+  const mockExtractions = [
+    { id: 3579, title: "Artificial intelligence electrocardiography for structural heart disease detection", pop: "Adultos (N=3.410)", ecg: "12 Derivações", ai: "CNN / ResNet-50", auc: "0.952", sens: "92.4% / 89.1%", target: "Disfunção Ventricular V.E." },
+    { id: 3578, title: "Deep learning ECG screening for left ventricular dysfunction", pop: "Adultos (N=1.890)", ecg: "12 Derivações", ai: "Convolutional Neural Net", auc: "0.941", sens: "91.0% / 88.5%", target: "Disfunção V.E." },
+    { id: 3577, title: "Automated detection of valvular heart disease via AI-enhanced ECG", pop: "Coorte Clínica (N=5.200)", ecg: "Single-Lead / Wearable", ai: "ResNet-18 + LSTM", auc: "0.965", sens: "94.2% / 91.8%", target: "Valvopatia Aórtica/Mitral" },
+    { id: 3576, title: "Neural network detection of hypertrophic cardiomyopathy from 12-lead ECG", pop: "Pacientes Clínicos (N=2.150)", ecg: "12 Derivações", ai: "Deep Neural Network", auc: "0.938", sens: "89.8% / 87.2%", target: "Hipertrofia Ventricular" },
+    { id: 3575, title: "Machine learning prediction of heart failure with preserved ejection fraction", pop: "Adultos Idosos (N=4.050)", ecg: "12 Derivações", ai: "XGBoost + CNN", auc: "0.949", sens: "93.1% / 90.4%", target: "Insuficiência Cardíaca" }
+  ];
+
+  window.openExtractionModal = () => {
+    const m = document.getElementById("extractionModal");
+    if (m) m.style.display = "flex";
+  };
+
+  window.closeExtractionModal = () => {
+    const m = document.getElementById("extractionModal");
+    if (m) m.style.display = "none";
+  };
+
+  window.saveExtractionConfig = () => {
+    window.closeExtractionModal();
+    setStatus("Configuração do formulário de extração por IA atualizada.");
+  };
+
+  window.exportExtractionCsv = () => {
+    let csv = "ID,Titulo,Populacao,ModalidadeECG,ArquiteturaIA,AUC_ROC,Sensib_Espec,Desfecho\n";
+    mockExtractions.forEach(row => {
+      csv += `"${row.id}","${row.title.replace(/"/g, '""')}","${row.pop}","${row.ecg}","${row.ai}","${row.auc}","${row.sens}","${row.target}"\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "brayyan_extracao_evidencias.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  function renderExtractionTable(filter = "") {
+    const tbody = document.getElementById("extractionTbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    const term = filter.toLowerCase();
+    const rows = mockExtractions.filter(r => 
+      !term || r.title.toLowerCase().includes(term) || r.ai.toLowerCase().includes(term) || r.target.toLowerCase().includes(term)
+    );
+    rows.forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><b>#${r.id}</b></td>
+        <td><span style="font-weight:700;color:#0f172a">${r.title}</span></td>
+        <td>${r.pop}</td>
+        <td><span class="pill">${r.ecg}</span></td>
+        <td><b>${r.ai}</b></td>
+        <td><b style="color:#16a34a">${r.auc}</b></td>
+        <td>${r.sens}</td>
+        <td>${r.target}</td>
+        <td><span class="ok">Concluído</span></td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  window.filterExtractionTable = (val) => renderExtractionTable(val);
+
   window.openPrivacyModal = () => {
     const modal = document.getElementById("privacyModal");
     if (modal) modal.style.display = "flex";
@@ -607,6 +671,7 @@
   window.addEventListener("load", () => {
     const savedLang = localStorage.getItem("brayyan_lang") || "pt";
     window.changeLanguage(savedLang);
+    renderExtractionTable();
 
     if ($("#liveStatus")) {
       refreshAll().catch(err => setStatus(`Error: ${err.message}`));
